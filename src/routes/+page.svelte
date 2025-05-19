@@ -88,7 +88,7 @@
 		display:flex;
 		flex-direction:column;
 		border-left:1px #ccc solid;
-		width: 80%
+		width: 75%
 	}
 
 	.chart-title{

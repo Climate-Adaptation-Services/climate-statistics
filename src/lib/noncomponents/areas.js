@@ -91,7 +91,7 @@ export const areas = {
       en: {
         heat: 'It is getting hotter',
         drought: 'It is getting drier',
-        wind: 'There will be similair wind',
+        wind: 'There will be similar wind',
         slr: 'The sea levels are rising'
       },
     },
