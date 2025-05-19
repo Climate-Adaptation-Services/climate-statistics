@@ -77,7 +77,7 @@
 		flex:1;
 		flex-direction:column;
 		padding-left:2vw;
-		/* padding-right:1vw; */
+		padding-right:1vw;
 		padding-top:10vh;
 		width:25%;
 		max-width: 25%;

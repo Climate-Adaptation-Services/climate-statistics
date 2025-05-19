@@ -46,21 +46,23 @@
 
 <section>
     <h2>{t('chooseTheme')}</h2>
-    <div class="item">
-        <img class = 'themelogo heat active' id = 'heat' src="https://raw.githubusercontent.com/sophievanderhorst/data/main/hitte_carib.png" on:click={handleClickTheme}>
-        <p class="caption heat activecaption">{areas[$area_id]?.titles?.[$lang]?.heat || ''}</p>
-    </div>
-    <div class="item">
-        <img class = 'themelogo drought' id = 'drought' src="https://raw.githubusercontent.com/sophievanderhorst/data/main/droogte_carib.png" on:click={handleClickTheme}> 
-        <p class="caption drought">{areas[$area_id]?.titles?.[$lang]?.drought || ''}</p>
-    </div>
-    <div class="item">
-        <img class = 'themelogo wind' id = 'wind' src="https://raw.githubusercontent.com/sophievanderhorst/data/main/wind_carib.png" on:click={handleClickTheme}> 
-        <p class="caption wind">{areas[$area_id]?.titles?.[$lang]?.wind || ''}</p>
-    </div>
-    <div class="item">
-        <img class = 'themelogo slr' id = 'slr' src="https://raw.githubusercontent.com/sophievanderhorst/data/main/zst_carib.png" on:click={handleClickTheme}> 
-        <p class="caption slr">{areas[$area_id]?.titles?.[$lang]?.slr || ''}</p>
+    <div class="theme-row">
+        <div class="item">
+            <img class = 'themelogo heat active' id = 'heat' src="https://raw.githubusercontent.com/sophievanderhorst/data/main/hitte_carib.png" on:click={handleClickTheme}>
+            <p class="caption heat activecaption">{areas[$area_id]?.titles?.[$lang]?.heat || ''}</p>
+        </div>
+        <div class="item">
+            <img class = 'themelogo drought' id = 'drought' src="https://raw.githubusercontent.com/sophievanderhorst/data/main/droogte_carib.png" on:click={handleClickTheme}> 
+            <p class="caption drought">{areas[$area_id]?.titles?.[$lang]?.drought || ''}</p>
+        </div>
+        <div class="item">
+            <img class = 'themelogo wind' id = 'wind' src="https://raw.githubusercontent.com/sophievanderhorst/data/main/wind_carib.png" on:click={handleClickTheme}> 
+            <p class="caption wind">{areas[$area_id]?.titles?.[$lang]?.wind || ''}</p>
+        </div>
+        <div class="item">
+            <img class = 'themelogo slr' id = 'slr' src="https://raw.githubusercontent.com/sophievanderhorst/data/main/zst_carib.png" on:click={handleClickTheme}> 
+            <p class="caption slr">{areas[$area_id]?.titles?.[$lang]?.slr || ''}</p>
+        </div>
     </div>
     
     <h2>{indicatorSentence}</h2>
@@ -100,17 +102,26 @@
         margin-top:1vh;
         font-size: 2vh;
     }
+    .theme-row {
+        display: flex;
+        flex-direction: row;
+        gap: 1.5vw;
+        margin-bottom: 2vh;
+        width: 100%;
+    }
     .caption{
         font-size:1.5vh;
         display: block;
     }
     div.item {
         vertical-align: top;
-        display: inline-block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
-        width: 6vw;
+        width: 20%;
         margin:0vw;
-        margin-bottom: 3vh; 
+        margin-bottom: 3vh;
     }
     .kieslocatie{
         position: static;
@@ -121,7 +132,7 @@
         width: 100%;
     }
     .themelogo{
-        width:4vw;
+        width:90%;
     }
     .country-row {
         display: flex;
@@ -185,4 +196,43 @@
     h2{
 	font-size: 2.3vh;
 }
+    /* Responsive: shrink icons and text on smaller screens, but keep row layout */
+    @media (max-width: 800px) {
+        .theme-row {
+            gap: 0.8vw;
+            align-items: flex-end;
+        }
+        div.item {
+            width: 8vw;
+            min-height: 70px;
+            flex: 0 0 auto;
+        }
+        .themelogo {
+            width: 6vw;
+            max-width: 36px;
+            min-width: 18px;
+        }
+        .caption {
+            font-size: 1.1vh;
+        }
+    }
+    @media (max-width: 500px) {
+        .theme-row {
+            gap: 0.5vw;
+            align-items: flex-end;
+        }
+        div.item {
+            width: 12vw;
+            min-height: 50px;
+            flex: 0 0 auto;
+        }
+        .themelogo {
+            width: 8vw;
+            max-width: 24px;
+            min-width: 12px;
+        }
+        .caption {
+            font-size: 0.9vh;
+        }
+    }
 </style>
