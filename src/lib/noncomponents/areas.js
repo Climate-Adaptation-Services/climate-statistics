@@ -98,9 +98,15 @@ export const areas = {
     explanation: {
       en: {
         annual: 'The bars show the {variable} in the current climate (1991-2020, <a href=" https://www.meteosxm.com/" target="_blank">MDS</a>) and for the future climate around 2050 and 2100  <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(KNMI 2023 scenarios)</a>. The bars show average values, changes in extremes are not included. The scenarios represent the range within which climate change is likely to develop. This range depends on both the amount of greenhouse gases being emitted and the sensitivity of the climate system. The ‘low’ and ‘high’ scenarios reflect the two most widely differing scenarios.',
-        seasonal: 'The bars show the {variable} during the {season} in the current climate (1991-2020, <a href=" https://www.meteosxm.com/" target="_blank">MDS</a>) and for the future climate around 2050 and 2100  <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(KNMI 2023 scenarios)</a>. The bars show average values, changes in extremes are not included. The scenarios represent the range within which climate change is likely to develop. This range depends on both the amount of greenhouse gases being emitted and the sensitivity of the climate system. The ‘low’ and ‘high’ scenarios reflect the two most widely differing scenarios.',
+        seasonal: 'The bars show the {variable} during the {season} season ({seasonperiod}) in the current climate (1991-2020, <a href=" https://www.meteosxm.com/" target="_blank">MDS</a>) and for the future climate around 2050 and 2100  <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(KNMI 2023 scenarios)</a>. The bars show average values, changes in extremes are not included. The scenarios represent the range within which climate change is likely to develop. This range depends on both the amount of greenhouse gases being emitted and the sensitivity of the climate system. The ‘low’ and ‘high’ scenarios reflect the two most widely differing scenarios.',
         sealevelrise: 'The graph shows sea level rise relative to the period 1995 to 2014 <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(KNMI 2023 scenario’s)</a>. The projections show the range within which climate change is likely to develop. This range depends on both the amount of greenhouse gases still being emitted (the two colours) and the sensitivity of the climate system (the shaded range).'
       },
+    },
+    seasonperiod: {
+      en: {
+        dry: 'Dec-Apr',
+        wet: 'May-Nov'
+      }
     }
   }
 };

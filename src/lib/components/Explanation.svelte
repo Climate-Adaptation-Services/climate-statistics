@@ -20,13 +20,16 @@
 	}
 
 	else {
-		
-		Tekst = interpolate(areas[$area_id]?.explanation?.[$lang]?.seasonal, {variable: t($datalaag.indicator).split(' ').slice(0,2).join(' ').toLowerCase(), 
-	season: t($datalaag.season)})
-		// Tekst = t('explanationSeason', {
-		// 	variable: t($datalaag.indicator).split(' ').slice(0,2).join(' ').toLowerCase(), 
-		// 	season: t($datalaag.season)
-		// })
+    // Get the season period string (e.g., Dec-Apr or May-Nov) from areas
+    let seasonPeriod = areas[$area_id]?.seasonperiod?.[$lang]?.[$datalaag.season] || '';
+    Tekst = interpolate(
+        areas[$area_id]?.explanation?.[$lang]?.seasonal,
+        {
+            variable: t($datalaag.indicator).split(' ').slice(0,2).join(' ').toLowerCase(),
+            season: t($datalaag.season),
+            seasonperiod: seasonPeriod
+        }
+    );
 	}
 	
 

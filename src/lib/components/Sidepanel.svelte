@@ -79,6 +79,9 @@
         checked={i === selectedIndex}
       />
       {t(option.indicator)}
+        <!-- {#if (option.season === 'dry' || option.season === 'wet') && areas[$area_id]?.seasonperiod?.[$lang]?.[option.season]}
+          {' (' + areas[$area_id].seasonperiod[$lang][option.season] + ')'}
+        {/if} -->
     </label>
   {/each}
     
