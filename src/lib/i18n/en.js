@@ -34,4 +34,5 @@ export const english = {
     "climateChange": 'climate change',
     "riseInCm": 'Rise in cm',
     "seaLevelRise": 'Sea level rise',
+    "intermediateResults": 'Intermediate results',
 }

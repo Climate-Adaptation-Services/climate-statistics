@@ -33,4 +33,5 @@ export const nederlands = {
     "climateChange": 'klimaatverandering',
     "riseInCm": 'Stijging in cm',
     "seaLevelRise": 'Zeespiegelstijging',
+    "intermediateResults": 'Tussenresultaten',
 }

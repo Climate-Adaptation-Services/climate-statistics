@@ -88,4 +88,8 @@
     {/each}
 
   <style>
+    .tickmark{
+      text-align:center;
+      font-size:2vh;
+    }
   </style>

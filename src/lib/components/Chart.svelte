@@ -96,11 +96,6 @@ $: filteredData = dataClimate && dataClimate.length
 
 <style>
 
-  .tickmark{
-    text-align:center;
-    font-size:2vh;
-  }
-
   .graphtext{
     text-align:center;
     font-size:2vh;
