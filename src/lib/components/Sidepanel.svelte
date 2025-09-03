@@ -91,8 +91,8 @@
             {#each visibleAreas as areaId (areaId)}
                 {#if areas[areaId]}
                     <div class="country-item">
-                        <img class={'countrylogo ' + areaId + ($area_id === areaId ? ' activecountry' : '')} id={areaId} src={areas[areaId].logo} alt={areas[areaId].name} on:click={handleClickArea}>
-                        <figcaption class={'countrycaption ' + areaId + ($area_id === areaId ? ' activecaption' : '')}>{areas[areaId].name}</figcaption>
+                        <img class={'countrylogo ' + areaId + ($area_id === areaId ? ' activecountry' : '')} id={areaId} src={areas[areaId].logo} alt={areas[areaId].localizedNames[$lang]} on:click={handleClickArea}>
+                        <figcaption class={'countrycaption ' + areaId + ($area_id === areaId ? ' activecaption' : '')}>{areas[areaId].localizedNames[$lang]}</figcaption>
                     </div>
                 {/if}
             {/each}
