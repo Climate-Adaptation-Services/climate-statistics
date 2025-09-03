@@ -72,6 +72,16 @@ $: filteredData = dataClimate && dataClimate.length
 
   $: xValue = d => d['scenario']
   $: yValue = d => d['data'] 
+  
+  // Determine which dataset has smaller values to render on top
+  $: shouldMinBeOnTop = (() => {
+    // Compare average values of the datasets. So for 2050 and 2100. In theory you would want to check per scenario, but it would need more refactoring of the code and in practice this probably doesn't happen often? 
+    const maxAvg = maxData.reduce((sum, d) => sum + parseFloat(d.data), 0) / maxData.length;
+    const minAvg = minData.reduce((sum, d) => sum + parseFloat(d.data), 0) / minData.length;
+    
+    return minAvg <= maxAvg;
+  })();
+  
   $: xScale = d3.scaleBand()
       .domain(minData.map(xValue))
       .range([0, 0.4*screenWidth])
@@ -86,8 +96,13 @@ $: filteredData = dataClimate && dataClimate.length
   <svg className='svg_chart' width={0.7*screenWidth} height={0.7*screenHeight} >
     <g className='g_chart' transform={`translate(${0.1*screenWidth},${0.15 * screenHeight})`}>
       {#if screenWidth}
-        <Bar data = {maxData} colors = {colorsMax} {yScale} {xScale} {yValue} {xValue} {screenHeight} {screenWidth} {yDomain} {unit} {tickFormat} className = 'mark_max'/>
-        <Bar data = {minData} colors = {colorsMin} {yScale} {xScale} {yValue} {xValue} {screenHeight} {screenWidth} {yDomain} {unit} {tickFormat} className = 'mark_min'/>
+        {#if shouldMinBeOnTop}
+          <Bar data = {maxData} colors = {colorsMax} {yScale} {xScale} {yValue} {xValue} {screenHeight} {screenWidth} {yDomain} {unit} {tickFormat} className = 'mark_max' isSmaller = {false}/>
+          <Bar data = {minData} colors = {colorsMin} {yScale} {xScale} {yValue} {xValue} {screenHeight} {screenWidth} {yDomain} {unit} {tickFormat} className = 'mark_min' isSmaller = {true}/>
+        {:else}
+          <Bar data = {minData} colors = {colorsMin} {yScale} {xScale} {yValue} {xValue} {screenHeight} {screenWidth} {yDomain} {unit} {tickFormat} className = 'mark_min' isSmaller = {false}/>
+          <Bar data = {maxData} colors = {colorsMax} {yScale} {xScale} {yValue} {xValue} {screenHeight} {screenWidth} {yDomain} {unit} {tickFormat} className = 'mark_max' isSmaller = {true}/>
+        {/if}
       {/if}
       <Legend {screenHeight} {screenWidth} {colorsLegend} {xValue}/>
     </g>

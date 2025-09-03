@@ -16,28 +16,14 @@
   export let yDomain
   export let className   
   export let tickFormat
+  export let isSmaller = false // New prop to indicate if this bar has smaller values
 
 
-  // Use area_id and areaName for logic instead of $area
-  $: barOffset = $area_id === 'se' && $theme === 'wind' && className === 'mark_max' ? (-0.01*screenHeight):
-    $area_id === 'se' && $theme === 'heat' && className === 'mark_max' ? (-0.01*screenHeight):
-    $area_id === 'se' && $theme === 'drought' && className === 'mark_max' ? (-0.01*screenHeight):
-    $area_id === 'bq' && $theme === 'heat' && className === 'mark_max' ? (-0.01*screenHeight):
-    $area_id === 'bq' && $theme === 'wind' && className === 'mark_max' ? (-0.01*screenHeight):
-    $area_id === 'sm' && $theme === 'wind' && className === 'mark_max' ? (-0.01*screenHeight):
-    $area_id === 'sm' && $theme === 'heat' && className === 'mark_max' ? (-0.01*screenHeight):
-    $area_id === 'sm' && $theme === 'drought' && className === 'mark_max' ? (-0.01*screenHeight):
-    (0.02*screenHeight);
+  // Position text below bar (positive offset) for smaller values, above bar (negative offset) for larger values
+  $: barOffset = isSmaller ? (0.02*screenHeight) : (-0.01*screenHeight);
 
-  $: markTextColor = $area_id === 'se' && $theme === 'wind' && className === 'mark_max' ? 'grey':
-     $area_id === 'se' && $theme === 'heat' && className === 'mark_max' ? 'grey':
-     $area_id === 'se' && $theme === 'drought' && className === 'mark_max' ? 'grey':
-     $area_id === 'bq' && $theme === 'heat' && className === 'mark_max' ? 'grey':
-     $area_id === 'bq' && $theme === 'wind' && className === 'mark_max' ? 'grey':
-     $area_id === 'sm' && $theme === 'wind' && className === 'mark_max' ? 'grey':
-     $area_id === 'sm' && $theme === 'heat' && className === 'mark_max' ? 'grey':
-     $area_id === 'sm' && $theme === 'drought' && className === 'mark_max' ? 'grey':
-     'black';
+  // Black text for smaller values (below bar), grey text for larger values (above bar)
+  $: markTextColor = isSmaller ? 'black' : 'grey';
 
   afterUpdate(() => {
       
