@@ -71,9 +71,9 @@
       'variableLow': 'ssp126_5pc',
       'variableHigh': 'ssp126_95pc',
       'color': colorGematigd,
-      'legendText': t('moderate'),
+      'legendText': t('mild'),
       'hachureAngle': '140',
-      'legendText2': t('withModerate'),
+      'legendText2': t('withMild'),
       'y_offset_text': ['48', '62']
     }, {
       'median':'ssp585_50pc',
