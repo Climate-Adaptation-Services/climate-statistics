@@ -7,6 +7,11 @@ export const areas = {
   bq: {
     area_id: 'bq',
     name: 'Bonaire',
+    localizedNames: {
+      en: 'Bonaire',
+      nl: 'Bonaire',
+      pa: 'Boneiru'
+    },
     logo: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/bonairenew.png',
     indicatorOptions: indicatorOptions['bq'],
     switchableTo: ['se'],
@@ -27,6 +32,12 @@ export const areas = {
         drought: 'Het wordt droger',
         wind: 'Er zal meer wind komen',
         slr: 'De zeespiegel stijgt'
+      },
+      pa: {
+        heat: 'Ta birando mas kalor',
+        drought: 'Ta birando mas seku',
+        wind: 'Lo tin mas bientu',
+        slr: 'Nivel di laman ta subiendo'
       }
     },
     explanation: {
@@ -39,12 +50,22 @@ export const areas = {
         annual: 'De grafiek toont {variable} voor het huidige klimaat (1991-2020) en voor het toekomstige klimaat rond 2050 en 2100, volgens <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">de KNMI’23-klimaatscenario’s</a>. De klimaatscenario’s tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen. Deze bandbreedte is afhankelijk van de hoeveelheid broeikasgassen die wordt uitgestoten en de gevoeligheid van het klimaatsysteem. De scenario’s ‘laag’ en ‘hoog’ zijn de twee scenario’s die het verst uit elkaar liggen.',
         seasonal: 'De grafiek toont de {variable} tijdens het {season} seizoen voor het huidige klimaat (1991-2020) en voor het toekomstige klimaat rond 2050 en 2100, volgens <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">de KNMI’23-klimaatscenario’s</a>. De klimaatscenario’s tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen. Deze bandbreedte is afhankelijk van de hoeveelheid broeikasgassen die wordt uitgestoten en de gevoeligheid van het klimaatsysteem. De scenario’s ‘laag’ en ‘hoog’ zijn de twee scenario’s die het verst uit elkaar liggen.',
         sealevelrise: 'De grafiek toont de zeespiegelstijging ten opzichte van de periode 1995 tot 2014 volgens de <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI 2023 scenario’s</a>. De klimaatscenario’s tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen. Deze bandbreedte is afhankelijk van de hoeveelheid broeikasgassen die wordt uitgestoten (de twee kleuren) en de gevoeligheid van het klimaatsysteem (het donkere deel).'
+      },
+      pa: {
+        annual: 'Bara ta mustra {variable} den e klima aktual (1991-2020) i pa klima den futuro banda di 2050 i 2100  <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(senarionan di KNMI 2023)</a>. E senarionan ta representá e rango den kua probablemente kambio di klima ta desaroyá. E rango akí ta dependé di tantu e kantidat di gas ku ta emití komo e sensibilidat di e sistema di klima. E senarionan ‘bou’ i ‘haltu’ ta reflehá e dos senarionan mas diferente.',
+        seasonal: 'Bara ta mustra {variable} den e klima aktual (1991-2020) i pa klima den futuro banda di 2050 i 2100  <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(senarionan di KNMI 2023)</a>. E senarionan ta representá e rango den kua probablemente kambio di klima ta desaroyá. E rango akí ta dependé di tantu e kantidat di gas ku ta emití komo e sensibilidat di e sistema di klima. E senarionan ‘bou’ i ‘haltu’ ta reflehá e dos senarionan mas diferente.',
+        sealevelrise: 'Bara ta mustra {variable} den e klima aktual (1991-2020) i pa klima den futuro banda di 2050 i 2100  <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(senarionan di KNMI 2023)</a>. E senarionan ta representá e rango den kua probablemente kambio di klima ta desaroyá. E rango akí ta dependé di tantu e kantidat di gas ku ta emití komo e sensibilidat di e sistema di klima. E senarionan ‘bou’ i ‘haltu’ ta reflehá e dos senarionan mas diferente.',
       }
     }
   },
   se: {
     area_id: 'se',
     name: 'Saba & St.Eustatius',
+    localizedNames: {
+      en: 'Saba & St.Eustatius',
+      nl: 'Saba & St.Eustatius',
+      pa: 'Saba & Statia'
+    },
     logo: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/saba_eus_gezelligbijelkaar.png',
     indicatorOptions: indicatorOptions['se'],
     switchableTo: ['bq'],
@@ -65,6 +86,12 @@ export const areas = {
         drought: 'Het wordt droger',
         wind: 'Er zal meer wind komen',
         slr: 'De zeespiegel stijgt'
+      },
+      pa: {
+        heat: 'Ta birando mas kalor',
+        drought: 'Ta birando mas seku',
+        wind: 'Lo tin mas bientu',
+        slr: 'Nivel di laman ta subiendo'
       }
     },
     explanation: {
@@ -77,12 +104,20 @@ export const areas = {
         annual: 'De grafiek toont {variable} voor het huidige klimaat (1991-2020) en voor het toekomstige klimaat rond 2050 en 2100, volgens <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">de KNMI’23-klimaatscenario’s</a>. De klimaatscenario’s tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen. Deze bandbreedte is afhankelijk van de hoeveelheid broeikasgassen die wordt uitgestoten en de gevoeligheid van het klimaatsysteem. De scenario’s ‘laag’ en ‘hoog’ zijn de twee scenario’s die het verst uit elkaar liggen.',
         seasonal: 'De grafiek toont de {variable} tijdens het {season} seizoen voor het huidige klimaat (1991-2020) en voor het toekomstige klimaat rond 2050 en 2100, volgens <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">de KNMI’23-klimaatscenario’s</a>. De klimaatscenario’s tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen. Deze bandbreedte is afhankelijk van de hoeveelheid broeikasgassen die wordt uitgestoten en de gevoeligheid van het klimaatsysteem. De scenario’s ‘laag’ en ‘hoog’ zijn de twee scenario’s die het verst uit elkaar liggen.',
         sealevelrise: 'De grafiek toont de zeespiegelstijging ten opzichte van de periode 1995 tot 2014 volgens de <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI 2023 scenario’s</a>. De klimaatscenario’s tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen. Deze bandbreedte is afhankelijk van de hoeveelheid broeikasgassen die wordt uitgestoten (de twee kleuren) en de gevoeligheid van het klimaatsysteem (het donkere deel).'
+      },
+      pa: {
+        annual:'Bara ta mustra {variable} den e klima aktual (1991-2020) i pa klima den futuro banda di 2050 i 2100  <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(senarionan di KNMI 2023)</a>. E senarionan ta representá e rango den kua probablemente kambio di klima ta desaroyá. E rango akí ta dependé di tantu e kantidat di gas ku ta emití komo e sensibilidat di e sistema di klima. E senarionan ‘bou’ i ‘haltu’ ta reflehá e dos senarionan mas diferente.',
+        seasonal: 'Bara ta mustra {variable} promedio durante e temporada {season} den e klima aktual (1991-2020) i pa klima den futuro banda di 2050 i 2100 <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(senarionan di KNMI 2023)</a>. E senarionan ta representá e rango den kua probablemente kambio di klima ta desaroyá. E rango akí ta dependé di tantu e kantidat di gas ku ta emití komo e sensibilidat di e sistema di klima. E senarionan ‘bou’ i ‘haltu’ ta reflehá e dos senarionan mas diferente.',
+        sealevelrise:'E gráfiko ta mustra subida di nivel di laman relashoná ku e periodo 1995 te 2014 <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(senarionan di KNMI 2023)</a>. E proyekshonnan ta mustra e rango den kua kambio di klima probablemente ta desaroyá. E rango akí ta dependé di tantu e kantidat di gas ku ketu bai ta emití (e dos kolónan) komo sensibilidat di e sistema di klima (e rango ku sombra).'
       }
     }
   },
   sm: {
     area_id: 'sm',
     name: 'St. Martin',
+    localizedNames: {
+      en: 'St. Martin',
+    },
     indicatorOptions: indicatorOptions['sm'],
     switchableTo: [],
     dataUrls: {

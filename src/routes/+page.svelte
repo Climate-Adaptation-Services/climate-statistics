@@ -1,6 +1,6 @@
 <script>
 	import { t } from "$lib/i18n/translate";
-	import { w, h, datalaag, theme, indicatorOptionsArea, themeOptions, area_id } from "$lib/stores.js";
+	import { w, h, datalaag, theme, indicatorOptionsArea, themeOptions, area_id, lang } from "$lib/stores.js";
 	import { areas } from '$lib/noncomponents/areas.js';
 	import Chart from "$lib/components/Chart.svelte"
  	import Sidepanel from "$lib/components/Sidepanel.svelte"
@@ -38,7 +38,7 @@
 	</div>
 	<div class='main_panel'>
 		<div class='chart-container'>
-			<p class='chart-title'>{chartTitle + ' '+t("on")+' '+ ((areas && selectedArea && areas[selectedArea] && areas[selectedArea].name) ? areas[selectedArea].name : selectedArea)}</p>
+			<p class='chart-title'>{chartTitle + ' '+t("on")+' '+ ((areas && selectedArea && areas[selectedArea] && areas[selectedArea].localizedNames[$lang]) ? areas[selectedArea].localizedNames[$lang] : selectedArea)}</p>
 			{#if selectedArea === 'sm'}
 				<p class='chart-subtitle'>{t('intermediateResults')}</p>
 			{/if}
