@@ -13,7 +13,7 @@
 		setArea(data.area_id);
 	}
 
-	$: selectedArea = $area_id || data.area_id;
+	$: selectedArea = data.area_id;
 	$: seaLevelData = data.areaData[selectedArea]?.seaLevelData;
 	$: llhiData = data.areaData[selectedArea]?.llhiData;
 
