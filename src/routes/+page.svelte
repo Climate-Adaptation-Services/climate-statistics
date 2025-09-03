@@ -39,7 +39,9 @@
 	<div class='main_panel'>
 		<div class='chart-container'>
 			<p class='chart-title'>{chartTitle + ' '+t("on")+' '+ ((areas && selectedArea && areas[selectedArea] && areas[selectedArea].name) ? areas[selectedArea].name : selectedArea)}</p>
-			<p class='chart-subtitle'>{' '}</p>
+			{#if selectedArea === 'sm'}
+				<p class='chart-subtitle'>{t('intermediateResults')}</p>
+			{/if}
 			{#if climateData}
 				<div class='chart' bind:clientWidth={$w} bind:clientHeight={$h}>
 					{#if $h > 0 && $theme === 'slr'}
@@ -74,21 +76,19 @@
 
 	.sidepanel{
 		display:flex;
-		flex:1;
 		flex-direction:column;
 		padding-left:2vw;
 		padding-right:1vw;
 		padding-top:10vh;
-		width:25%;
-		max-width: 25%;
+		width:30%;
 	}
 
 	.main_panel{
-		flex:2;
 		display:flex;
 		flex-direction:column;
 		border-left:1px #ccc solid;
-		width: 75%
+		width: 70%;
+		flex-shrink: 0;
 	}
 
 	.chart-title{
@@ -102,11 +102,23 @@
 		text-align: center;
 	}
 
+	.chart-subtitle{
+		display: flex;
+		align-items: center;
+		align-self:center;
+		font-size:2.5vh;
+		padding-left:30px;
+		padding-right:30px;
+		text-align: center;
+		color: #666;
+		margin-top: -10px;
+	}
+
 	.explanation-container{
 		display:flex;
 		flex:1.5;
 		flex-direction:column;
-		padding:10px;
-		top:90%;
+		/* padding:10px;	 */
+		/* top:90%;	 */
 	}
 </style>
