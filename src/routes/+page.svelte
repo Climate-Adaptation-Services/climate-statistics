@@ -76,21 +76,19 @@
 
 	.sidepanel{
 		display:flex;
-		flex:1;
 		flex-direction:column;
 		padding-left:2vw;
 		padding-right:1vw;
 		padding-top:10vh;
 		width:30%;
-		max-width: 30%;
 	}
 
 	.main_panel{
-		flex:2;
 		display:flex;
 		flex-direction:column;
 		border-left:1px #ccc solid;
-		width: 70%
+		width: 70%;
+		flex-shrink: 0;
 	}
 
 	.chart-title{
