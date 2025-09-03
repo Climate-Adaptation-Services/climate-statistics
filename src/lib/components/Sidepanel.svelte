@@ -160,8 +160,8 @@
     .countrylogo {
         width: 100%;
         height: auto;
-        max-height: 14vh;
-        min-height: 7vh;
+        max-height: 18vh;
+        min-height: 10vh;
         margin: 0 auto;
         object-fit: contain;
         cursor: pointer;

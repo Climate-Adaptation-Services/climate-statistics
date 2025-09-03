@@ -81,8 +81,8 @@
 		padding-left:2vw;
 		padding-right:1vw;
 		padding-top:10vh;
-		width:25%;
-		max-width: 25%;
+		width:30%;
+		max-width: 30%;
 	}
 
 	.main_panel{
@@ -90,7 +90,7 @@
 		display:flex;
 		flex-direction:column;
 		border-left:1px #ccc solid;
-		width: 75%
+		width: 70%
 	}
 
 	.chart-title{
