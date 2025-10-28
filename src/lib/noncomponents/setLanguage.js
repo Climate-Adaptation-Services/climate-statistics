@@ -5,6 +5,10 @@ export function setLanguage(data){
         lang.set('nl')
     }else if(data.lang === 'pa'){
         lang.set('pa')
+    }else if(data.lang === 'fr'){
+        lang.set('fr')
+    }else if(data.lang === 'es'){
+        lang.set('es')
     }else{
         lang.set('en')
     }
