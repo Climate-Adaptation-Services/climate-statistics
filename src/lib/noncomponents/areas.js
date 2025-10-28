@@ -117,6 +117,8 @@ export const areas = {
     name: 'St. Martin',
     localizedNames: {
       en: 'St. Martin',
+      fr: 'St. Martin',
+      es: 'St. Martín'
     },
     indicatorOptions: indicatorOptions['sm'],
     switchableTo: [],
@@ -132,17 +134,47 @@ export const areas = {
         wind: 'There will be similar wind',
         slr: 'The sea levels are rising'
       },
+      fr: {
+        heat: 'Il fait de plus en plus chaud',
+        drought: 'Le climat devient plus sec',
+        wind: 'Les vents resteront similaires',
+        slr: 'Les niveaux de la mer augmentent'
+      },
+      es: {
+        heat: 'Está haciendo más calor',
+        drought: 'Está siendo más seco',
+        wind: 'Habrá vientos similares',
+        slr: 'El nivel del mar está subiendo'
+      }
     },
     explanation: {
       en: {
-        annual: 'The bars show the {variable} in the current climate (1991-2020, Princess Juliana Airport, <a href=" https://www.meteosxm.com/" target="_blank">MDS</a>) and for the future climate around 2050 and 2100  <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(KNMI 2023 scenarios)</a>. Future values are today’s averages multiplied by scenario-specific percentage changes. The scenarios come from the Saba & St. Eustatius study and will be updated when St. Martin-specific data is available in late 2025. The ‘low’ scenario shows mild climate change and the ‘high’ scenario shows strong climate change. Together they give the likely range, which depends on greenhouse gas emissions and how sensitive the climate system is. The bars show average values; changes in extremes are not included.',
-        seasonal: 'The bars show the {variable} during the {season} season ({seasonperiod}) in the current climate (1991-2020, Princess Juliana Airport, <a href=" https://www.meteosxm.com/" target="_blank">MDS</a>) and for the future climate around 2050 and 2100  <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(KNMI 2023 scenarios)</a>. Future values are today’s averages multiplied by scenario-specific percentage changes. The scenarios come from the Saba & St. Eustatius study and will be updated when St. Martin-specific data is available in late 2025. The ‘low’ scenario shows mild climate change and the ‘high’ scenario shows strong climate change. Together they give the likely range, which depends on greenhouse gas emissions and how sensitive the climate system is. The bars show average values; changes in extremes are not included.',
-        sealevelrise: 'The graph shows sea level rise relative to the period 1995 to 2014 <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(KNMI 2023 scenario’s)</a>. The scenarios come from the Saba & St. Eustatius study and will be updated when St. Martin-specific data is available in late 2025. The projections show the range within which climate change is likely to develop. This range depends on both the amount of greenhouse gases still being emitted (the two colors) and the sensitivity of the climate system (the shaded range).The dashed line shows the highest possible sea level rise. Current models consider this outcome unlikely, but because not all climate processes are fully understood it cannot be ruled out. To support preparedness for extreme cases, this scenario is included in the graph.',
+        annual: 'The bars show the {variable} in the current climate (1991-2020, Princess Juliana Airport, <a href=" https://www.meteosxm.com/" target="_blank">MDS</a>) and for the future climate around 2050 and 2100  <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(KNMI 2023 scenarios)</a>. Future values are today\'s averages multiplied by scenario-specific percentage changes. The scenarios come from the Saba & St. Eustatius study and will be updated when St. Martin-specific data is available in late 2025. The \'low\' scenario shows mild climate change and the \'high\' scenario shows strong climate change. Together they give the likely range, which depends on greenhouse gas emissions and how sensitive the climate system is. The bars show average values; changes in extremes are not included.',
+        seasonal: 'The bars show the {variable} during the {season} season ({seasonperiod}) in the current climate (1991-2020, Princess Juliana Airport, <a href=" https://www.meteosxm.com/" target="_blank">MDS</a>) and for the future climate around 2050 and 2100  <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(KNMI 2023 scenarios)</a>. Future values are today\'s averages multiplied by scenario-specific percentage changes. The scenarios come from the Saba & St. Eustatius study and will be updated when St. Martin-specific data is available in late 2025. The \'low\' scenario shows mild climate change and the \'high\' scenario shows strong climate change. Together they give the likely range, which depends on greenhouse gas emissions and how sensitive the climate system is. The bars show average values; changes in extremes are not included.',
+        sealevelrise: 'The graph shows sea level rise relative to the period 1995 to 2014 <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(KNMI 2023 scenarios)</a>. The scenarios come from the Saba & St. Eustatius study and will be updated when St. Martin-specific data is available in late 2025. The projections show the range within which climate change is likely to develop. This range depends on both the amount of greenhouse gases still being emitted (the two colors) and the sensitivity of the climate system (the shaded range).The dashed line shows the highest possible sea level rise. Current models consider this outcome unlikely, but because not all climate processes are fully understood it cannot be ruled out. To support preparedness for extreme cases, this scenario is included in the graph.',
       },
+      fr: {
+        annual: 'Les barres montrent la {variable} dans le climat actuel (1991-2020, Aéroport Princess Juliana, <a href=" https://www.meteosxm.com/" target="_blank">MDS</a>) et pour le climat futur vers 2050 et 2100 <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(scénarios KNMI 2023)</a>. Les valeurs futures sont les moyennes actuelles multipliées par les changements en pourcentage propres à chaque scénario. Les scénarios viennent de l\'étude sur Saba & Saint-Eustache et seront mis à jour lorsque des données spécifiques à Saint-Martin seront disponibles fin 2025. Le scénario « bas » montre un changement climatique léger et le scénario « haut » montre un changement climatique fort. Ensemble, ils donnent la fourchette probable, qui dépend des émissions de gaz à effet de serre et de la sensibilité du système climatique. Les barres montrent des valeurs moyennes ; les changements dans les extrêmes ne sont pas inclus.',
+        seasonal: 'Les barres montrent la {variable} pendant la saison {season} ({seasonperiod}) dans le climat actuel (1991-2020, Aéroport Princess Juliana, <a href=" https://www.meteosxm.com/" target="_blank">MDS</a>) et pour le climat futur vers 2050 et 2100 <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(scénarios KNMI 2023)</a>. Les valeurs futures sont les moyennes actuelles multipliées par les changements en pourcentage propres à chaque scénario. Les scénarios viennent de l\'étude sur Saba & Saint-Eustache et seront mis à jour lorsque des données spécifiques à Saint-Martin seront disponibles fin 2025. Le scénario « bas » montre un changement climatique léger et le scénario « haut » montre un changement climatique fort. Ensemble, ils donnent la fourchette probable, qui dépend des émissions de gaz à effet de serre et de la sensibilité du système climatique. Les barres montrent des valeurs moyennes ; les changements dans les extrêmes ne sont pas inclus.',
+        sealevelrise: 'Le graphique montre l\'élévation du niveau de la mer par rapport à la période 1995 à 2014 <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(scénarios KNMI 2023)</a>. Les scénarios viennent de l\'étude sur Saba & Saint-Eustache et seront mis à jour lorsque des données spécifiques à Saint-Martin seront disponibles fin 2025. Les projections montrent la fourchette dans laquelle le changement climatique est susceptible d\'évoluer. Cette fourchette dépend à la fois de la quantité de gaz à effet de serre encore émis (les deux couleurs) et de la sensibilité du système climatique (la zone ombrée). La ligne en pointillés montre l\'élévation maximale possible du niveau de la mer. Les modèles actuels considèrent ce résultat improbable, mais comme tous les processus climatiques ne sont pas encore totalement compris, il ne peut être exclu. Pour soutenir la préparation aux cas extrêmes, ce scénario est inclus dans le graphique.',
+      },
+      es: {
+        annual: 'Las barras muestran la {variable} en el clima actual (1991–2020, Aeropuerto Princess Juliana, <a href=" https://www.meteosxm.com/" target="_blank">MDS</a>) y en el clima futuro hacia 2050 y 2100 <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(escenarios KNMI 2023)</a>. Los valores futuros son los promedios actuales multiplicados por los cambios porcentuales específicos de cada escenario. Los escenarios provienen del estudio de Saba y San Eustaquio y se actualizarán cuando haya datos específicos de St. Martin a fines de 2025. El escenario "bajo" representa un cambio climático leve y el escenario "alto" un cambio climático fuerte. Juntos muestran el rango probable, que depende de las emisiones de gases de efecto invernadero y de la sensibilidad del sistema climático. Las barras muestran valores promedio; los cambios extremos no están incluidos.',
+        seasonal: 'Las barras muestran la {variable} durante la temporada {season} ({seasonperiod}) en el clima actual (1991–2020, Aeropuerto Princess Juliana, <a href=" https://www.meteosxm.com/" target="_blank">MDS</a>) y en el clima futuro hacia 2050 y 2100 <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(escenarios KNMI 2023)</a>. Los valores futuros son los promedios actuales multiplicados por los cambios porcentuales específicos de cada escenario. Los escenarios provienen del estudio de Saba y San Eustaquio y se actualizarán cuando haya datos específicos de St. Martin a fines de 2025. El escenario "bajo" representa un cambio climático leve y el escenario "alto" un cambio climático fuerte. Juntos muestran el rango probable, que depende de las emisiones de gases de efecto invernadero y de la sensibilidad del sistema climático. Las barras muestran valores promedio; los cambios extremos no están incluidos.',
+        sealevelrise: 'El gráfico muestra el aumento del nivel del mar en relación con el período 1995 a 2014 <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(escenarios KNMI 2023)</a>. Los escenarios provienen del estudio de Saba y San Eustaquio y se actualizarán cuando haya datos específicos de St. Martin a fines de 2025. Las proyecciones muestran el rango dentro del cual probablemente se desarrollará el cambio climático. Este rango depende tanto de la cantidad de gases de efecto invernadero que aún se emiten (los dos colores) como de la sensibilidad del sistema climático (la zona sombreada). La línea discontinua muestra el aumento máximo posible del nivel del mar. Los modelos actuales consideran poco probable este resultado, pero como no todos los procesos climáticos se entienden completamente, no puede descartarse. Para apoyar la preparación ante casos extremos, este escenario se incluye en el gráfico.',
+      }
     },
     seasonperiod: {
       en: {
         dry: 'Dec-Apr',
+        wet: 'May-Nov'
+      },
+      fr: {
+        dry: 'Déc.-Avr.',
+        wet: 'Mai-Nov.'
+      },
+      es: {
+        dry: 'Dic-Abr',
         wet: 'May-Nov'
       }
     }

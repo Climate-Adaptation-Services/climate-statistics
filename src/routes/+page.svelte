@@ -67,7 +67,10 @@
 	}
 
 	.chart-container{
-		height:100%;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		min-height: 0;
 	}
 
 	.chart{
@@ -116,8 +119,10 @@
 
 	.explanation-container{
 		display:flex;
-		flex:1.5;
+		flex: 0 0 auto;
 		flex-direction:column;
+		max-height: 20vh;
+		overflow-y: auto;
 		/* padding:10px;	 */
 		/* top:90%;	 */
 	}
