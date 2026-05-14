@@ -11,8 +11,6 @@
     return template?.replace(/{(\w+)}/g, (_, k) => vars[k] ?? '');
   }
 
-	$: fontSize = $area_id === 'sm' ? '1.5vh' : '1.9vh';
-
 	$: if($theme === 'slr' ){
 			Tekst = interpolate(areas[$area_id]?.explanation?.[$lang]?.sealevelrise)
 	}
@@ -39,7 +37,7 @@
 
 <section>
   <div>
-    <p class='explanation' style="font-size: {fontSize}">{@html Tekst}</p>
+    <p class='explanation'>{@html Tekst}</p>
   </div>
 
 </section>
@@ -48,9 +46,10 @@
 
 .explanation{
 		display: block;
-		margin:1vh;
-		margin-top:0px;
+		margin: 0 0 var(--space-sm) 0;
 		text-align: left;
+		font-size: var(--fs-xs);
+		line-height: var(--lh-normal);
 	}
 
 ul.myUL {

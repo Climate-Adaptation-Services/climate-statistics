@@ -4,238 +4,329 @@
     import { areas } from '$lib/noncomponents/areas.js';
     import { goto } from '$app/navigation';
 
+    const themeIds = ['heat', 'drought', 'wind', 'slr'];
+    const themeIcons = {
+        heat: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/hitte_carib.png',
+        drought: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/droogte_carib.png',
+        wind: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/wind_carib.png',
+        slr: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/zst_carib.png'
+    };
+
     function handleClickTheme(event) {
-        $theme = event.target.id 
-        let selectedTheme = document.getElementsByClassName($theme)
-        let prevTheme = document.querySelector('.active')
-        let prevCaption= document.querySelector('.activecaption')
-        if(prevTheme) {
-            prevTheme.classList.remove('active');
-            prevCaption.classList.remove('activecaption');
-        }
-        selectedTheme[0].classList.add('active');
-        selectedTheme[1].classList.add('activecaption');
+        $theme = event.currentTarget.id;
     }
-    
+
+    let hoveredTheme = null;
+    $: displayedTheme = hoveredTheme ?? $theme;
+    $: activeThemeLabel = areas[$area_id]?.titles?.[$lang]?.[displayedTheme] || '';
+
     function handleClickArea(event) {
-        $area_id = event.target.id;
+        $area_id = event.currentTarget.id;
         // Update the URL query param to ?area_id=newAreaId, preserving other params
         const params = new URLSearchParams(window.location.search);
         params.set('area_id', $area_id);
         goto(`${window.location.pathname}?${params.toString()}`);
     }
 
-    let indicatorSentence = t('chooseIndicator');
-    $: if($theme === 'slr'){
-        indicatorSentence = ''}
-    else{indicatorSentence = t('chooseIndicator')}
+    const seasonLabelKey = {
+        annual: 'seasonAnnual',
+        dry: 'seasonDry',
+        wet: 'seasonWet',
+        transition: 'seasonTransition'
+    };
 
-    let selectedIndex=0;
-    $: if ($theme) {
-        selectedIndex = 0;
+    // Een 'indicator-groep' bundelt opties van dezelfde maatstaf over de seizoenen heen,
+    // bv. temperatureAvg/Dry/Wet/Transition. hotDays staat los van de seasonal varianten.
+    function getIndicatorGroup(option) {
+        if (option.indicator === 'hotDays') return 'hotDays';
+        return option.indicator.replace(/Dry$|Wet$|Transition$/, '');
+    }
+
+    $: indicatorGroups = [...new Set($themeOptions.map(getIndicatorGroup))];
+    $: selectedGroup = $datalaag ? getIndicatorGroup($datalaag) : indicatorGroups[0];
+    $: groupOptions = $themeOptions.filter(o => getIndicatorGroup(o) === selectedGroup);
+
+    function selectGroup(group) {
+        const opts = $themeOptions.filter(o => getIndicatorGroup(o) === group);
+        $datalaag = opts.find(o => o.season === 'annual') ?? opts[0];
+    }
+
+    function selectSeasonOption(option) {
+        $datalaag = option;
     }
 
     // Compute a sorted list of area ids: current + switchableTo, alphabetically by name
     $: visibleAreas = $area_id && areas[$area_id]
         ? [$area_id, ...areas[$area_id].switchableTo].filter((v, i, arr) => arr.indexOf(v) === i).sort((a, b) => areas[a].name.localeCompare(areas[b].name))
         : [];
-
-    console.log("Current theme:", $theme);
-    console.log("themeOptions:", $themeOptions);
 </script>
 
 <section>
-    <h2>{t('chooseTheme')}</h2>
-    <div class="theme-row">
-        <div class="item">
-            <img class = 'themelogo heat active' id = 'heat' src="https://raw.githubusercontent.com/sophievanderhorst/data/main/hitte_carib.png" on:click={handleClickTheme}>
-            <p class="caption heat activecaption">{areas[$area_id]?.titles?.[$lang]?.heat || ''}</p>
+    <div class="panel-section">
+        <h2>{t('chooseTheme')}</h2>
+        <div class="theme-row">
+            {#each themeIds as themeId}
+                <button
+                    class="theme-btn"
+                    class:active={$theme === themeId}
+                    class:hovered={hoveredTheme === themeId}
+                    id={themeId}
+                    type="button"
+                    aria-label={areas[$area_id]?.titles?.[$lang]?.[themeId] || themeId}
+                    aria-pressed={$theme === themeId}
+                    on:click={handleClickTheme}
+                    on:mouseenter={() => hoveredTheme = themeId}
+                    on:mouseleave={() => hoveredTheme = null}
+                    on:focus={() => hoveredTheme = themeId}
+                    on:blur={() => hoveredTheme = null}
+                >
+                    <img class="themelogo" src={themeIcons[themeId]} alt="">
+                </button>
+            {/each}
         </div>
-        <div class="item">
-            <img class = 'themelogo drought' id = 'drought' src="https://raw.githubusercontent.com/sophievanderhorst/data/main/droogte_carib.png" on:click={handleClickTheme}> 
-            <p class="caption drought">{areas[$area_id]?.titles?.[$lang]?.drought || ''}</p>
-        </div>
-        <div class="item">
-            <img class = 'themelogo wind' id = 'wind' src="https://raw.githubusercontent.com/sophievanderhorst/data/main/wind_carib.png" on:click={handleClickTheme}> 
-            <p class="caption wind">{areas[$area_id]?.titles?.[$lang]?.wind || ''}</p>
-        </div>
-        <div class="item">
-            <img class = 'themelogo slr' id = 'slr' src="https://raw.githubusercontent.com/sophievanderhorst/data/main/zst_carib.png" on:click={handleClickTheme}> 
-            <p class="caption slr">{areas[$area_id]?.titles?.[$lang]?.slr || ''}</p>
+        <p class="active-theme-label">{activeThemeLabel}</p>
+    </div>
+
+    {#if indicatorGroups.length > 0}
+    <div class="panel-section">
+        <h2>{t('chooseIndicator')}</h2>
+        <div class="pill-group pill-group--stacked" role="radiogroup" aria-label={t('chooseIndicator')}>
+            {#each indicatorGroups as group}
+            <button
+                type="button"
+                class="pill"
+                class:active={selectedGroup === group}
+                role="radio"
+                aria-checked={selectedGroup === group}
+                on:click={() => selectGroup(group)}
+            >
+                {t(group)}
+            </button>
+            {/each}
         </div>
     </div>
-    
-    <h2>{indicatorSentence}</h2>
-    {#each $themeOptions as option, i}
-    <label class="keuzes">
-      <input
-        type="radio"
-        name="laag"
-        value={option.indicator}
-        on:click={() => {
-          selectedIndex = i;
-          $datalaag = option;
-        }}
-        checked={i === selectedIndex}
-      />
-      {t(option.indicator)}
-        <!-- {#if (option.season === 'dry' || option.season === 'wet') && areas[$area_id]?.seasonperiod?.[$lang]?.[option.season]}
-          {' (' + areas[$area_id].seasonperiod[$lang][option.season] + ')'}
-        {/if} -->
-    </label>
-  {/each}
-    
+    {/if}
+
+    {#if groupOptions.length > 1}
+    <div class="panel-section">
+        <h2>{t('chooseSeason')}</h2>
+        <div class="pill-group" role="radiogroup" aria-label={t('chooseSeason')}>
+            {#each groupOptions as option}
+            <button
+                type="button"
+                class="pill"
+                class:active={$datalaag?.indicator === option.indicator}
+                role="radio"
+                aria-checked={$datalaag?.indicator === option.indicator}
+                on:click={() => selectSeasonOption(option)}
+            >
+                {t(seasonLabelKey[option.season] ?? option.indicator)}
+            </button>
+            {/each}
+        </div>
+    </div>
+    {/if}
+
     {#if $areaSelection}
-        <h2 class='kieslocatie'>{t('chooseLocation')}</h2>
+        <div class="panel-section">
+        <h2>{t('chooseLocation')}</h2>
         <div class="country-row">
             {#each visibleAreas as areaId (areaId)}
                 {#if areas[areaId]}
                     <div class="country-item">
-                        <img class={'countrylogo ' + areaId + ($area_id === areaId ? ' activecountry' : '')} id={areaId} src={areas[areaId].logo} alt={areas[areaId].localizedNames[$lang]} on:click={handleClickArea}>
-                        <figcaption class={'countrycaption ' + areaId + ($area_id === areaId ? ' activecaption' : '')}>{areas[areaId].localizedNames[$lang]}</figcaption>
+                        <button class="country-btn" id={areaId} type="button" aria-label={areas[areaId].localizedNames[$lang]} aria-pressed={$area_id === areaId} on:click={handleClickArea}>
+                            <img class={'countrylogo ' + areaId + ($area_id === areaId ? ' activecountry' : '')} src={areas[areaId].logo} alt="">
+                        </button>
+                        <p class={'countrycaption ' + areaId + ($area_id === areaId ? ' activecaption' : '')}>{areas[areaId].localizedNames[$lang]}</p>
                     </div>
                 {/if}
             {/each}
+        </div>
         </div>
     {/if}
 </section>
 
 <style>
-    .keuzes{
-        margin-top:1vh;
-        font-size: 2vh;
+    .panel-section {
+        padding: var(--space-md) 0;
+    }
+    .panel-section + .panel-section {
+        border-top: 1px solid var(--c-border);
+    }
+    .panel-section:first-of-type {
+        padding-top: 0;
+    }
+    h2 {
+        font-size: var(--fs-sm);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--c-primary, #216666);
+        line-height: var(--lh-tight);
+        margin: 0 0 var(--space-sm);
+    }
+    .pill-group {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: var(--space-xs);
+    }
+    .pill-group:not(.pill-group--stacked) .pill {
+        flex: 1 1 auto;
+        text-align: center;
+        padding-left: var(--space-sm);
+        padding-right: var(--space-sm);
+    }
+    .pill-group--stacked {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .pill {
+        all: unset;
+        box-sizing: border-box;
+        cursor: pointer;
+        padding: 8px 16px;
+        font-size: var(--fs-sm);
+        line-height: 1.4;
+        color: var(--c-primary-dark, #184145);
+        background-color: var(--c-bg-soft, #f2f2f2);
+        border: 1px solid transparent;
+        border-radius: 999px;
+        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+        white-space: nowrap;
+        user-select: none;
+    }
+    .pill:hover:not(.active) {
+        background-color: var(--c-tint, #dcf2f4);
+        color: var(--c-primary, #216666);
+    }
+    .pill:active {
+        transform: scale(0.97);
+    }
+    .pill.active {
+        background-color: var(--c-primary, #216666);
+        color: #fff;
+        font-weight: 600;
+    }
+    .pill:focus-visible {
+        outline: 2px solid var(--c-primary-light, #11a6b5);
+        outline-offset: 2px;
     }
     .theme-row {
-        display: flex;
-        flex-direction: row;
-        gap: 1.5vw;
-        margin-bottom: 2vh;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-sm);
         width: 100%;
     }
-    .caption{
-        font-size:1.5vh;
-        display: block;
+    @media (max-width: 420px) {
+        .theme-row {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
-    div.item {
-        vertical-align: top;
-        display: flex;
+    .theme-btn {
+        all: unset;
+        position: relative;
+        cursor: pointer;
+        display: inline-flex;
         flex-direction: column;
         align-items: center;
-        text-align: center;
-        width: 20%;
-        margin:0vw;
-        margin-bottom: 3vh;
-    }
-    .kieslocatie{
-        position: static;
-        margin-top: 6vh;
-        margin-bottom: 2vh;
-        font-size: 2.3vh;
-        text-align: left;
+        justify-content: center;
         width: 100%;
+        padding-bottom: 6px;
+        transition: transform 0.15s ease;
     }
-    .themelogo{
-        width:90%;
+    .theme-btn.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 25%;
+        right: 25%;
+        height: 3px;
+        background-color: var(--c-primary, #216666);
+        border-radius: 2px;
+    }
+    .theme-btn.hovered:not(.active) {
+        transform: scale(1.08);
+    }
+    .theme-btn:focus-visible {
+        outline: 2px solid var(--c-primary-light, #11a6b5);
+        outline-offset: 4px;
+    }
+    .themelogo {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+        opacity: 0.35;
+        transition: opacity 0.2s ease;
+    }
+    .theme-btn.active .themelogo {
+        opacity: 1;
+    }
+    .theme-btn.hovered .themelogo {
+        opacity: 0.85;
+    }
+    .theme-btn.active.hovered .themelogo {
+        opacity: 1;
+    }
+    .active-theme-label {
+        margin: var(--space-sm) 0 0;
+        font-size: var(--fs-md);
+        font-weight: 500;
+        color: var(--c-primary, #216666);
+        text-align: center;
+        line-height: var(--lh-tight);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .country-row {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: flex-end;
-        gap: 2vw;
-        margin-bottom: 2vh;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        gap: var(--space-md);
+        margin-bottom: var(--space-md);
         width: 100%;
-        max-width: 100%;
-        margin-left: 0;
-        margin-right: 0;
     }
     .country-item {
         display: flex;
         flex-direction: column;
         align-items: center;
-        flex: 1 1 0;
-        min-width: 0;
-        max-width: none;
+    }
+    .country-btn {
+        all: unset;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        border-radius: 4px;
+    }
+    .country-btn:focus-visible {
+        outline: 2px solid var(--c-accent);
+        outline-offset: 2px;
     }
     .countrylogo {
         width: 100%;
         height: auto;
-        max-height: 18vh;
-        min-height: 10vh;
-        margin: 0 auto;
+        aspect-ratio: 1 / 1;
         object-fit: contain;
-        cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+        transition: opacity 0.2s;
     }
     .countrylogo:not(.activecountry) {
         opacity: 0.3;
     }
     .countrycaption {
-        font-size: 2.1vh;
+        font-size: var(--fs-sm);
         text-align: center;
-        margin-top: 0.7vh;
+        margin-top: var(--space-xs);
         color: #222;
-        background: none;
         font-weight: 400;
-        letter-spacing: 0.01em;
-        line-height: 1.2;
+        line-height: var(--lh-tight);
         max-width: 100%;
-        overflow: visible;
-        text-overflow: initial;
-        white-space: normal;
-        padding: 0 0.5vw;
         word-break: break-word;
+        padding: 0 var(--space-xs);
     }
     .countrycaption.activecaption {
         font-weight: bold;
-        color: #017676;
-    }
-    .themelogo:not(.active) {
-        opacity: 0.3;
-    }
-    .caption:not(.activecaption) {
-        opacity: 0;
-    }
-    h2{
-	font-size: 2.3vh;
-}
-    /* Responsive: shrink icons and text on smaller screens, but keep row layout */
-    @media (max-width: 800px) {
-        .theme-row {
-            gap: 0.8vw;
-            align-items: flex-end;
-        }
-        div.item {
-            width: 8vw;
-            min-height: 70px;
-            flex: 0 0 auto;
-        }
-        .themelogo {
-            width: 6vw;
-            max-width: 36px;
-            min-width: 18px;
-        }
-        .caption {
-            font-size: 1.1vh;
-        }
-    }
-    @media (max-width: 500px) {
-        .theme-row {
-            gap: 0.5vw;
-            align-items: flex-end;
-        }
-        div.item {
-            width: 12vw;
-            min-height: 50px;
-            flex: 0 0 auto;
-        }
-        .themelogo {
-            width: 8vw;
-            max-width: 24px;
-            min-width: 12px;
-        }
-        .caption {
-            font-size: 0.9vh;
-        }
+        color: var(--c-primary, #216666);
     }
 </style>

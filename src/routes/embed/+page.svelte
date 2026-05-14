@@ -34,8 +34,7 @@
 		width: 100%;
 		height: 100vh;
 		background: white;
-		padding: 20px;
-		box-sizing: border-box;
+		padding: var(--space-md);
 	}
 
 	.chart {

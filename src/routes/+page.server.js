@@ -1,6 +1,27 @@
 import { dsv } from 'd3';
 import { areas } from '$lib/noncomponents/areas.js';
 
+// Hetzner-CSV's gebruiken andere kolomnamen dan de oude Bonaire/Saba-gists.
+// Climate: `indicator` ipv `variabel`; SeaLevel/LLHI: `time` ipv `year`.
+// We mappen alles naar de oude namen zodat de Svelte-componenten ongewijzigd blijven.
+const normalizeClimate = (row) => ({
+  ...row,
+  variabel: row.variabel ?? row.indicator
+});
+
+const normalizeSeaLevel = (row) => ({
+  ...row,
+  year: row.year !== undefined ? Number(row.year) : Number(row.time)
+});
+
+const normalizeLLHI = (row) => ({
+  ...row,
+  year: row.year !== undefined ? Number(row.year) : Number(row.time),
+  // Bonaire/Saba sej_high is in meters, Hetzner lphi_max in cm. Components verwachten meters
+  // (vermenigvuldigen daar met 100), dus Hetzner-waarden delen we hier door 100.
+  sej_high: row.sej_high !== undefined ? Number(row.sej_high) : Number(row.lphi_max) / 100
+});
+
 export async function load({ url }) {
   const searchParams = url.searchParams;
   const lang = searchParams.get('lang');
@@ -11,10 +32,15 @@ export async function load({ url }) {
   const areaData = {};
   for (const key in areas) {
     const { climate, seaLevel, llhi } = areas[key].dataUrls;
+    const [climateData, seaLevelData, llhiData] = await Promise.all([
+      dsv(',', climate),
+      dsv(',', seaLevel),
+      dsv(',', llhi)
+    ]);
     areaData[key] = {
-      climateData: await dsv(',', climate),
-      seaLevelData: await dsv(',', seaLevel),
-      llhiData: await dsv(',', llhi)
+      climateData: climateData.map(normalizeClimate),
+      seaLevelData: seaLevelData.map(normalizeSeaLevel),
+      llhiData: llhiData.map(normalizeLLHI)
     };
   }
 

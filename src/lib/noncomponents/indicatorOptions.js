@@ -133,8 +133,14 @@ export const indicatorOptions = {
             season: "wet",
         },
         {
+            indicator: "hotDays",
+            column: "Hete dagen per jaar",
+            theme: "heat",
+            season: "annual",
+        },
+        {
             indicator: "precipitationAvg",
-            column: "Gemiddelde neerslag", 
+            column: "Gemiddelde neerslag",
             theme: "drought",
             season: "annual",
         },
@@ -167,6 +173,166 @@ export const indicatorOptions = {
             column: "Gemiddelde windsnelheid nat seizoen",
             theme: "wind",
             season: "wet",
+        }
+    ],
+    "cu": [
+        {
+            indicator: "temperatureAvg",
+            column: "Gemiddelde temperatuur",
+            theme: "heat",
+            season: "annual",
+        },
+        {
+            indicator: "temperatureAvgDry",
+            column: "Gemiddelde temperatuur droog seizoen",
+            theme: "heat",
+            season: "dry",
+        },
+        {
+            indicator: "temperatureAvgWet",
+            column: "Gemiddelde temperatuur nat seizoen",
+            theme: "heat",
+            season: "wet",
+        },
+        {
+            indicator: "temperatureAvgTransition",
+            column: "Gemiddelde temperatuur transitie seizoen",
+            theme: "heat",
+            season: "transition",
+        },
+        {
+            indicator: "hotDays",
+            column: "Hete dagen per jaar",
+            theme: "heat",
+            season: "annual",
+        },
+        {
+            indicator: "precipitationAvg",
+            column: "Gemiddelde neerslag",
+            theme: "drought",
+            season: "annual",
+        },
+        {
+            indicator: "precipitationAvgDry",
+            column: "Gemiddelde neerslag droog seizoen",
+            theme: "drought",
+            season: "dry",
+        },
+        {
+            indicator: "precipitationAvgWet",
+            column: "Gemiddelde neerslag nat seizoen",
+            theme: "drought",
+            season: "wet",
+        },
+        {
+            indicator: "precipitationAvgTransition",
+            column: "Gemiddelde neerslag transitie seizoen",
+            theme: "drought",
+            season: "transition",
+        },
+        {
+            indicator: "windAvg",
+            column: "Gemiddelde windsnelheid",
+            theme: "wind",
+            season: "annual",
+        },
+        {
+            indicator: "windAvgDry",
+            column: "Gemiddelde windsnelheid droog seizoen",
+            theme: "wind",
+            season: "dry",
+        },
+        {
+            indicator: "windAvgWet",
+            column: "Gemiddelde windsnelheid nat seizoen",
+            theme: "wind",
+            season: "wet",
+        },
+        {
+            indicator: "windAvgTransition",
+            column: "Gemiddelde windsnelheid transitie seizoen",
+            theme: "wind",
+            season: "transition",
+        }
+    ],
+    "ar": [
+        {
+            indicator: "temperatureAvg",
+            column: "Gemiddelde temperatuur",
+            theme: "heat",
+            season: "annual",
+        },
+        {
+            indicator: "temperatureAvgDry",
+            column: "Gemiddelde temperatuur droog seizoen",
+            theme: "heat",
+            season: "dry",
+        },
+        {
+            indicator: "temperatureAvgWet",
+            column: "Gemiddelde temperatuur nat seizoen",
+            theme: "heat",
+            season: "wet",
+        },
+        {
+            indicator: "temperatureAvgTransition",
+            column: "Gemiddelde temperatuur transitie seizoen",
+            theme: "heat",
+            season: "transition",
+        },
+        {
+            indicator: "hotDays",
+            column: "Hete dagen per jaar",
+            theme: "heat",
+            season: "annual",
+        },
+        {
+            indicator: "precipitationAvg",
+            column: "Gemiddelde neerslag",
+            theme: "drought",
+            season: "annual",
+        },
+        {
+            indicator: "precipitationAvgDry",
+            column: "Gemiddelde neerslag droog seizoen",
+            theme: "drought",
+            season: "dry",
+        },
+        {
+            indicator: "precipitationAvgWet",
+            column: "Gemiddelde neerslag nat seizoen",
+            theme: "drought",
+            season: "wet",
+        },
+        {
+            indicator: "precipitationAvgTransition",
+            column: "Gemiddelde neerslag transitie seizoen",
+            theme: "drought",
+            season: "transition",
+        },
+        {
+            indicator: "windAvg",
+            column: "Gemiddelde windsnelheid",
+            theme: "wind",
+            season: "annual",
+        },
+        {
+            indicator: "windAvgDry",
+            column: "Gemiddelde windsnelheid droog seizoen",
+            theme: "wind",
+            season: "dry",
+        },
+        {
+            indicator: "windAvgWet",
+            column: "Gemiddelde windsnelheid nat seizoen",
+            theme: "wind",
+            season: "wet",
+        },
+        {
+            indicator: "windAvgTransition",
+            column: "Gemiddelde windsnelheid transitie seizoen",
+            theme: "wind",
+            season: "transition",
         }
     ]
 }
