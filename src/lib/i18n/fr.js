@@ -26,6 +26,8 @@ export const french = {
     "windAvgWet": "Vitesse moyenne du vent en saison humide",
     "windAvgTransition": "Vitesse moyenne du vent en saison de transition",
     "hotDays": "Jours chauds",
+    "hotDaysDefinition": "Un ‘jour chaud’ est défini comme un jour dont la température moyenne dépasse {threshold} °C.",
+    "hotDaysVariable": "nombre de jours chauds",
     "dayUnit": " jours",
     "seasonAnnual": "Annuel",
     "seasonDry": "Sèche",

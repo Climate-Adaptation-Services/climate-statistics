@@ -16,9 +16,9 @@
         y={-6}
         class="legendlabel"
     >
-        {t('legendTitle')}
+        {$t('legendTitle')}
     </text>
-    {#each [t('scenarioHigh'),t('scenarioLow'),t('scenarioCurrent') ] as d,i}
+    {#each [$t('scenarioHigh'),$t('scenarioLow'),$t('scenarioCurrent') ] as d,i}
         <rect
             class='legendrect'
             transform={`translate(0, ${i * rowStride})`}

@@ -1,4 +1,3 @@
-
 <script>
   import * as d3 from 'd3';
   import { afterUpdate } from 'svelte';
@@ -12,39 +11,32 @@
   export let xScale;
   export let yScale;
   export let className;
-  export let width;
-  export let height;
   export let hachureAngle;
-  export let fillStyle;
-  export let hachureGap;
 
   const areaPath = d3
     .area()
     .x(d => xScale(d.year))
     .y0(d => yScale(d[variable1]))
-    .y1(d => yScale(d[variable2]))
+    .y1(d => yScale(d[variable2]));
 
   let svgElement;
 
   afterUpdate(() => {
-    d3.select('.rough' + className + ' g').remove()
+    d3.select('.rough' + className + ' g').remove();
     const rc = rough.svg(svgElement);
 
-    const path = rc.path(areaPath(data),
-      { 
-        roughness: 0.3, 
-        fill: color, 
-        stroke:'none',
-        fillStyle:fillStyle,
-        fillWeight:1,
-        hachureGap: hachureGap,
-        hachureAngle: hachureAngle,
-        strokeWidth:2
-      });
+    const path = rc.path(areaPath(data), {
+      roughness: 0.3,
+      fill: color,
+      stroke: 'none',
+      fillStyle: 'hachure',
+      fillWeight: 1,
+      hachureGap: 4,
+      hachureAngle: hachureAngle,
+      strokeWidth: 2
+    });
     svgElement.appendChild(path);
-  })
-
+  });
 </script>
 
-<g class={'rough'+className} bind:this={svgElement} height={height} width={width}></g>
-
+<g class={'rough' + className} {opacity} bind:this={svgElement}></g>

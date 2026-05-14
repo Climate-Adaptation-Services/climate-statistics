@@ -23,6 +23,8 @@ export const papiamentu = {
     "windAvgWet": "Velosidat promedio di bientu den temporada di yobida",
     "windAvgTransition": "Velosidat promedio di bientu den temporada di transishon",
     "hotDays": "Dianan kalor",
+    "hotDaysDefinition": "Un ‘dia kalor’ ta definí komo un dia ku un temperatura promedio riba {threshold} °C.",
+    "hotDaysVariable": "kantidat di dianan kalor",
     "dayUnit": " dia",
     "seasonAnnual": "Anual",
     "seasonDry": "Seku",

@@ -26,6 +26,8 @@ export const spanish = {
     "windAvgWet": "Velocidad media del viento en la temporada lluviosa",
     "windAvgTransition": "Velocidad media del viento en la temporada de transición",
     "hotDays": "Días calurosos",
+    "hotDaysDefinition": "Un ‘día caluroso’ se define como un día con una temperatura media superior a {threshold} °C.",
+    "hotDaysVariable": "número de días calurosos",
     "dayUnit": " días",
     "seasonAnnual": "Anual",
     "seasonDry": "Seca",

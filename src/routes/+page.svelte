@@ -27,13 +27,19 @@
 	$: llhiData = data.areaData[selectedArea]?.llhiData;
 
 	let chartTitle
-	$:  $theme === 'slr' ? (chartTitle = t('seaLevelRise')):
-		(chartTitle = t($datalaag.indicator));
+	$:  $theme === 'slr' ? (chartTitle = $t('seaLevelRise')):
+		(chartTitle = $t($datalaag.indicator));
 
 	$: areaName = (areas && selectedArea && areas[selectedArea] && areas[selectedArea].localizedNames[$lang])
 		? areas[selectedArea].localizedNames[$lang]
 		: selectedArea;
 	$: showAreaName = areas?.[selectedArea]?.switchableTo?.length > 0;
+
+	// Stel het lang-attribuut op <html> in zodat de browser de UI-taal kent
+	// (voorkomt verwarring bij auto-translate / accessibility).
+	$: if (typeof document !== 'undefined' && $lang) {
+		document.documentElement.lang = $lang;
+	}
 
 </script>
 
@@ -58,9 +64,11 @@
 				</div>
 			{/if}
 		</div>
-		<div class='explanation-container'>
-			<Explanation/>
-		</div>
+		{#if $theme !== 'slr'}
+			<div class='explanation-container'>
+				<Explanation/>
+			</div>
+		{/if}
 	</div>
 </div>
 

@@ -12,12 +12,13 @@
 
   import { annotation } from 'd3-svg-annotation';
   import { w} from '$lib/stores';
+  import { get } from 'svelte/store';
   import { t } from '$lib/i18n/translate';
 
   const annotations = [
     {
       note: {
-        label: t('slrScenarioHighest'),
+        label: get(t)('slrScenarioHighest'),
       },
       data: {'year': 2059, variable:'120.26'},
       dy: -20,

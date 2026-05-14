@@ -26,6 +26,8 @@ export const english = {
     "windAvgWet": "Average wind speed wet season",
     "windAvgTransition": "Average wind speed transition season",
     "hotDays": "Hot days",
+    "hotDaysDefinition": "A ‘hot day’ is defined as a day with an average temperature above {threshold} °C.",
+    "hotDaysVariable": "number of hot days",
     "dayUnit": " days",
     "seasonAnnual": "Annual",
     "seasonDry": "Dry",

@@ -39,7 +39,7 @@ $: filteredData = dataClimate && dataClimate.length
 
   $: minData = [
     {
-        scenario: t('scenarioCurrent'),
+        scenario: $t('scenarioCurrent'),
         data: tickFormat(filteredData[0]?.['huidig'])
       },
     {
@@ -51,18 +51,22 @@ $: filteredData = dataClimate && dataClimate.length
       data: tickFormat(filteredData[0]?.['2100_min'])
     }]
 
-  // Voor drought: schaal dynamisch op basis van data, zodat de neerslag-waarde niet
-  // boven de chart uitvalt (sm/cu kunnen >1100 mm halen). Nice-ceiling naar 100s met 10% padding.
-  $: dataMax = filteredData.length
-    ? Math.max(
-        parseFloat(filteredData[0]?.['huidig']) || 0,
-        parseFloat(filteredData[0]?.['2050_min']) || 0,
-        parseFloat(filteredData[0]?.['2050_max']) || 0,
-        parseFloat(filteredData[0]?.['2100_min']) || 0,
-        parseFloat(filteredData[0]?.['2100_max']) || 0
+  // Voor drought: schaal dynamisch op basis van ALLE neerslag-rijen (alle seizoenen),
+  // niet alleen de huidige. Zo blijft de schaal stabiel bij seizoen-wissels en werkt
+  // de bar-animatie netjes. Nice-ceiling naar 100s met 10% padding.
+  $: droughtDataMax = $theme === 'drought' && dataClimate?.length
+    ? Math.max(0, ...dataClimate
+        .filter(d => /neerslag/i.test(d.variabel ?? ''))
+        .flatMap(d => [
+          parseFloat(d.huidig),
+          parseFloat(d['2050_min']),
+          parseFloat(d['2050_max']),
+          parseFloat(d['2100_min']),
+          parseFloat(d['2100_max'])
+        ].filter(v => !isNaN(v)))
       )
     : 0;
-  $: droughtMax = Math.max(600, Math.ceil(dataMax * 1.1 / 100) * 100);
+  $: droughtMax = Math.max(600, Math.ceil(droughtDataMax * 1.1 / 100) * 100);
 
   $: yDomain = $datalaag?.indicator === 'hotDays' ? [0,365]:
      $theme === 'heat' ? [20,33]:
@@ -72,7 +76,7 @@ $: filteredData = dataClimate && dataClimate.length
      $theme === 'drought' ? [0, droughtMax]:
     [0,600];
 
-  $: unit = $datalaag?.indicator === 'hotDays' ? t('dayUnit'):
+  $: unit = $datalaag?.indicator === 'hotDays' ? $t('dayUnit'):
     $theme === 'heat' ? " °C":
     $theme === 'wind' ? " m/s":
     " mm";
@@ -90,7 +94,12 @@ $: filteredData = dataClimate && dataClimate.length
   })();
 
   $: yTickLabels = d3.scaleLinear().domain(yDomain).nice().ticks(5).map(v => tickFormat(v) + unit);
-  $: margin = computeMargins({ width: svgW, height: svgH, yTickLabels, hasLegendOnRight: false });
+  // Vaste left/right margins zodat de bar-breedte niet meeverspringt met de y-as-label lengte
+  // (anders krimpt de chart bij langere labels zoals '1300 mm' of '365 days').
+  $: margin = (() => {
+    const m = computeMargins({ width: svgW, height: svgH, yTickLabels, hasLegendOnRight: false });
+    return { ...m, left: 70, right: 70 };
+  })();
   $: innerWidth = Math.max(0, svgW - margin.left - margin.right);
   $: innerHeight = Math.max(0, svgH - margin.top - margin.bottom);
 
@@ -130,7 +139,7 @@ $: filteredData = dataClimate && dataClimate.length
     {#each legendItems as item}
       <span class='legend-item'>
         <span class='swatch' style="background-color: {item.color}"></span>
-        <span>{t(item.labelKey)}</span>
+        <span>{$t(item.labelKey)}</span>
       </span>
     {/each}
   </div>

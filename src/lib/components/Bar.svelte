@@ -21,23 +21,29 @@
   // Black text for smaller values (below bar), grey text for larger values (above bar)
   $: markTextColor = isSmaller ? 'black' : 'grey';
 
-  // Skip de transitie als yDomain verandert (= schaal-wissel) — anders ziet de bar-interpolatie
-  // er onlogisch uit doordat zowel positie als hoogte tegelijk over een nieuwe schaal interpoleren.
-  let prevDomain = null;
-  afterUpdate(() => {
-    const domainChanged = prevDomain !== null && (prevDomain[0] !== yDomain[0] || prevDomain[1] !== yDomain[1]);
-    const duration = domainChanged ? 0 : 800;
-    prevDomain = [yDomain[0], yDomain[1]];
+  // Te kleine bars: tekst past niet binnen de bar — duw hem dan boven de bar.
+  const MIN_BAR_PX_FOR_INSIDE_LABEL = 24;
+  function labelDy(value) {
+    const barHeight = Math.abs(yScale(value) - yScale(yDomain[0]));
+    if (isSmaller && barHeight < MIN_BAR_PX_FOR_INSIDE_LABEL) return '-0.5em';
+    return barDy;
+  }
+  function labelFill(value) {
+    const barHeight = Math.abs(yScale(value) - yScale(yDomain[0]));
+    if (isSmaller && barHeight < MIN_BAR_PX_FOR_INSIDE_LABEL) return 'grey';
+    return markTextColor;
+  }
 
+  afterUpdate(() => {
     d3.selectAll('.' + className + '_bartext')
         .data(data)
-        .transition().duration(duration)
+        .transition().duration(800)
         .attr("transform", (d) => `translate (${0}, ${-Math.abs(yScale(yValue(d)) - yScale(yDomain[0]))})`)
 
 
 		d3.selectAll('.' + className+ '_rect')
                  .data(data)
-                 .transition().duration(duration)
+                 .transition().duration(800)
                  .attr("transform", (d,i) => `translate (${xScale(xValue(d))}, ${yScale(yValue(d))})`)
                  .attr("height", (d) => Math.abs(yScale(yValue(d)) - yScale(yDomain[0])))
 	});
@@ -67,9 +73,9 @@
             class={className + '_bartext'}
             text-anchor='middle'
             x={(xScale(xValue(d)) + xScale.bandwidth()/2)}
-            fill={markTextColor}
+            fill={labelFill(yValue(d))}
             y={yScale(yDomain[0])}
-            dy={barDy}
+            dy={labelDy(yValue(d))}
           >
             {tickFormat(yValue(d)) + unit}
           </text>

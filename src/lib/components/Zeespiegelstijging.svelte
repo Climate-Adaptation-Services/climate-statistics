@@ -65,32 +65,35 @@
     .tickFormat(yAxisTickFormat);
 
 
-  const colorGematigd = '#017676'
-  const colorSterk = '#f44f01'
+  // Afgestemd op het Climate Impact Atlas-palet: zelfde teal en oranje als de bar-chart en pills.
+  const colorGematigd = '#216666'
+  const colorSterk = '#e86013'
 
-  const median_lines = [
+  // Reactief op $t zodat legenda-teksten bij taalswitch meeveranderen.
+  $: median_lines = [
     {
       'median':'ssp126_50pc',
       'variableLow': 'ssp126_5pc',
       'variableHigh': 'ssp126_95pc',
       'color': colorGematigd,
-      'legendText': t('mild'),
+      'legendText': $t('mild'),
       'hachureAngle': '140',
-      'legendText2': t('withMild'),
+      'legendText2': $t('withMild'),
       'y_offset_text': ['48', '62']
     }, {
       'median':'ssp585_50pc',
       'variableLow': 'ssp585_5pc',
       'variableHigh': 'ssp585_95pc',
       'color': colorSterk,
-      'legendText': t('strong'),
+      'legendText': $t('strong'),
       'hachureAngle': '60',
-      'legendText2': t('withStrong'),
+      'legendText2': $t('withStrong'),
       'y_offset_text': ['53', '67']
     }
   ]
 
   const areaOpacity = '0.6';
+  const currentYear = new Date().getFullYear();
 
 </script>
 
@@ -98,7 +101,20 @@
 
   <XAxis scale={xScale} xTransform={0} yTransform={innerHeight} className="lineChart__xAxis" axis={xAxis}/>
   <YAxis xTransform={margin.left} yTransform={0} scale={yScale} className="lineChart__yAxis" axis={yAxis}/>
-  <text text-anchor='middle' transform='translate({Math.max(16, margin.left / 2)}, {yScale(70)}) rotate(-90)'>{t("riseInCm")}</text>
+  <text class='y-axis-label' x={0} y={Math.max(14, margin.top - 6)} text-anchor='start'>{$t("riseInCm")}</text>
+
+  {#if currentYear >= 1995 && dataProjection.length > 0 && currentYear <= dataProjection[dataProjection.length - 1].year}
+    <line
+      x1={xScale(currentYear)}
+      x2={xScale(currentYear)}
+      y1={margin.top}
+      y2={innerHeight}
+      stroke="#999"
+      stroke-width="1"
+      stroke-dasharray="3 4"
+      opacity="0.6"
+    />
+  {/if}
 
   <LLHI data={dataLLHI} color={'#5b5b5b'} variable={'sej_high'} legendText='LLHI' xScale={xScale} yScale={yScale} className={'llhi'+$area_id} {margin} />
 
@@ -109,8 +125,7 @@
       <Area className={'areaChart' + median_line.legendText} data={dataProjection}
         variable1={median_line.variableLow} variable2={median_line.variableHigh}
         color={median_line.color} opacity={areaOpacity} xScale={xScale} yScale={yScale}
-        width={innerWidth} height={innerHeight} hachureAngle={median_line.hachureAngle} fillStyle='hachure'
-        hachureGap='4'/>
+        hachureAngle={median_line.hachureAngle}/>
 
       {#if stackedLegend}
         <text
@@ -119,7 +134,7 @@
           class='legendText'
           fill={median_line.color}
           opacity={areaOpacity + 0.2}>
-          {median_line.legendText2} — {t("climateChange")}
+          {median_line.legendText2} — {$t("climateChange")}
         </text>
       {:else}
         <text x={innerWidth + 9} y={yScale(dataProjection[dataProjection.length - 1][median_line.variableHigh]) + 48} class='legendText' fill={median_line.color} opacity={areaOpacity + 0.2}>
@@ -131,7 +146,7 @@
           class='legendText'
           fill={median_line.color}
           opacity={areaOpacity + 0.2}>
-          {t("climateChange")}
+          {$t("climateChange")}
         </text>
       {/if}
     </g>
@@ -161,6 +176,11 @@
   .legendText {
     font-size: var(--fs-sm);
     font-weight: normal;
+  }
+
+  .y-axis-label {
+    font-size: var(--fs-sm);
+    fill: var(--c-muted, #666);
   }
 
 </style>

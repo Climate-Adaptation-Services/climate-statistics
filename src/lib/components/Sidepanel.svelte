@@ -3,6 +3,7 @@
     import { t } from '$lib/i18n/translate.js';
     import { areas } from '$lib/noncomponents/areas.js';
     import { goto } from '$app/navigation';
+    import Explanation from './Explanation.svelte';
 
     const themeIds = ['heat', 'drought', 'wind', 'slr'];
     const themeIcons = {
@@ -63,7 +64,7 @@
 
 <section>
     <div class="panel-section">
-        <h2>{t('chooseTheme')}</h2>
+        <h2>{$t('chooseTheme')}</h2>
         <div class="theme-row">
             {#each themeIds as themeId}
                 <button
@@ -87,49 +88,55 @@
         <p class="active-theme-label">{activeThemeLabel}</p>
     </div>
 
-    {#if indicatorGroups.length > 0}
+    {#if $theme === 'slr'}
     <div class="panel-section">
-        <h2>{t('chooseIndicator')}</h2>
-        <div class="pill-group pill-group--stacked" role="radiogroup" aria-label={t('chooseIndicator')}>
-            {#each indicatorGroups as group}
-            <button
-                type="button"
-                class="pill"
-                class:active={selectedGroup === group}
-                role="radio"
-                aria-checked={selectedGroup === group}
-                on:click={() => selectGroup(group)}
-            >
-                {t(group)}
-            </button>
-            {/each}
-        </div>
+        <Explanation/>
     </div>
-    {/if}
+    {:else}
+        {#if indicatorGroups.length > 0}
+        <div class="panel-section">
+            <h2>{$t('chooseIndicator')}</h2>
+            <div class="pill-group pill-group--stacked" role="radiogroup" aria-label={$t('chooseIndicator')}>
+                {#each indicatorGroups as group}
+                <button
+                    type="button"
+                    class="pill"
+                    class:active={selectedGroup === group}
+                    role="radio"
+                    aria-checked={selectedGroup === group}
+                    on:click={() => selectGroup(group)}
+                >
+                    {$t(group)}
+                </button>
+                {/each}
+            </div>
+        </div>
+        {/if}
 
-    {#if groupOptions.length > 1}
-    <div class="panel-section">
-        <h2>{t('chooseSeason')}</h2>
-        <div class="pill-group" role="radiogroup" aria-label={t('chooseSeason')}>
-            {#each groupOptions as option}
-            <button
-                type="button"
-                class="pill"
-                class:active={$datalaag?.indicator === option.indicator}
-                role="radio"
-                aria-checked={$datalaag?.indicator === option.indicator}
-                on:click={() => selectSeasonOption(option)}
-            >
-                {t(seasonLabelKey[option.season] ?? option.indicator)}
-            </button>
-            {/each}
+        {#if groupOptions.length > 1}
+        <div class="panel-section">
+            <h2>{$t('chooseSeason')}</h2>
+            <div class="pill-group" role="radiogroup" aria-label={$t('chooseSeason')}>
+                {#each groupOptions as option}
+                <button
+                    type="button"
+                    class="pill"
+                    class:active={$datalaag?.indicator === option.indicator}
+                    role="radio"
+                    aria-checked={$datalaag?.indicator === option.indicator}
+                    on:click={() => selectSeasonOption(option)}
+                >
+                    {$t(seasonLabelKey[option.season] ?? option.indicator)}
+                </button>
+                {/each}
+            </div>
         </div>
-    </div>
+        {/if}
     {/if}
 
     {#if $areaSelection}
         <div class="panel-section">
-        <h2>{t('chooseLocation')}</h2>
+        <h2>{$t('chooseLocation')}</h2>
         <div class="country-row">
             {#each visibleAreas as areaId (areaId)}
                 {#if areas[areaId]}

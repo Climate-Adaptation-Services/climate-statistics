@@ -23,6 +23,8 @@ export const nederlands = {
     "windAvgWet": "Gemiddelde windsnelheid nat seizoen",
     "windAvgTransition": "Gemiddelde windsnelheid transitie seizoen",
     "hotDays": "Hete dagen",
+    "hotDaysDefinition": "Een ‘hete dag’ is gedefinieerd als een dag met een gemiddelde temperatuur boven {threshold} °C.",
+    "hotDaysVariable": "het aantal hete dagen",
     "dayUnit": " dagen",
     "seasonAnnual": "Jaarlijks",
     "seasonDry": "Droog",

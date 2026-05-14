@@ -119,6 +119,7 @@ export const areas = {
   },
   sm: {
     area_id: 'sm',
+    hotDaysThreshold: 29.5,
     name: 'St. Martin',
     localizedNames: {
       en: 'St. Martin',
@@ -186,6 +187,7 @@ export const areas = {
   },
   cu: {
     area_id: 'cu',
+    hotDaysThreshold: 29.8,
     name: 'Curaçao',
     localizedNames: {
       en: 'Curaçao',
@@ -240,6 +242,7 @@ export const areas = {
   },
   ar: {
     area_id: 'ar',
+    hotDaysThreshold: 30.3,
     name: 'Aruba',
     localizedNames: {
       en: 'Aruba',

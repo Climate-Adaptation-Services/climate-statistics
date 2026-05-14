@@ -11,25 +11,48 @@
     return template?.replace(/{(\w+)}/g, (_, k) => vars[k] ?? '');
   }
 
-	$: if($theme === 'slr' ){
-			Tekst = interpolate(areas[$area_id]?.explanation?.[$lang]?.sealevelrise)
-	}
+	$: {
+		let baseTekst;
+		if ($theme === 'slr') {
+			baseTekst = interpolate(areas[$area_id]?.explanation?.[$lang]?.sealevelrise);
+		} else if ($datalaag) {
+			// Voor de meeste indicators is variable de eerste twee woorden van de label.
+			// Voor hotDays gebruiken we een afzonderlijke vorm ('number of hot days' /
+			// 'het aantal hete dagen') zodat de zin natuurlijk leest na de definitie-zin.
+			const variable = $datalaag.indicator === 'hotDays'
+				? $t('hotDaysVariable')
+				: $t($datalaag.indicator).split(' ').slice(0,2).join(' ').toLowerCase();
 
-	else if($datalaag.season==='annual') {
-		Tekst = interpolate(areas[$area_id]?.explanation?.[$lang]?.annual, {variable: t($datalaag.indicator).split(' ').slice(0,2).join(' ').toLowerCase()})
-	}
+			if ($datalaag.season === 'annual') {
+				baseTekst = interpolate(
+					areas[$area_id]?.explanation?.[$lang]?.annual,
+					{ variable }
+				);
+			} else {
+				const seasonPeriod = areas[$area_id]?.seasonperiod?.[$lang]?.[$datalaag.season] || '';
+				baseTekst = interpolate(
+					areas[$area_id]?.explanation?.[$lang]?.seasonal,
+					{
+						variable,
+						season: $t($datalaag.season),
+						seasonperiod: seasonPeriod
+					}
+				);
+			}
+		}
 
-	else {
-    // Get the season period string (e.g., Dec-Apr or May-Nov) from areas
-    let seasonPeriod = areas[$area_id]?.seasonperiod?.[$lang]?.[$datalaag.season] || '';
-    Tekst = interpolate(
-        areas[$area_id]?.explanation?.[$lang]?.seasonal,
-        {
-            variable: t($datalaag.indicator).split(' ').slice(0,2).join(' ').toLowerCase(),
-            season: t($datalaag.season),
-            seasonperiod: seasonPeriod
-        }
-    );
+		// Voor hotDays: definitie vooraan zodat de lezer eerst weet wat een 'hot day' is.
+		// Drempel verschilt per eiland (zie areas.js). EN gebruikt punt, andere talen komma.
+		if ($datalaag?.indicator === 'hotDays') {
+			const threshold = areas[$area_id]?.hotDaysThreshold;
+			if (threshold !== undefined) {
+				const formatted = $lang === 'en' ? String(threshold) : String(threshold).replace('.', ',');
+				const definition = interpolate($t('hotDaysDefinition'), { threshold: formatted });
+				baseTekst = definition + ' ' + (baseTekst || '');
+			}
+		}
+
+		Tekst = baseTekst || '';
 	}
 	
 
