@@ -26,7 +26,14 @@
 
   $: yTickLabels = d3.scaleLinear().domain([0, 140]).nice().ticks(5).map(yAxisTickFormat);
   $: stackedLegend = $w < 768;
-  $: margin = computeMargins({ width: $w, height: $h, yTickLabels, hasLegendOnRight: !stackedLegend });
+  $: margin = (() => {
+    const m = computeMargins({ width: $w, height: $h, yTickLabels, hasLegendOnRight: !stackedLegend });
+    m.top = Math.max(m.top, 36);
+    // Extra ruimte voor de geroteerde y-as titel (op x=24) naast de tick-labels.
+    m.left = Math.max(m.left, 70);
+    if (!stackedLegend) m.bottom = Math.min(m.bottom, 36);
+    return m;
+  })();
   $: innerWidth = Math.max(0, $w - margin.left - margin.right)
   $: innerHeight = Math.max(0, $h - margin.top - margin.bottom)
 
@@ -52,10 +59,15 @@
     .format('d')(number)
     .replace(',', '')
 
+  // Hele jaartallen alleen — d3.ticks kan op smalle assen halve jaren produceren
+  // (bv. 2017.5) die niet zinvol zijn voor een tijdas. Filter naar integers.
+  $: xTickValues = xScale.ticks(12).filter(Number.isInteger);
+
   // Add scales to axis
   $: xAxis = d3
     .axisBottom(xScale)
-    .ticks(12)
+    .tickValues(xTickValues)
+    .tickSizeOuter(0)
     .tickFormat(xAxisTickFormat);
 
   // Add scales to axis
@@ -93,7 +105,6 @@
   ]
 
   const areaOpacity = '0.6';
-  const currentYear = new Date().getFullYear();
 
 </script>
 
@@ -101,20 +112,11 @@
 
   <XAxis scale={xScale} xTransform={0} yTransform={innerHeight} className="lineChart__xAxis" axis={xAxis}/>
   <YAxis xTransform={margin.left} yTransform={0} scale={yScale} className="lineChart__yAxis" axis={yAxis}/>
-  <text class='y-axis-label' x={0} y={Math.max(14, margin.top - 6)} text-anchor='start'>{$t("riseInCm")}</text>
-
-  {#if currentYear >= 1995 && dataProjection.length > 0 && currentYear <= dataProjection[dataProjection.length - 1].year}
-    <line
-      x1={xScale(currentYear)}
-      x2={xScale(currentYear)}
-      y1={margin.top}
-      y2={innerHeight}
-      stroke="#999"
-      stroke-width="1"
-      stroke-dasharray="3 4"
-      opacity="0.6"
-    />
-  {/if}
+  <text
+    class='y-axis-label'
+    transform={`translate(24, ${(margin.top + innerHeight) / 2}) rotate(-90)`}
+    text-anchor='middle'
+  >{$t("riseInCm")}</text>
 
   <LLHI data={dataLLHI} color={'#5b5b5b'} variable={'sej_high'} legendText='LLHI' xScale={xScale} yScale={yScale} className={'llhi'+$area_id} {margin} />
 

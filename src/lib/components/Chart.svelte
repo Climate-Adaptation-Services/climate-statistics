@@ -68,11 +68,26 @@ $: filteredData = dataClimate && dataClimate.length
     : 0;
   $: droughtMax = Math.max(600, Math.ceil(droughtDataMax * 1.1 / 100) * 100);
 
+  // Voor wind in gebieden zonder vaste hardcoded range: bereken dynamisch uit alle
+  // wind-rijen zodat de schaal stabiel is bij seizoen-wissels en zoomt op de
+  // relevante waarden (vermijdt piepkleine balkjes op een 0-600 schaal).
+  $: windRange = (() => {
+    if ($theme !== 'wind' || !dataClimate?.length) return null;
+    const values = dataClimate
+      .filter(d => /wind/i.test(d.variabel ?? ''))
+      .flatMap(d => [d.huidig, d['2050_min'], d['2050_max'], d['2100_min'], d['2100_max']])
+      .map(v => parseFloat(v))
+      .filter(v => !isNaN(v));
+    if (!values.length) return null;
+    return [Math.max(0, Math.floor(Math.min(...values) - 0.5)), Math.ceil(Math.max(...values) + 0.5)];
+  })();
+
   $: yDomain = $datalaag?.indicator === 'hotDays' ? [0,365]:
      $theme === 'heat' ? [20,33]:
      $theme === 'wind' && $area_id === 'bq' ? [6,10]:
      $theme === 'wind' && $area_id === 'se' ? [5,8]:
      $theme === 'wind' && $area_id === 'sm' ? [2,5]:
+     $theme === 'wind' && windRange ? windRange:
      $theme === 'drought' ? [0, droughtMax]:
     [0,600];
 

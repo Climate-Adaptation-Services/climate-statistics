@@ -189,16 +189,16 @@ export const indicatorOptions = {
             season: "dry",
         },
         {
-            indicator: "temperatureAvgWet",
-            column: "Gemiddelde temperatuur nat seizoen",
-            theme: "heat",
-            season: "wet",
-        },
-        {
             indicator: "temperatureAvgTransition",
             column: "Gemiddelde temperatuur transitie seizoen",
             theme: "heat",
             season: "transition",
+        },
+        {
+            indicator: "temperatureAvgWet",
+            column: "Gemiddelde temperatuur nat seizoen",
+            theme: "heat",
+            season: "wet",
         },
         {
             indicator: "hotDays",
@@ -219,16 +219,16 @@ export const indicatorOptions = {
             season: "dry",
         },
         {
-            indicator: "precipitationAvgWet",
-            column: "Gemiddelde neerslag nat seizoen",
-            theme: "drought",
-            season: "wet",
-        },
-        {
             indicator: "precipitationAvgTransition",
             column: "Gemiddelde neerslag transitie seizoen",
             theme: "drought",
             season: "transition",
+        },
+        {
+            indicator: "precipitationAvgWet",
+            column: "Gemiddelde neerslag nat seizoen",
+            theme: "drought",
+            season: "wet",
         },
         {
             indicator: "windAvg",
@@ -243,16 +243,16 @@ export const indicatorOptions = {
             season: "dry",
         },
         {
-            indicator: "windAvgWet",
-            column: "Gemiddelde windsnelheid nat seizoen",
-            theme: "wind",
-            season: "wet",
-        },
-        {
             indicator: "windAvgTransition",
             column: "Gemiddelde windsnelheid transitie seizoen",
             theme: "wind",
             season: "transition",
+        },
+        {
+            indicator: "windAvgWet",
+            column: "Gemiddelde windsnelheid nat seizoen",
+            theme: "wind",
+            season: "wet",
         }
     ],
     "ar": [
@@ -269,16 +269,16 @@ export const indicatorOptions = {
             season: "dry",
         },
         {
-            indicator: "temperatureAvgWet",
-            column: "Gemiddelde temperatuur nat seizoen",
-            theme: "heat",
-            season: "wet",
-        },
-        {
             indicator: "temperatureAvgTransition",
             column: "Gemiddelde temperatuur transitie seizoen",
             theme: "heat",
             season: "transition",
+        },
+        {
+            indicator: "temperatureAvgWet",
+            column: "Gemiddelde temperatuur nat seizoen",
+            theme: "heat",
+            season: "wet",
         },
         {
             indicator: "hotDays",
@@ -299,16 +299,16 @@ export const indicatorOptions = {
             season: "dry",
         },
         {
-            indicator: "precipitationAvgWet",
-            column: "Gemiddelde neerslag nat seizoen",
-            theme: "drought",
-            season: "wet",
-        },
-        {
             indicator: "precipitationAvgTransition",
             column: "Gemiddelde neerslag transitie seizoen",
             theme: "drought",
             season: "transition",
+        },
+        {
+            indicator: "precipitationAvgWet",
+            column: "Gemiddelde neerslag nat seizoen",
+            theme: "drought",
+            season: "wet",
         },
         {
             indicator: "windAvg",
@@ -323,16 +323,16 @@ export const indicatorOptions = {
             season: "dry",
         },
         {
-            indicator: "windAvgWet",
-            column: "Gemiddelde windsnelheid nat seizoen",
-            theme: "wind",
-            season: "wet",
-        },
-        {
             indicator: "windAvgTransition",
             column: "Gemiddelde windsnelheid transitie seizoen",
             theme: "wind",
             season: "transition",
+        },
+        {
+            indicator: "windAvgWet",
+            column: "Gemiddelde windsnelheid nat seizoen",
+            theme: "wind",
+            season: "wet",
         }
     ]
 }

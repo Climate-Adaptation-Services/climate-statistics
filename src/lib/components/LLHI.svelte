@@ -15,10 +15,16 @@
   import { get } from 'svelte/store';
   import { t } from '$lib/i18n/translate';
 
+  // Wrap-breedte schaalt mee met de chartbreedte zodat lange vertalingen
+  // (FR/EN) over meerdere regels breken in plaats van voorbij de SVG-rand
+  // te lopen. Cap op een redelijk maximum voor brede schermen.
+  const noteWrap = Math.min(220, Math.max(120, $w * 0.22));
+
   const annotations = [
     {
       note: {
         label: get(t)('slrScenarioHighest'),
+        wrap: noteWrap,
       },
       data: {'year': 2059, variable:'120.26'},
       dy: -20,

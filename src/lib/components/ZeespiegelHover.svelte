@@ -13,7 +13,9 @@
   import { hoveredYear } from '$lib/stores';
   import { t } from '$lib/i18n/translate';
 
-  const hoverBarWidth = xScale(dataProjection[1].year) - xScale(dataProjection[0].year);
+  $: hoverBarWidth = dataProjection.length > 1
+    ? xScale(dataProjection[1].year) - xScale(dataProjection[0].year)
+    : 10;
 
 </script>
 
@@ -32,7 +34,7 @@
         y='0'
         class='legendYear'
         font-size='24'
-      >{$hoveredYear}</text>
+      >{Math.floor($hoveredYear)}</text>
 
       <text
         x='64'
@@ -92,7 +94,7 @@
 
     <!-- { /* dashed line to make extra clear what is hovered */ } -->
     <path
-      d={d3.line()([[xScale($hoveredYear), 0], [xScale($hoveredYear), height]])}
+      d={d3.line()([[xScale(Math.floor($hoveredYear)), 0], [xScale(Math.floor($hoveredYear)), height]])}
       stroke={'grey'}
       opacity='0.5'
       stroke-width='1.8'
@@ -105,7 +107,7 @@
         <rect
           fill={d.color}
           opacity={areaOpacity}
-          x={xScale($hoveredYear) - 1.5}
+          x={xScale(Math.floor($hoveredYear)) - 1.5}
           y={yScale(dataProjection.filter(d2 => d2.year === $hoveredYear)[0][d.variableHigh])}
           height={yScale(dataProjection.filter(d2 => d2.year === $hoveredYear)[0][d.variableLow])-
             yScale(dataProjection.filter(d2 => d2.year === $hoveredYear)[0][d.variableHigh])}
@@ -121,7 +123,7 @@
             stroke='white'
             stroke-width='2'
             fill={d.color}
-            cx={xScale($hoveredYear)}
+            cx={xScale(Math.floor($hoveredYear))}
             cy={yScale(dataProjection.filter(d => d.year === $hoveredYear)[0][d.variableLow])}
           />
           <circle
@@ -129,19 +131,19 @@
             stroke='white'
             stroke-width='2'
             fill={d.color}
-            cx={xScale($hoveredYear)}
+            cx={xScale(Math.floor($hoveredYear))}
             cy={yScale(dataProjection.filter(d => d.year === $hoveredYear)[0][d.variableHigh])}
           />
         </g>
       {/each}
     </g>
   {:else}
-    <g transform={`translate(${margin.left+120},${margin.top+40})`}>
-      <text font-style='italic' text-anchor='middle' fill='#808080'>
+    <g transform={`translate(${margin.left+16},${margin.top+40})`}>
+      <text font-style='italic' text-anchor='start' fill='#808080'>
         <tspan>{$t("slrHover1")}</tspan>
         <tspan x=0 y='1em'>{$t("slrHover2")}</tspan>
       </text>
-      
+
     </g>
   {/if}
 
@@ -151,10 +153,10 @@
       width={hoverBarWidth}
       height={height+40}
       fill='steelblue'
-      x={xScale(dataProjection[i].year) - hoverBarWidth/2}
+      x={xScale(d.year) - hoverBarWidth/2}
       y='0'
       fill-opacity='0'
-      on:mouseover={() => hoveredYear.set(dataProjection[i].year)}
+      on:mouseover={() => hoveredYear.set(d.year)}
       on:mouseout={() => hoveredYear.set(null)}
     />
   {/each}

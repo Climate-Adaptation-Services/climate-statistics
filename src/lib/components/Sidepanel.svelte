@@ -89,7 +89,7 @@
     </div>
 
     {#if $theme === 'slr'}
-    <div class="panel-section">
+    <div class="panel-section panel-section--explanation">
         <Explanation/>
     </div>
     {:else}
@@ -154,6 +154,11 @@
 </section>
 
 <style>
+    section {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
     .panel-section {
         padding: var(--space-md) 0;
     }
@@ -162,6 +167,12 @@
     }
     .panel-section:first-of-type {
         padding-top: 0;
+    }
+    /* SLR heeft geen indicator/season-keuze; duw de uitleg naar onderen toe
+       zodat hij visueel aansluit op de plek waar in andere thema's de
+       location-picker zit. */
+    .panel-section--explanation {
+        margin-top: auto;
     }
     h2 {
         font-size: var(--fs-sm);

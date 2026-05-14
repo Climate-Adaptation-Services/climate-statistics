@@ -1,6 +1,21 @@
 import { dsv } from 'd3';
 import { areas } from '$lib/noncomponents/areas.js';
 
+// Retry voor ECONNRESET-hiccups (vooral richting Hetzner Object Storage vanaf
+// sommige Windows/netwerk-combinaties). 3 pogingen met korte backoff.
+async function dsvWithRetry(delimiter, url, attempts = 3) {
+  let lastError;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await dsv(delimiter, url);
+    } catch (err) {
+      lastError = err;
+      if (i < attempts - 1) await new Promise(r => setTimeout(r, 300 * (i + 1)));
+    }
+  }
+  throw lastError;
+}
+
 // Hetzner-CSV's gebruiken andere kolomnamen dan de oude Bonaire/Saba-gists.
 // Climate: `indicator` ipv `variabel`; SeaLevel/LLHI: `time` ipv `year`.
 // We mappen alles naar de oude namen zodat de Svelte-componenten ongewijzigd blijven.
@@ -33,9 +48,9 @@ export async function load({ url }) {
   for (const key in areas) {
     const { climate, seaLevel, llhi } = areas[key].dataUrls;
     const [climateData, seaLevelData, llhiData] = await Promise.all([
-      dsv(',', climate),
-      dsv(',', seaLevel),
-      dsv(',', llhi)
+      dsvWithRetry(',', climate),
+      dsvWithRetry(',', seaLevel),
+      dsvWithRetry(',', llhi)
     ]);
     areaData[key] = {
       climateData: climateData.map(normalizeClimate),
@@ -45,7 +60,7 @@ export async function load({ url }) {
   }
 
   // Fetch zeespiegel_historisch (global, not area-specific)
-  const zeespiegel_historisch = await dsv(',', 'https://gist.githubusercontent.com/stichtingcas/a1bf8178404a14f81aeb9d02b21058f5/raw/fc65d6816f0c2bfde5787775abcd81bd7d31e4a5/zeespiegelstijging-historisch.csv');
+  const zeespiegel_historisch = await dsvWithRetry(',', 'https://gist.githubusercontent.com/stichtingcas/a1bf8178404a14f81aeb9d02b21058f5/raw/fc65d6816f0c2bfde5787775abcd81bd7d31e4a5/zeespiegelstijging-historisch.csv');
 
   return {
     lang,
