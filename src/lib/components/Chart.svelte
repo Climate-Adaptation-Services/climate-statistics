@@ -85,7 +85,7 @@ $: filteredData = dataClimate && dataClimate.length
   $: yDomain = $datalaag?.indicator === 'hotDays' ? [0,365]:
      $theme === 'heat' ? [20,33]:
      $theme === 'wind' && $area_id === 'bq' ? [6,10]:
-     $theme === 'wind' && $area_id === 'se' ? [5,8]:
+     $theme === 'wind' && ($area_id === 'se' || $area_id === 'sa') ? [5,8]:
      $theme === 'wind' && $area_id === 'sm' ? [2,5]:
      $theme === 'wind' && windRange ? windRange:
      $theme === 'drought' ? [0, droughtMax]:

@@ -19,7 +19,7 @@ export const areas = {
     },
     logo: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/bonairenew.png',
     indicatorOptions: indicatorOptions['bq'],
-    switchableTo: ['se'],
+    switchableTo: [],
     dataUrls: {
       climate: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/bonaire_klimaatdata.csv',
       seaLevel: 'https://gist.githubusercontent.com/stichtingcas/cdcf6d53bdfeac4494ad81a4b2878aab/raw/6aeabf231a8ddf4d7835436a3a695ac9091dff0f/bonaire-zeespiegelstijging.csv',
@@ -57,21 +57,69 @@ export const areas = {
       hasLLHIParagraph: false
     }
   },
-  se: {
-    area_id: 'se',
-    name: 'Saba & St.Eustatius',
+  sa: {
+    area_id: 'sa',
+    name: 'Saba',
     localizedNames: {
-      en: 'Saba & St.Eustatius',
-      nl: 'Saba & St.Eustatius',
-      pa: 'Saba & Statia'
+      en: 'Saba',
+      nl: 'Saba',
+      pa: 'Saba'
     },
-    logo: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/saba_eus_gezelligbijelkaar.png',
-    indicatorOptions: indicatorOptions['se'],
-    switchableTo: ['bq'],
+    logo: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/saba_eus_gezelligbijelkaar.png', // TODO: vervang door Saba-eigen logo zodra beschikbaar
+    indicatorOptions: indicatorOptions['sa'],
+    switchableTo: [],
     dataUrls: {
-      climate: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/sabast_klimaatdata.csv',
+      climate: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/sabast_klimaatdata.csv', // TODO: vervang door Saba-eigen climate data zodra beschikbaar
       seaLevel: 'https://gist.githubusercontent.com/stichtingcas/86d27026230225096cc431697d0b0d94/raw/2d0a7a404447ce130f2d231cd3f7da1df38a65c0/saba-zeespiegelstijging.csv',
       llhi: 'https://gist.githubusercontent.com/stichtingcas/01a920f71325b35fc193d48f19dd065e/raw/baef6c01aa777844fad66c596eebee5ae37eb88f/llhi-saba.csv'
+    },
+    titles: {
+      en: {
+        heat: 'It is getting hotter',
+        drought: 'It is getting drier',
+        wind: 'There will be more wind',
+        slr: 'The sea levels are rising'
+      },
+      nl: {
+        heat: 'Het wordt warmer',
+        drought: 'Het wordt droger',
+        wind: 'Er zal meer wind komen',
+        slr: 'De zeespiegel stijgt'
+      },
+      pa: {
+        heat: 'Ta birando mas kalor',
+        drought: 'Ta birando mas seku',
+        wind: 'Lo tin mas bientu',
+        slr: 'Nivel di laman ta subiendo'
+      }
+    },
+    explanation: {
+      scenariosUrl: KNMI23_CLIMATE_SCENARIOS_URL,
+      scenariosLinkText: {
+        en: 'KNMI 2023 climate scenarios',
+        nl: 'KNMI’23-klimaatscenario’s',
+        pa: 'senarionan di klima di KNMI 2023'
+      },
+      scenarioOriginExtra: { en: '', nl: '', pa: '' },
+      referencePeriod: '1995–2014',
+      hasLLHIParagraph: false
+    }
+  },
+  se: {
+    area_id: 'se',
+    name: 'Sint Eustatius',
+    localizedNames: {
+      en: 'Sint Eustatius',
+      nl: 'Sint Eustatius',
+      pa: 'Statia'
+    },
+    logo: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/saba_eus_gezelligbijelkaar.png', // TODO: vervang door Sint Eustatius-eigen logo zodra beschikbaar
+    indicatorOptions: indicatorOptions['se'],
+    switchableTo: [],
+    dataUrls: {
+      climate: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/sabast_klimaatdata.csv', // TODO: vervang door Sint Eustatius-eigen climate data zodra beschikbaar
+      seaLevel: 'https://gist.githubusercontent.com/stichtingcas/86d27026230225096cc431697d0b0d94/raw/2d0a7a404447ce130f2d231cd3f7da1df38a65c0/saba-zeespiegelstijging.csv', // TODO: vervang door Sint Eustatius-eigen seaLevel zodra beschikbaar
+      llhi: 'https://gist.githubusercontent.com/stichtingcas/01a920f71325b35fc193d48f19dd065e/raw/baef6c01aa777844fad66c596eebee5ae37eb88f/llhi-saba.csv' // TODO: vervang door Sint Eustatius-eigen llhi zodra beschikbaar
     },
     titles: {
       en: {
