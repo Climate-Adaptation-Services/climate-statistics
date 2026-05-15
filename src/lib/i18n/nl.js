@@ -39,6 +39,7 @@ export const nederlands = {
     "transition": "transitie",
     "on": "op",
     "slrScenarioHighest": "Scenario voor hoogst mogelijke zeespiegelstijging",
+    "slrScenarioHighestShort": "Hoogst mogelijk scenario",
     "slrHover1": "Beweeg over de grafiek om",
     "slrHover2": "meer details te zien",
     "median": "Mediaan",

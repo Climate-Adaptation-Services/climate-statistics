@@ -42,10 +42,16 @@
 		height: 100%;
 	}
 
-	/* Op smalle iframes (mobiel) zoveel mogelijk ruimte aan de chart geven. */
-	@media (max-width: 480px) {
+	/* Op smalle iframes (mobiel/tablet) zoveel mogelijk ruimte aan de chart
+	   geven: tot 768px maar een minimale padding, en op zeer smal helemaal niets. */
+	@media (max-width: 768px) {
 		.embed-container {
 			padding: var(--space-xs);
+		}
+	}
+	@media (max-width: 480px) {
+		.embed-container {
+			padding: 0;
 		}
 	}
 </style>

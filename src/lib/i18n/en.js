@@ -40,6 +40,7 @@ export const english = {
     "transition": "transition",
     "on": "on",
     "slrScenarioHighest": "Scenario for highest possible sea level rise",
+    "slrScenarioHighestShort": "Highest possible scenario",
     "slrHover1": "Hover the chart to",
     "slrHover2": "see more detail",
     "median": "Median",

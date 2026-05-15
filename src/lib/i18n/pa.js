@@ -39,6 +39,7 @@ export const papiamentu = {
     "transition": "di transishon",
     "on": 'na',
     "slrScenarioHighest": "Senario pa subida mas haltu posibel di nivel di laman",
+    "slrScenarioHighestShort": "Senario mas haltu posibel",
     "slrHover1": "Pasa e kursor riba e gráfiko",
     "slrHover2": "pa mira mas detaye",
     "median": "Mediana",

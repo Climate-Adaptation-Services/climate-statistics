@@ -241,8 +241,12 @@
     }
     /* Op mobiel: compactere pills met natuurlijke breedte (tag-stijl).
        Wrappen naar nieuwe regel ipv uitrekken tot volle breedte, zodat het
-       menu lichter oogt op een telefoon. */
+       menu lichter oogt op een telefoon. De SLR-uitleg verbergen we hier,
+       want die wordt op mobiel apart ONDER de chart getoond (zie +page.svelte). */
     @media (max-width: 768px) {
+        .panel-section--explanation {
+            display: none;
+        }
         .pill {
             padding: 8px 14px;
         }

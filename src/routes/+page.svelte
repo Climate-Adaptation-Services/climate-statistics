@@ -68,6 +68,13 @@
 			<div class='explanation-container'>
 				<Explanation/>
 			</div>
+		{:else}
+			<!-- Op mobiel willen we de uitleg ONDER de chart in plaats van in
+			     de sidepanel boven. Op desktop blijft de sidepanel-uitleg actief
+			     (deze container is dan via CSS verborgen). -->
+			<div class='mobile-explanation'>
+				<Explanation/>
+			</div>
 		{/if}
 	</div>
 </div>
@@ -146,6 +153,16 @@
 		overflow-y: auto;
 	}
 
+	/* Voor slr-thema: de Explanation staat op desktop in de sidepanel; op mobiel
+	   verbergen we die sidepanel-versie en tonen we deze container ONDER de chart. */
+	.mobile-explanation { display: none; }
+	@media (max-width: 768px) {
+		.mobile-explanation {
+			display: block;
+			padding: var(--space-sm) var(--space-md);
+		}
+	}
+
 	/* --bp-md: 768px
 	   Op mobiel willen we GEEN interne scroll in de (voorheen) sidepanel of in
 	   de uitleg-balk; alles stapelt onder elkaar op natuurlijke hoogte. De
@@ -175,22 +192,22 @@
 			flex: 0 0 auto;
 		}
 		/* Chart heeft zonder flex-parent geen automatische hoogte; geef hem een
-		   vaste verhouding zodat hij niet naar 0 krimpt. */
+		   vaste minimum-hoogte. Geen aspect-ratio omdat die i.c.m. min-height
+		   in sommige browsers de breedte verkleint. */
 		.chart {
 			flex: 0 0 auto;
-			aspect-ratio: 4 / 3;
-			min-height: 280px;
+			width: 100%;
+			height: 65vh;
+			min-height: 460px;
+			max-height: 600px;
+		}
+		.chart-header {
+			padding: var(--space-sm) var(--space-md) var(--space-xs);
 		}
 		.explanation-container {
 			flex: 0 0 auto;
 			height: auto;
 			overflow: visible;
-		}
-	}
-	/* --bp-sm: 480px — kleine telefoons: nog compactere chart-header padding. */
-	@media (max-width: 480px) {
-		.chart-header {
-			padding: var(--space-sm) var(--space-md) var(--space-xs);
 		}
 	}
 </style>

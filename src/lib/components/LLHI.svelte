@@ -18,9 +18,14 @@
   // Wrap-breedte schaalt mee met de chartbreedte zodat lange vertalingen
   // (FR/EN) over meerdere regels breken in plaats van voorbij de SVG-rand
   // te lopen. Cap op een redelijk maximum voor brede schermen.
-  const noteWrap = Math.min(220, Math.max(120, $w * 0.22));
+  // Op mobiel meer wrap-breedte zodat het label max 2 regels neemt, en
+  // dx negatief zodat de tekst niet over de rechterkant valt.
+  const isNarrow = $w < 768;
+  const noteWrap = isNarrow
+    ? Math.max(180, $w * 0.5)
+    : Math.min(220, Math.max(120, $w * 0.22));
 
-  const annotations = [
+  const annotations = isNarrow ? [] : [
     {
       note: {
         label: get(t)('slrScenarioHighest'),

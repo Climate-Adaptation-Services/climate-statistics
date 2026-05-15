@@ -47,6 +47,7 @@ export const papiamentoAruba = {
     'wet': 'cu awa',
     'transition': 'di transicion',
     'slrScenarioHighest': 'Scenario pa subida mas halto posibel di nivel di lama',
+    'slrScenarioHighestShort': 'Scenario mas halto posibel',
     'slrHover1': 'Pasa e cursor riba e grafico',
     'slrHover2': 'pa mira mas detaye',
     'mild': 'Moderado',

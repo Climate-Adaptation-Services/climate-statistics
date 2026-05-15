@@ -9,6 +9,7 @@
   export let height
   export let areaOpacity
   export let margin
+  export let compact = false
 
   import { hoveredYear } from '$lib/stores';
   import { t } from '$lib/i18n/translate';
@@ -23,6 +24,26 @@
 <g class='hover'>
   {#if $hoveredYear !== null}
   <g>
+    {#if compact}
+      <!-- Mobiel: compacte tooltip BOVEN de plot zodat hij niet over de
+           grafiek valt. Plaats in de vergrote margin.top. -->
+      <g transform={`translate(${margin.left + 16}, 8)`}>
+        <text x='0' y='0' class='legendYear' font-size='18' font-weight='700' dominant-baseline='hanging' fill='#333'
+        >{Math.floor($hoveredYear)}</text>
+        <text x='82' y='4' class='legendCircles' font-size='11' fill='#888' dominant-baseline='hanging'
+        >mediaan</text>
+        <text x='150' y='4' class='legendCircles' font-size='11' fill='#888' dominant-baseline='hanging'
+        >bandbreedte</text>
+        {#each linesData as d, i}
+          {@const point = dataProjection.find(d2 => d2.year === $hoveredYear)}
+          <g transform={`translate(0, ${24 + i * 18})`}>
+            <text x='0' fill={d.color} font-size='13' font-weight='600' dominant-baseline='hanging'>{d.legendText}</text>
+            <text x='82' fill={d.color} font-size='13' dominant-baseline='hanging'>{Math.round(point[d.median])} cm</text>
+            <text x='150' fill={d.color} font-size='13' dominant-baseline='hanging'>{Math.round(point[d.variableLow])}–{Math.round(point[d.variableHigh])} cm</text>
+          </g>
+        {/each}
+      </g>
+    {:else}
     <!-- {/* Group to show hovered year and value ranges */} -->
     <g
       transform={`translate(${margin.left+50},${margin.top+40})`}
@@ -91,6 +112,7 @@
         </g>
       {/if} -->
     </g>
+    {/if}
 
     <!-- { /* dashed line to make extra clear what is hovered */ } -->
     <path
@@ -138,7 +160,7 @@
       {/each}
     </g>
   {:else}
-    <g transform={`translate(${margin.left+16},${margin.top+40})`}>
+    <g class='hover-prompt' transform={`translate(${margin.left+16},${margin.top+40})`}>
       <text font-style='italic' text-anchor='start' fill='#808080'>
         <tspan>{$t("slrHover1")}</tspan>
         <tspan x=0 y='1em'>{$t("slrHover2")}</tspan>
@@ -164,3 +186,10 @@
     />
   {/each}
 </g>
+
+<style>
+  /* Op mobiel/touch heeft een hover-instructie geen zin en ligt hij over de plot. */
+  @media (max-width: 768px) {
+    :global(svg#svg_zeespiegel_chart .hover-prompt) { display: none; }
+  }
+</style>

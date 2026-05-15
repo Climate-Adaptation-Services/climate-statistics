@@ -40,6 +40,7 @@ export const spanish = {
     "transition": "de transición",
     "on": "activado",
     "slrScenarioHighest": "Escenario del aumento máximo posible del nivel del mar",
+    "slrScenarioHighestShort": "Escenario máximo posible",
     "slrHover1": "Coloca el cursor sobre el gráfico para",
     "slrHover2": "ver más detalles",
     "median": "Mediana",
