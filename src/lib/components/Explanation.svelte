@@ -12,32 +12,53 @@
   }
 
 	$: {
-		let baseTekst;
-		if ($theme === 'slr') {
-			baseTekst = interpolate(areas[$area_id]?.explanation?.[$lang]?.sealevelrise);
-		} else if ($datalaag) {
-			// Voor de meeste indicators is variable de eerste twee woorden van de label.
-			// Voor hotDays gebruiken we een afzonderlijke vorm ('number of hot days' /
-			// 'het aantal hete dagen') zodat de zin natuurlijk leest na de definitie-zin.
-			const variable = $datalaag.indicator === 'hotDays'
-				? $t('hotDaysVariable')
-				: $t($datalaag.indicator).split(' ').slice(0,2).join(' ').toLowerCase();
+		const areaConf = areas[$area_id]?.explanation;
+		let baseTekst = '';
 
-			if ($datalaag.season === 'annual') {
-				baseTekst = interpolate(
-					areas[$area_id]?.explanation?.[$lang]?.annual,
-					{ variable }
-				);
-			} else {
-				const seasonPeriod = areas[$area_id]?.seasonperiod?.[$lang]?.[$datalaag.season] || '';
-				baseTekst = interpolate(
-					areas[$area_id]?.explanation?.[$lang]?.seasonal,
-					{
-						variable,
-						season: $t($datalaag.season),
-						seasonperiod: seasonPeriod
-					}
-				);
+		if (areaConf) {
+			// Per-eiland fragmenten: link-tekst en optionele "ontwikkeld door"-zin
+			// worden per taal opgegeven; KNMI-URL zit al verwerkt in scenarioOriginExtra.
+			const linkText = areaConf.scenariosLinkText?.[$lang] || '';
+			const scenariosLink = areaConf.scenariosUrl && linkText
+				? `<a href="${areaConf.scenariosUrl}" target="_blank">${linkText}</a>`
+				: linkText;
+			const scenarioOriginExtra = areaConf.scenarioOriginExtra?.[$lang] || '';
+			const referencePeriod = areaConf.referencePeriod || '';
+
+			let template = '';
+			let extraVars = {};
+
+			if ($theme === 'slr') {
+				template = $t('explanationSeaLevelRiseTemplate');
+			} else if ($datalaag) {
+				// Voor de meeste indicators is variable de eerste twee woorden van de label.
+				// Voor hotDays gebruiken we een afzonderlijke vorm ('number of hot days' /
+				// 'het aantal hete dagen') zodat de zin natuurlijk leest na de definitie-zin.
+				const variable = $datalaag.indicator === 'hotDays'
+					? $t('hotDaysVariable')
+					: $t($datalaag.indicator).split(' ').slice(0,2).join(' ').toLowerCase();
+				extraVars.variable = variable;
+
+				if ($datalaag.season === 'annual') {
+					template = $t('explanationAnnualTemplate');
+				} else {
+					const seasonPeriod = areas[$area_id]?.seasonperiod?.[$lang]?.[$datalaag.season] || '';
+					template = $t('explanationSeasonalTemplate');
+					extraVars.season = $t($datalaag.season);
+					// Lege parens vermijden als seasonperiod niet ingevuld is voor dit eiland.
+					extraVars.seasonperiodSuffix = seasonPeriod ? ` (${seasonPeriod})` : '';
+				}
+			}
+
+			baseTekst = interpolate(template, {
+				scenariosLink,
+				scenarioOriginExtra,
+				referencePeriod,
+				...extraVars
+			});
+
+			if ($theme === 'slr' && areaConf.hasLLHIParagraph) {
+				baseTekst += $t('explanationLLHIExtra');
 			}
 		}
 

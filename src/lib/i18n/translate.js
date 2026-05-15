@@ -4,17 +4,24 @@ import { nederlands } from './nl.js';
 import { english } from './en.js';
 import { papiamentu } from './pa.js';
 import { papiamentoAruba } from './pa-aruba.js';
+import { papiamentuCuracao } from './pa-curacao.js';
 import { french } from './fr.js';
 import { spanish } from './es.js';
 
+// Per-eiland Papiamento/Papiamentu overrides. Sleutels die hier niet voorkomen
+// vallen terug op pa.js. Voeg nieuwe eilanden toe door een override-bestand
+// te maken en hieronder te mappen.
+const paAreaOverrides = {
+  ar: papiamentoAruba,      // Aruba: Papiamento (etymologisch, Spaans-georiënteerd)
+  cu: papiamentuCuracao,    // Curaçao: eigen Papiamentu-variant
+};
+
 // t is een derived store zodat alle callers automatisch reageren op $lang/$area_id-changes.
 // Gebruik in Svelte-templates als $t('key') of $t('key', { placeholder: value }).
-// Aruba heeft een eigen Papiamento-variant (etymologische spelling, Spaans-georiënteerd)
-// die de Papiamentu van de BES-eilanden overschrijft via pa-aruba.js.
 export const t = derived([lang, area_id], ([$lang, $area_id]) => {
   let dict;
-  if ($lang === 'pa' && $area_id === 'ar') {
-    dict = { ...papiamentu, ...papiamentoAruba };
+  if ($lang === 'pa' && paAreaOverrides[$area_id]) {
+    dict = { ...papiamentu, ...paAreaOverrides[$area_id] };
   } else {
     dict =
       $lang === 'en' ? english :

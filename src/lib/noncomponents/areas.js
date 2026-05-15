@@ -46,21 +46,15 @@ export const areas = {
       }
     },
     explanation: {
-      en: {
-        annual: 'The bars show the {variable} in the current climate (1991-2020) and for the future climate around 2050 and 2100  <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(KNMI 2023 scenario’s)</a>. The scenarios represent the range within which climate change is likely to develop. This range depends on both the amount of greenhouse gases being emitted and the sensitivity of the climate system. The ‘low’ en ‘high’ scenarios reflect the two most widely differing scenarios.',
-        seasonal: 'The bars show the {variable} during the {season} season in the current climate (1991-2020) and for the future climate around 2050 and 2100 <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(KNMI 2023 scenario’s)</a>. The scenarios represent the range within which climate change is likely to develop. This range depends on both the amount of greenhouse gases being emitted and the sensitivity of the climate system. The ‘low’ en ‘high’ scenarios reflect the two most widely differing scenarios.',
-        sealevelrise: 'The graph shows sea level rise relative to the period 1995 to 2014 <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(KNMI 2023 scenario’s)</a>. The projections show the range within which climate change is likely to develop. This range depends on both the amount of greenhouse gases still being emitted (SSP1-2.6 and SSP5-8.5) and the sensitivity of the climate system (the shaded range).'
+      scenariosUrl: KNMI23_CLIMATE_SCENARIOS_URL,
+      scenariosLinkText: {
+        en: 'KNMI 2023 climate scenarios',
+        nl: 'KNMI’23-klimaatscenario’s',
+        pa: 'senarionan di klima di KNMI 2023'
       },
-      nl: {
-        annual: 'De grafiek toont {variable} voor het huidige klimaat (1991-2020) en voor het toekomstige klimaat rond 2050 en 2100, volgens <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">de KNMI’23-klimaatscenario’s</a>. De klimaatscenario’s tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen. Deze bandbreedte is afhankelijk van de hoeveelheid broeikasgassen die wordt uitgestoten en de gevoeligheid van het klimaatsysteem. De scenario’s ‘laag’ en ‘hoog’ zijn de twee scenario’s die het verst uit elkaar liggen.',
-        seasonal: 'De grafiek toont de {variable} tijdens het {season} seizoen voor het huidige klimaat (1991-2020) en voor het toekomstige klimaat rond 2050 en 2100, volgens <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">de KNMI’23-klimaatscenario’s</a>. De klimaatscenario’s tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen. Deze bandbreedte is afhankelijk van de hoeveelheid broeikasgassen die wordt uitgestoten en de gevoeligheid van het klimaatsysteem. De scenario’s ‘laag’ en ‘hoog’ zijn de twee scenario’s die het verst uit elkaar liggen.',
-        sealevelrise: 'De grafiek toont de zeespiegelstijging ten opzichte van de periode 1995 tot 2014 volgens de <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI 2023 scenario’s</a>. De klimaatscenario’s tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen. Deze bandbreedte is afhankelijk van de hoeveelheid broeikasgassen die wordt uitgestoten (SSP1-2.6 en SSP5-8.5) en de gevoeligheid van het klimaatsysteem (het donkere deel).'
-      },
-      pa: {
-        annual: 'Bara ta mustra {variable} den e klima aktual (1991-2020) i pa klima den futuro banda di 2050 i 2100  <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(senarionan di KNMI 2023)</a>. E senarionan ta representá e rango den kua probablemente kambio di klima ta desaroyá. E rango akí ta dependé di tantu e kantidat di gas ku ta emití komo e sensibilidat di e sistema di klima. E senarionan ‘bou’ i ‘haltu’ ta reflehá e dos senarionan mas diferente.',
-        seasonal: 'Bara ta mustra {variable} den e klima aktual (1991-2020) i pa klima den futuro banda di 2050 i 2100  <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(senarionan di KNMI 2023)</a>. E senarionan ta representá e rango den kua probablemente kambio di klima ta desaroyá. E rango akí ta dependé di tantu e kantidat di gas ku ta emití komo e sensibilidat di e sistema di klima. E senarionan ‘bou’ i ‘haltu’ ta reflehá e dos senarionan mas diferente.',
-        sealevelrise: 'Bara ta mustra {variable} den e klima aktual (1991-2020) i pa klima den futuro banda di 2050 i 2100  <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(senarionan di KNMI 2023)</a>. E senarionan ta representá e rango den kua probablemente kambio di klima ta desaroyá. E rango akí ta dependé di tantu e kantidat di gas ku ta emití komo e sensibilidat di e sistema di klima. E senarionan ‘bou’ i ‘haltu’ ta reflehá e dos senarionan mas diferente.',
-      }
+      scenarioOriginExtra: { en: '', nl: '', pa: '' },
+      referencePeriod: '1995–2014',
+      hasLLHIParagraph: false
     }
   },
   se: {
@@ -100,21 +94,15 @@ export const areas = {
       }
     },
     explanation: {
-      en: {
-        annual: 'The bars show the {variable} in the current climate (1991-2020) and for the future climate around 2050 and 2100  <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(KNMI 2023 scenario’s)</a>. The scenarios represent the range within which climate change is likely to develop. This range depends on both the amount of greenhouse gases being emitted and the sensitivity of the climate system. The ‘low’ en ‘high’ scenarios reflect the two most widely differing scenarios.',
-        seasonal: 'The bars show the {variable} during the {season} season in the current climate (1991-2020) and for the future climate around 2050 and 2100 <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(KNMI 2023 scenario’s)</a>. The scenarios represent the range within which climate change is likely to develop. This range depends on both the amount of greenhouse gases being emitted and the sensitivity of the climate system. The ‘low’ en ‘high’ scenarios reflect the two most widely differing scenarios.',
-        sealevelrise: 'The graph shows sea level rise relative to the period 1995 to 2014 <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">(KNMI 2023 scenario’s)</a>. The projections show the range within which climate change is likely to develop. This range depends on both the amount of greenhouse gases still being emitted (SSP1-2.6 and SSP5-8.5) and the sensitivity of the climate system (the shaded range).'
+      scenariosUrl: KNMI23_CLIMATE_SCENARIOS_URL,
+      scenariosLinkText: {
+        en: 'KNMI 2023 climate scenarios',
+        nl: 'KNMI’23-klimaatscenario’s',
+        pa: 'senarionan di klima di KNMI 2023'
       },
-      nl: {
-        annual: 'De grafiek toont {variable} voor het huidige klimaat (1991-2020) en voor het toekomstige klimaat rond 2050 en 2100, volgens <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">de KNMI’23-klimaatscenario’s</a>. De klimaatscenario’s tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen. Deze bandbreedte is afhankelijk van de hoeveelheid broeikasgassen die wordt uitgestoten en de gevoeligheid van het klimaatsysteem. De scenario’s ‘laag’ en ‘hoog’ zijn de twee scenario’s die het verst uit elkaar liggen.',
-        seasonal: 'De grafiek toont de {variable} tijdens het {season} seizoen voor het huidige klimaat (1991-2020) en voor het toekomstige klimaat rond 2050 en 2100, volgens <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">de KNMI’23-klimaatscenario’s</a>. De klimaatscenario’s tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen. Deze bandbreedte is afhankelijk van de hoeveelheid broeikasgassen die wordt uitgestoten en de gevoeligheid van het klimaatsysteem. De scenario’s ‘laag’ en ‘hoog’ zijn de twee scenario’s die het verst uit elkaar liggen.',
-        sealevelrise: 'De grafiek toont de zeespiegelstijging ten opzichte van de periode 1995 tot 2014 volgens de <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI 2023 scenario’s</a>. De klimaatscenario’s tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen. Deze bandbreedte is afhankelijk van de hoeveelheid broeikasgassen die wordt uitgestoten (SSP1-2.6 en SSP5-8.5) en de gevoeligheid van het klimaatsysteem (het donkere deel).'
-      },
-      pa: {
-        annual:'Bara ta mustra {variable} den e klima aktual (1991-2020) i pa klima den futuro banda di 2050 i 2100  <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(senarionan di KNMI 2023)</a>. E senarionan ta representá e rango den kua probablemente kambio di klima ta desaroyá. E rango akí ta dependé di tantu e kantidat di gas ku ta emití komo e sensibilidat di e sistema di klima. E senarionan ‘bou’ i ‘haltu’ ta reflehá e dos senarionan mas diferente.',
-        seasonal: 'Bara ta mustra {variable} promedio durante e temporada {season} den e klima aktual (1991-2020) i pa klima den futuro banda di 2050 i 2100 <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(senarionan di KNMI 2023)</a>. E senarionan ta representá e rango den kua probablemente kambio di klima ta desaroyá. E rango akí ta dependé di tantu e kantidat di gas ku ta emití komo e sensibilidat di e sistema di klima. E senarionan ‘bou’ i ‘haltu’ ta reflehá e dos senarionan mas diferente.',
-        sealevelrise:'E gráfiko ta mustra subida di nivel di laman relashoná ku e periodo 1995 te 2014 <a href="https://cdn.knmi.nl/system/data_center_publications/files/000/071/901/original/KNMI23_klimaatscenarios_gebruikersrapport_23-03.pdf" target="_blank">(senarionan di KNMI 2023)</a>. E proyekshonnan ta mustra e rango den kua kambio di klima probablemente ta desaroyá. E rango akí ta dependé di tantu e kantidat di gas ku ketu bai ta emití (SSP1-2.6 i SSP5-8.5) komo sensibilidat di e sistema di klima (e rango ku sombra).'
-      }
+      scenarioOriginExtra: { en: '', nl: '', pa: '' },
+      referencePeriod: '1995–2014',
+      hasLLHIParagraph: false
     }
   },
   sm: {
@@ -154,21 +142,19 @@ export const areas = {
       }
     },
     explanation: {
-      en: {
-        annual: 'The bars show the {variable} in the current climate (1991–2020) and for the future climate around 2050 and 2100, based on the <a href="'+IPDC_SINT_MAARTEN_URL+'" target="_blank">IPDC 2025 climate scenarios for Sint Maarten</a>. The scenarios were developed by the <a href="https://www.meteosxm.com/" target="_blank">Meteorological Department St. Maarten (MDS)</a> together with <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. The ‘low’ and ‘high’ scenarios show the range within which climate change is likely to develop, depending on greenhouse gas emissions and the sensitivity of the climate system.',
-        seasonal: 'The bars show the {variable} during the {season} season ({seasonperiod}) in the current climate (1991–2020) and for the future climate around 2050 and 2100, based on the <a href="'+IPDC_SINT_MAARTEN_URL+'" target="_blank">IPDC 2025 climate scenarios for Sint Maarten</a>. The scenarios were developed by the <a href="https://www.meteosxm.com/" target="_blank">Meteorological Department St. Maarten (MDS)</a> together with <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. The ‘low’ and ‘high’ scenarios show the range within which climate change is likely to develop, depending on greenhouse gas emissions and the sensitivity of the climate system.',
-        sealevelrise: 'The graph shows sea level rise relative to the period 1995–2014, based on the <a href="'+IPDC_SINT_MAARTEN_URL+'" target="_blank">IPDC 2025 climate scenarios for Sint Maarten</a>. The scenarios were developed by the <a href="https://www.meteosxm.com/" target="_blank">Meteorological Department St. Maarten (MDS)</a> together with <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. The projections show the range within which climate change is likely to develop, depending on the amount of greenhouse gases emitted (SSP1-2.6 and SSP5-8.5) and the sensitivity of the climate system (the shaded range). The dashed line shows the highest possible sea level rise. Current models consider this outcome unlikely, but because not all climate processes are fully understood it cannot be ruled out; to support preparedness for extreme cases, this scenario is included in the graph.',
+      scenariosUrl: IPDC_SINT_MAARTEN_URL,
+      scenariosLinkText: {
+        en: 'IPDC 2025 climate scenarios for Sint Maarten',
+        fr: 'scénarios climatiques IPDC 2025 pour Saint-Martin',
+        es: 'escenarios climáticos IPDC 2025 para Sint Maarten'
       },
-      fr: {
-        annual: 'Les barres montrent la {variable} dans le climat actuel (1991–2020) et pour le climat futur vers 2050 et 2100, sur la base des <a href="'+IPDC_SINT_MAARTEN_URL+'" target="_blank">scénarios climatiques IPDC 2025 pour Saint-Martin</a>. Les scénarios ont été développés par le <a href="https://www.meteosxm.com/" target="_blank">Service météorologique de Saint-Martin (MDS)</a> en collaboration avec <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">le KNMI</a>. Les scénarios « bas » et « haut » montrent la fourchette dans laquelle le changement climatique est susceptible d\'évoluer, selon les émissions de gaz à effet de serre et la sensibilité du système climatique.',
-        seasonal: 'Les barres montrent la {variable} pendant la saison {season} ({seasonperiod}) dans le climat actuel (1991–2020) et pour le climat futur vers 2050 et 2100, sur la base des <a href="'+IPDC_SINT_MAARTEN_URL+'" target="_blank">scénarios climatiques IPDC 2025 pour Saint-Martin</a>. Les scénarios ont été développés par le <a href="https://www.meteosxm.com/" target="_blank">Service météorologique de Saint-Martin (MDS)</a> en collaboration avec <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">le KNMI</a>. Les scénarios « bas » et « haut » montrent la fourchette dans laquelle le changement climatique est susceptible d\'évoluer, selon les émissions de gaz à effet de serre et la sensibilité du système climatique.',
-        sealevelrise: 'Le graphique montre l\'élévation du niveau de la mer par rapport à la période 1995–2014, sur la base des <a href="'+IPDC_SINT_MAARTEN_URL+'" target="_blank">scénarios climatiques IPDC 2025 pour Saint-Martin</a>. Les scénarios ont été développés par le <a href="https://www.meteosxm.com/" target="_blank">Service météorologique de Saint-Martin (MDS)</a> en collaboration avec <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">le KNMI</a>. Les projections montrent la fourchette dans laquelle le changement climatique est susceptible d\'évoluer, selon la quantité de gaz à effet de serre émis (SSP1-2.6 et SSP5-8.5) et la sensibilité du système climatique (la zone ombrée). La ligne en pointillés montre l\'élévation maximale possible du niveau de la mer ; les modèles actuels considèrent ce résultat improbable mais ne peuvent l\'exclure, et il est inclus pour soutenir la préparation aux cas extrêmes.',
+      scenarioOriginExtra: {
+        en: ' The scenarios were developed by the <a href="https://www.meteosxm.com/" target="_blank">Meteorological Department St. Maarten (MDS)</a> together with <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>.',
+        fr: ' Les scénarios ont été développés par le <a href="https://www.meteosxm.com/" target="_blank">Service météorologique de Saint-Martin (MDS)</a> en collaboration avec <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">le KNMI</a>.',
+        es: ' Los escenarios fueron desarrollados por el <a href="https://www.meteosxm.com/" target="_blank">Servicio Meteorológico de Sint Maarten (MDS)</a> junto con <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">el KNMI</a>.'
       },
-      es: {
-        annual: 'Las barras muestran la {variable} en el clima actual (1991–2020) y en el clima futuro hacia 2050 y 2100, sobre la base de los <a href="'+IPDC_SINT_MAARTEN_URL+'" target="_blank">escenarios climáticos IPDC 2025 para Sint Maarten</a>. Los escenarios fueron desarrollados por el <a href="https://www.meteosxm.com/" target="_blank">Servicio Meteorológico de Sint Maarten (MDS)</a> junto con <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">el KNMI</a>. Los escenarios «bajo» y «alto» muestran el rango dentro del cual probablemente se desarrollará el cambio climático, dependiendo de las emisiones de gases de efecto invernadero y de la sensibilidad del sistema climático.',
-        seasonal: 'Las barras muestran la {variable} durante la temporada {season} ({seasonperiod}) en el clima actual (1991–2020) y en el clima futuro hacia 2050 y 2100, sobre la base de los <a href="'+IPDC_SINT_MAARTEN_URL+'" target="_blank">escenarios climáticos IPDC 2025 para Sint Maarten</a>. Los escenarios fueron desarrollados por el <a href="https://www.meteosxm.com/" target="_blank">Servicio Meteorológico de Sint Maarten (MDS)</a> junto con <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">el KNMI</a>. Los escenarios «bajo» y «alto» muestran el rango dentro del cual probablemente se desarrollará el cambio climático, dependiendo de las emisiones de gases de efecto invernadero y de la sensibilidad del sistema climático.',
-        sealevelrise: 'El gráfico muestra el aumento del nivel del mar en relación con el período 1995–2014, sobre la base de los <a href="'+IPDC_SINT_MAARTEN_URL+'" target="_blank">escenarios climáticos IPDC 2025 para Sint Maarten</a>. Los escenarios fueron desarrollados por el <a href="https://www.meteosxm.com/" target="_blank">Servicio Meteorológico de Sint Maarten (MDS)</a> junto con <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">el KNMI</a>. Las proyecciones muestran el rango dentro del cual probablemente se desarrollará el cambio climático, dependiendo de las emisiones de gases de efecto invernadero (SSP1-2.6 y SSP5-8.5) y de la sensibilidad del sistema climático (la zona sombreada). La línea discontinua muestra el aumento máximo posible del nivel del mar; los modelos actuales lo consideran improbable pero no pueden descartarlo, y se incluye para apoyar la preparación ante casos extremos.',
-      }
+      referencePeriod: '1995–2014',
+      hasLLHIParagraph: true
     },
     seasonperiod: {
       en: {
@@ -219,25 +205,23 @@ export const areas = {
         heat: 'Ta birando mas kalor',
         drought: 'Ta birando mas seku',
         wind: 'Lo tin mas bientu',
-        slr: 'Nivel di laman ta subiendo'
+        slr: 'Nivel di laman ta subi'
       }
     },
     explanation: {
-      en: {
-        annual: 'The bars show the {variable} in the current climate (1991–2020) and for the future climate around 2050 and 2100, based on the <a href="'+IPDC_CURACAO_URL+'" target="_blank">IPDC 2025 climate scenarios for Curaçao</a>. The scenarios were developed by the Meteorological Department Curaçao (MDC) together with <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. The ‘low’ and ‘high’ scenarios show the range within which climate change is likely to develop, depending on greenhouse gas emissions and the sensitivity of the climate system.',
-        seasonal: 'The bars show the {variable} during the {season} season in the current climate (1991–2020) and for the future climate around 2050 and 2100, based on the <a href="'+IPDC_CURACAO_URL+'" target="_blank">IPDC 2025 climate scenarios for Curaçao</a>. The scenarios were developed by the Meteorological Department Curaçao (MDC) together with <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. The ‘low’ and ‘high’ scenarios show the range within which climate change is likely to develop, depending on greenhouse gas emissions and the sensitivity of the climate system.',
-        sealevelrise: 'The graph shows sea level rise relative to the period 1995–2014, based on the <a href="'+IPDC_CURACAO_URL+'" target="_blank">IPDC 2025 climate scenarios for Curaçao</a>. The scenarios were developed by the Meteorological Department Curaçao (MDC) together with <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. The projections show the range within which climate change is likely to develop, depending on the amount of greenhouse gases emitted (SSP1-2.6 and SSP5-8.5) and the sensitivity of the climate system (the shaded range).'
+      scenariosUrl: IPDC_CURACAO_URL,
+      scenariosLinkText: {
+        en: 'IPDC 2025 climate scenarios for Curaçao',
+        nl: 'IPDC-klimaatscenario’s 2025 voor Curaçao',
+        pa: 'senarionan di klima IPDC 2025 pa Kòrsou'
       },
-      nl: {
-        annual: 'De grafiek toont {variable} voor het huidige klimaat (1991–2020) en voor het toekomstige klimaat rond 2050 en 2100, gebaseerd op de <a href="'+IPDC_CURACAO_URL+'" target="_blank">IPDC-klimaatscenario’s 2025 voor Curaçao</a>. De scenario’s zijn ontwikkeld door de Meteorologische Dienst Curaçao (MDC) samen met <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. De scenario’s ‘laag’ en ‘hoog’ tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen, afhankelijk van de uitstoot van broeikasgassen en de gevoeligheid van het klimaatsysteem.',
-        seasonal: 'De grafiek toont {variable} tijdens het {season} seizoen voor het huidige klimaat (1991–2020) en voor het toekomstige klimaat rond 2050 en 2100, gebaseerd op de <a href="'+IPDC_CURACAO_URL+'" target="_blank">IPDC-klimaatscenario’s 2025 voor Curaçao</a>. De scenario’s zijn ontwikkeld door de Meteorologische Dienst Curaçao (MDC) samen met <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. De scenario’s ‘laag’ en ‘hoog’ tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen, afhankelijk van de uitstoot van broeikasgassen en de gevoeligheid van het klimaatsysteem.',
-        sealevelrise: 'De grafiek toont de zeespiegelstijging ten opzichte van de periode 1995–2014, gebaseerd op de <a href="'+IPDC_CURACAO_URL+'" target="_blank">IPDC-klimaatscenario’s 2025 voor Curaçao</a>. De scenario’s zijn ontwikkeld door de Meteorologische Dienst Curaçao (MDC) samen met <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. De projecties tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen, afhankelijk van de uitstoot van broeikasgassen (SSP1-2.6 en SSP5-8.5) en de gevoeligheid van het klimaatsysteem (het donkere deel).'
+      scenarioOriginExtra: {
+        en: ' The scenarios were developed by the Meteorological Department Curaçao (MDC) together with <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>.',
+        nl: ' De scenario’s zijn ontwikkeld door de Meteorologische Dienst Curaçao (MDC) samen met <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>.',
+        pa: ' E senarionan a wòrdu desaroyá pa Departamentu Meteorológiko di Kòrsou (MDC) huntu ku <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>.'
       },
-      pa: {
-        annual: 'Bara ta mustra {variable} den e klima aktual (1991–2020) i pa klima den futuro banda di 2050 i 2100, basá riba e <a href="'+IPDC_CURACAO_URL+'" target="_blank">senarionan di klima IPDC 2025 pa Kòrsou</a>. E senarionan a wòrdu desaroyá pa Departamentu Meteorológiko di Kòrsou (MDC) huntu ku <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. E senarionan ‘bou’ i ‘haltu’ ta mustra e rango den kua probablemente kambio di klima ta desaroyá, dependiendo di e emishon di gas di efekto invernadero i e sensibilidat di e sistema di klima.',
-        seasonal: 'Bara ta mustra {variable} durante e temporada {season} den e klima aktual (1991–2020) i pa klima den futuro banda di 2050 i 2100, basá riba e <a href="'+IPDC_CURACAO_URL+'" target="_blank">senarionan di klima IPDC 2025 pa Kòrsou</a>. E senarionan a wòrdu desaroyá pa Departamentu Meteorológiko di Kòrsou (MDC) huntu ku <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. E senarionan ‘bou’ i ‘haltu’ ta mustra e rango den kua probablemente kambio di klima ta desaroyá, dependiendo di e emishon di gas di efekto invernadero i e sensibilidat di e sistema di klima.',
-        sealevelrise: 'E gráfiko ta mustra e subida di nivel di laman relashoná ku e periodo 1995–2014, basá riba e <a href="'+IPDC_CURACAO_URL+'" target="_blank">senarionan di klima IPDC 2025 pa Kòrsou</a>. E senarionan a wòrdu desaroyá pa Departamentu Meteorológiko di Kòrsou (MDC) huntu ku <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. E proyekshonnan ta mustra e rango den kua probablemente kambio di klima ta desaroyá, dependiendo di e kantidat di gas di efekto invernadero ku ta emití (SSP1-2.6 i SSP5-8.5) i e sensibilidat di e sistema di klima (e parti skur).'
-      }
+      referencePeriod: '1995–2014',
+      hasLLHIParagraph: false
     }
   },
   ar: {
@@ -274,28 +258,23 @@ export const areas = {
         heat: 'Ta bira mas cayente',
         drought: 'Ta bira mas seco',
         wind: 'Lo tin mas biento',
-        slr: 'Nivel di laman ta subi'
+        slr: 'Nivel di lama ta subi'
       }
     },
     explanation: {
-      en: {
-        annual: 'The bars show the {variable} in the current climate (1991–2020) and for the future climate around 2050 and 2100, based on the <a href="'+IPDC_ARUBA_URL+'" target="_blank">IPDC 2025 climate scenarios for Aruba</a>. The scenarios were developed by the Departamento Meteorlogico Aruba (DMA) together with <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. The ‘low’ and ‘high’ scenarios show the range within which climate change is likely to develop, depending on greenhouse gas emissions and the sensitivity of the climate system.',
-        seasonal: 'The bars show the {variable} during the {season} season ({seasonperiod}) in the current climate (1991–2020) and for the future climate around 2050 and 2100, based on the <a href="'+IPDC_ARUBA_URL+'" target="_blank">IPDC 2025 climate scenarios for Aruba</a>. The scenarios were developed by the Departamento Meteorlogico Aruba (DMA) together with <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. The ‘low’ and ‘high’ scenarios show the range within which climate change is likely to develop, depending on greenhouse gas emissions and the sensitivity of the climate system.',
-        sealevelrise: 'The graph shows sea level rise relative to the period 1995–2014, based on the <a href="'+IPDC_ARUBA_URL+'" target="_blank">IPDC 2025 climate scenarios for Aruba</a>. The scenarios were developed by the Departamento Meteorlogico Aruba (DMA) together with <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. The projections show the range within which climate change is likely to develop, depending on the amount of greenhouse gases emitted (SSP1-2.6 and SSP5-8.5) and the sensitivity of the climate system (the shaded range). The dashed line shows the highest possible sea level rise. Current models consider this outcome unlikely, but because not all climate processes are fully understood it cannot be ruled out; to support preparedness for extreme cases, this scenario is included in the graph.'
+      scenariosUrl: IPDC_ARUBA_URL,
+      scenariosLinkText: {
+        en: 'IPDC 2025 climate scenarios for Aruba',
+        nl: 'IPDC-klimaatscenario’s 2025 voor Aruba',
+        pa: 'scenarionan di clima IPDC 2025 pa Aruba'
       },
-      nl: {
-        annual: 'De grafiek toont {variable} voor het huidige klimaat (1991–2020) en voor het toekomstige klimaat rond 2050 en 2100, gebaseerd op de <a href="'+IPDC_ARUBA_URL+'" target="_blank">IPDC-klimaatscenario’s 2025 voor Aruba</a>. De scenario’s zijn ontwikkeld door de Departamento Meteorlogico Aruba (DMA) samen met <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. De scenario’s ‘laag’ en ‘hoog’ tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen, afhankelijk van de uitstoot van broeikasgassen en de gevoeligheid van het klimaatsysteem.',
-        seasonal: 'De grafiek toont {variable} tijdens het {season} seizoen ({seasonperiod}) voor het huidige klimaat (1991–2020) en voor het toekomstige klimaat rond 2050 en 2100, gebaseerd op de <a href="'+IPDC_ARUBA_URL+'" target="_blank">IPDC-klimaatscenario’s 2025 voor Aruba</a>. De scenario’s zijn ontwikkeld door de Departamento Meteorlogico Aruba (DMA) samen met <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. De scenario’s ‘laag’ en ‘hoog’ tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen, afhankelijk van de uitstoot van broeikasgassen en de gevoeligheid van het klimaatsysteem.',
-        sealevelrise: 'De grafiek toont de zeespiegelstijging ten opzichte van de periode 1995–2014, gebaseerd op de <a href="'+IPDC_ARUBA_URL+'" target="_blank">IPDC-klimaatscenario’s 2025 voor Aruba</a>. De scenario’s zijn ontwikkeld door de Departamento Meteorlogico Aruba (DMA) samen met <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. De projecties tonen de bandbreedte waarbinnen klimaatverandering zich waarschijnlijk zal ontwikkelen, afhankelijk van de uitstoot van broeikasgassen (SSP1-2.6 en SSP5-8.5) en de gevoeligheid van het klimaatsysteem (het donkere deel). De gestreepte lijn toont de hoogst mogelijke zeespiegelstijging. Huidige modellen achten deze uitkomst onwaarschijnlijk, maar omdat niet alle klimaatprocessen volledig worden begrepen kan deze niet worden uitgesloten; om voorbereiding op extreme gevallen te ondersteunen, is dit scenario in de grafiek opgenomen.'
+      scenarioOriginExtra: {
+        en: ' The scenarios were developed by the Departamento Meteorlogico Aruba (DMA) together with <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>.',
+        nl: ' De scenario’s zijn ontwikkeld door de Departamento Meteorlogico Aruba (DMA) samen met <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>.',
+        pa: ' E scenarionan a wordo desaroya pa Departamento Meteorlogico Aruba (DMA) hunto cu <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>.'
       },
-      // Papiamento (Aruba) — etymologische spelling. Eerste poging op basis van
-      // spellingregels (k→c/qu, sh→c, ks→x, ku→cu, diacritica weg op wordu/modelonan);
-      // controle door een Aruban PA-spreker is nodig.
-      pa: {
-        annual: 'Bara ta mustra {variable} den e clima actual (1991–2020) i pa clima den futuro banda di 2050 i 2100, basá riba e <a href="'+IPDC_ARUBA_URL+'" target="_blank">scenarionan di clima IPDC 2025 pa Aruba</a>. E scenarionan a wordo desaroyá pa Departamento Meteorlogico Aruba (DMA) huntu cu <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. E scenarionan ‘abao’ i ‘halto’ ta mustra e rango den cua probablemente cambio di clima ta desaroyá, dependiendo di e emision di gas di efecto invernadero i e sensibilidat di e sistema di clima.',
-        seasonal: 'Bara ta mustra {variable} durante e temporada {season} ({seasonperiod}) den e clima actual (1991–2020) i pa clima den futuro banda di 2050 i 2100, basá riba e <a href="'+IPDC_ARUBA_URL+'" target="_blank">scenarionan di clima IPDC 2025 pa Aruba</a>. E scenarionan a wordo desaroyá pa Departamento Meteorlogico Aruba (DMA) huntu cu <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. E scenarionan ‘abao’ i ‘halto’ ta mustra e rango den cua probablemente cambio di clima ta desaroyá, dependiendo di e emision di gas di efecto invernadero i e sensibilidat di e sistema di clima.',
-        sealevelrise: 'E gráfico ta mustra e subida di nivel di laman relacioná cu e periodo 1995–2014, basá riba e <a href="'+IPDC_ARUBA_URL+'" target="_blank">scenarionan di clima IPDC 2025 pa Aruba</a>. E scenarionan a wordo desaroyá pa Departamento Meteorlogico Aruba (DMA) huntu cu <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">KNMI</a>. E proyeccionnan ta mustra e rango den cua probablemente cambio di clima ta desaroyá, dependiendo di e cantidad di gas di efecto invernadero cu ta emiti (SSP1-2.6 i SSP5-8.5) i e sensibilidat di e sistema di clima (e parti scur). E liña di punto ta mustra e subida mas alto posibel di nivel di laman. Modelonan actual ta considerá e resultado aki improbable, pero pasobra no tur procesonan di clima ta totalmente comprendi, no por wordo excluí; pa apoyá preparacion pa casonan extremo, e scenario aki ta wordo incluí den e gráfico.'
-      }
+      referencePeriod: '1995–2014',
+      hasLLHIParagraph: true
     },
     seasonperiod: {
       en: {
