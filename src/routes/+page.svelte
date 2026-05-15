@@ -121,7 +121,7 @@
 	.chart-title{
 		margin: 0 auto;
 		max-width: 60ch;
-		font-size: var(--fs-xl);
+		font-size: clamp(1.05rem, 2.5vw + 0.6rem, 1.75rem);
 		font-weight: 600;
 		line-height: var(--lh-tight);
 		color: var(--c-primary-dark, #184145);
@@ -140,24 +140,57 @@
 		display:flex;
 		flex: 0 0 auto;
 		flex-direction:column;
-		height: min(20vh, 160px);
+		height: auto;
+		max-height: min(20vh, 160px);
 		padding: var(--space-sm) var(--space-md);
 		overflow-y: auto;
 	}
 
-	/* --bp-md: 768px */
+	/* --bp-md: 768px
+	   Op mobiel willen we GEEN interne scroll in de (voorheen) sidepanel of in
+	   de uitleg-balk; alles stapelt onder elkaar op natuurlijke hoogte. De
+	   embedding pagina (of iframe) regelt het verticale scrollen. */
 	@media (max-width: 768px) {
 		.App {
 			flex-direction: column;
+			height: auto;
+			min-height: 100%;
+			overflow: visible;
 		}
 		.sidepanel {
 			width: 100%;
 			min-width: 0;
+			max-width: none;
+			flex: 0 0 auto;
+			overflow: visible;
+			padding: var(--space-md) var(--space-md) var(--space-sm);
 		}
 		.main_panel {
 			width: 100%;
 			border-left: none;
 			border-top: 1px solid var(--c-border);
+			flex: 0 0 auto;
+		}
+		.chart-container {
+			flex: 0 0 auto;
+		}
+		/* Chart heeft zonder flex-parent geen automatische hoogte; geef hem een
+		   vaste verhouding zodat hij niet naar 0 krimpt. */
+		.chart {
+			flex: 0 0 auto;
+			aspect-ratio: 4 / 3;
+			min-height: 280px;
+		}
+		.explanation-container {
+			flex: 0 0 auto;
+			height: auto;
+			overflow: visible;
+		}
+	}
+	/* --bp-sm: 480px — kleine telefoons: nog compactere chart-header padding. */
+	@media (max-width: 480px) {
+		.chart-header {
+			padding: var(--space-sm) var(--space-md) var(--space-xs);
 		}
 	}
 </style>

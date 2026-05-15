@@ -202,7 +202,7 @@
         all: unset;
         box-sizing: border-box;
         cursor: pointer;
-        padding: 8px 16px;
+        padding: 10px 16px;
         font-size: var(--fs-sm);
         line-height: 1.4;
         color: var(--c-primary-dark, #184145);
@@ -234,10 +234,24 @@
         grid-template-columns: repeat(4, 1fr);
         gap: var(--space-sm);
         width: 100%;
+        /* Voorkomt dat iconen onnodig opzwellen als de sidepanel breed wordt
+           (vooral op mobiel, waar de sidepanel volledige paginabreedte krijgt). */
+        max-width: 360px;
+        margin: 0 auto;
     }
-    @media (max-width: 420px) {
-        .theme-row {
-            grid-template-columns: repeat(2, 1fr);
+    /* Op mobiel: compactere pills met natuurlijke breedte (tag-stijl).
+       Wrappen naar nieuwe regel ipv uitrekken tot volle breedte, zodat het
+       menu lichter oogt op een telefoon. */
+    @media (max-width: 768px) {
+        .pill {
+            padding: 8px 14px;
+        }
+        .pill-group:not(.pill-group--stacked) {
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+        .pill-group:not(.pill-group--stacked) .pill {
+            flex: 0 0 auto;
         }
     }
     .theme-btn {
@@ -293,9 +307,21 @@
         color: var(--c-primary, #216666);
         text-align: center;
         line-height: var(--lh-tight);
+        /* Op breed scherm afkappen om layout stabiel te houden; op smal scherm
+           liever wrappen dan een ellipsis tonen bij langere vertalingen (nl/es). */
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+    @media (max-width: 480px) {
+        .active-theme-label {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+        }
+        .panel-section {
+            padding: var(--space-sm) 0;
+        }
     }
     .country-row {
         display: grid;
@@ -303,11 +329,21 @@
         gap: var(--space-md);
         margin-bottom: var(--space-md);
         width: 100%;
+        /* Cap zodat eilanden-iconen niet enorm worden als er weinig opties zijn
+           en de sidepanel-breedte vrij groeit (mobiel, brede embed). */
+        max-width: 360px;
+        margin-left: auto;
+        margin-right: auto;
     }
     .country-item {
         display: flex;
         flex-direction: column;
         align-items: center;
+        /* Individuele logo niet onnodig opzwellen bij weinig eilanden
+           (anders rekt 1fr de track uit tot >150px). */
+        max-width: 100px;
+        margin-left: auto;
+        margin-right: auto;
     }
     .country-btn {
         all: unset;
@@ -316,6 +352,7 @@
         align-items: center;
         justify-content: center;
         width: 100%;
+        min-height: 44px;
         border-radius: 4px;
     }
     .country-btn:focus-visible {

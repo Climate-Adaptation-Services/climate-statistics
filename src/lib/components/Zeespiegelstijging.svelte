@@ -114,7 +114,7 @@
   <YAxis xTransform={margin.left} yTransform={0} scale={yScale} className="lineChart__yAxis" axis={yAxis}/>
   <text
     class='y-axis-label'
-    transform={`translate(24, ${(margin.top + innerHeight) / 2}) rotate(-90)`}
+    transform={`translate(${Math.min(24, margin.left / 3)}, ${(margin.top + innerHeight) / 2}) rotate(-90)`}
     text-anchor='middle'
   >{$t("riseInCm")}</text>
 
@@ -183,6 +183,13 @@
   .y-axis-label {
     font-size: var(--fs-sm);
     fill: var(--c-muted, #666);
+  }
+
+  @media (max-width: 480px) {
+    .legendText,
+    .y-axis-label {
+      font-size: var(--fs-xs);
+    }
   }
 
 </style>

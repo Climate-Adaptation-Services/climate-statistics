@@ -147,7 +147,10 @@
     </g>
   {/if}
 
-  <!-- {/* rects for hovering */} -->
+  <!-- {/* rects for hovering — pointer-events werken op zowel muis als touch.
+       Op muis: enter → set, leave → unset (normaal hover-gedrag).
+       Op touch: tap zet de hovered year en blijft sticky tot een andere tap,
+       zodat de gebruiker de tooltip-info kan lezen. */ -->
   {#each dataProjection as d,i}
     <rect
       width={hoverBarWidth}
@@ -156,8 +159,8 @@
       x={xScale(d.year) - hoverBarWidth/2}
       y='0'
       fill-opacity='0'
-      on:mouseover={() => hoveredYear.set(d.year)}
-      on:mouseout={() => hoveredYear.set(null)}
+      on:pointerenter={() => hoveredYear.set(d.year)}
+      on:pointerleave={(e) => { if (e.pointerType === 'mouse') hoveredYear.set(null); }}
     />
   {/each}
 </g>

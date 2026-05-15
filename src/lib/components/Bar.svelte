@@ -91,4 +91,13 @@
     :global(text.mark_max_bartext) {
       font-size: var(--fs-sm);
     }
+    /* Op smalle viewports staat de chart ook smal; verklein labels iets zodat
+       de waarde-labels niet over de buur-bar lopen. */
+    @media (max-width: 480px) {
+      .tickmark,
+      :global(text.mark_min_bartext),
+      :global(text.mark_max_bartext) {
+        font-size: var(--fs-xs);
+      }
+    }
   </style>

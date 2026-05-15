@@ -3,7 +3,7 @@
   import { datalaag, theme, area_id } from "$lib/stores.js";
   import Bar from './Bar.svelte';
   import { t } from "$lib/i18n/translate";
-  import { computeMargins } from "$lib/noncomponents/chartLayout.js";
+  import { computeMargins, getBreakpoint } from "$lib/noncomponents/chartLayout.js";
 
   export let dataClimate;
 
@@ -111,8 +111,14 @@ $: filteredData = dataClimate && dataClimate.length
   $: yTickLabels = d3.scaleLinear().domain(yDomain).nice().ticks(5).map(v => tickFormat(v) + unit);
   // Vaste left/right margins zodat de bar-breedte niet meeverspringt met de y-as-label lengte
   // (anders krimpt de chart bij langere labels zoals '1300 mm' of '365 days').
+  // Geen echte y-as gerenderd in deze bar chart, dus margin.left/right zijn alleen
+  // luchtruimte zodat de waarde-labels (text-anchor middle) niet over de svg-rand vallen.
+  // Op mobiel klein houden voor maximale bar-breedte en visuele balans.
   $: margin = (() => {
     const m = computeMargins({ width: svgW, height: svgH, yTickLabels, hasLegendOnRight: false });
+    const bp = getBreakpoint(svgW);
+    if (bp === 'sm') return { ...m, left: 16, right: 16 };
+    if (bp === 'md') return { ...m, left: 32, right: 32 };
     return { ...m, left: 70, right: 70 };
   })();
   $: innerWidth = Math.max(0, svgW - margin.left - margin.right);

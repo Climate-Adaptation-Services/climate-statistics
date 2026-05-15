@@ -96,6 +96,12 @@
 		line-height: var(--lh-normal);
 	}
 
+@media (max-width: 480px) {
+	.explanation {
+		font-size: var(--fs-sm);
+	}
+}
+
 ul.myUL {
 text-align: left;
 }
