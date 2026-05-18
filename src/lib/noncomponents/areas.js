@@ -201,6 +201,11 @@ export const areas = {
         fr: ' Les scénarios ont été développés par le <a href="https://www.meteosxm.com/" target="_blank">Service météorologique de Saint-Martin (MDS)</a> en collaboration avec <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">le KNMI</a>.',
         es: ' Los escenarios fueron desarrollados por el <a href="https://www.meteosxm.com/" target="_blank">Servicio Meteorológico de Sint Maarten (MDS)</a> junto con <a href="'+KNMI23_CLIMATE_SCENARIOS_URL+'" target="_blank">el KNMI</a>.'
       },
+      currentClimateExtra: {
+        en: ', Princess Juliana airport, MDS',
+        fr: ', aéroport Princess Juliana, MDS',
+        es: ', aeropuerto Princess Juliana, MDS'
+      },
       referencePeriod: '1995–2014',
       hasLLHIParagraph: true
     },

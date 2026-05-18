@@ -23,6 +23,7 @@
 				? `<a href="${areaConf.scenariosUrl}" target="_blank">${linkText}</a>`
 				: linkText;
 			const scenarioOriginExtra = areaConf.scenarioOriginExtra?.[$lang] || '';
+			const currentClimateExtra = areaConf.currentClimateExtra?.[$lang] || '';
 			const referencePeriod = areaConf.referencePeriod || '';
 
 			let template = '';
@@ -53,6 +54,7 @@
 			baseTekst = interpolate(template, {
 				scenariosLink,
 				scenarioOriginExtra,
+				currentClimateExtra,
 				referencePeriod,
 				...extraVars
 			});

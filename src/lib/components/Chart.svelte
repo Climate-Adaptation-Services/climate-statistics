@@ -16,7 +16,7 @@ $: filteredData = dataClimate && dataClimate.length
   : [];
 
   // colorsMin: [Reference (current), 2050 mild, 2100 mild]; colorsMax: [2050 strong, 2100 strong]
-  const colorsMax = ['#E5CDC0', '#E5CDC0']
+  const colorsMax = ['#B5421E', '#B5421E']
   const colorsMin = ['#5A8A8A', '#E68650', '#E68650']
 
   let maxData
@@ -136,7 +136,7 @@ $: filteredData = dataClimate && dataClimate.length
   const legendItems = [
     { labelKey: 'scenarioCurrent', color: '#5A8A8A' },
     { labelKey: 'scenarioLow', color: '#E68650' },
-    { labelKey: 'scenarioHigh', color: '#E5CDC0' }
+    { labelKey: 'scenarioHigh', color: '#B5421E' }
   ];
 </script>
 

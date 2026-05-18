@@ -106,9 +106,9 @@
       'variableLow': 'ssp126_5pc',
       'variableHigh': 'ssp126_95pc',
       'color': colorGematigd,
-      'legendText': $t('mild'),
+      'legendText': $t('scenarioLow'),
       'hachureAngle': '140',
-      'legendText2': $t('withMild'),
+      'legendText2': $t('withLow'),
       'y_offset_text': ['48', '62'],
       'patternId': 'hatch-mild'
     }, {
@@ -116,9 +116,9 @@
       'variableLow': 'ssp585_5pc',
       'variableHigh': 'ssp585_95pc',
       'color': colorSterk,
-      'legendText': $t('strong'),
+      'legendText': $t('scenarioHigh'),
       'hachureAngle': '60',
-      'legendText2': $t('withStrong'),
+      'legendText2': $t('withHigh'),
       'y_offset_text': ['53', '67'],
       'patternId': 'hatch-sterk'
     }
