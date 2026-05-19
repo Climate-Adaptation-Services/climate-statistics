@@ -18,10 +18,109 @@
     ? xScale(dataProjection[1].year) - xScale(dataProjection[0].year)
     : 10;
 
+  // Jaartallen gesorteerd; gebruikt door de keyboard-navigatie.
+  $: years = (dataProjection ?? []).map(d => d.year).sort((a, b) => a - b);
+
+  // Spreekbare beschrijving voor een jaar — wordt geserveerd als aria-valuetext op de
+  // keyboard-slider zodat een blinde gebruiker bij elk pijltje de werkelijke waardes hoort,
+  // niet alleen het jaartal.
+  function valueTextForYear(year) {
+    const row = dataProjection?.find(d => d.year === year);
+    if (!row) return String(year);
+    const parts = linesData.map(line => {
+      const med = Math.round(row[line.median]);
+      const lo = Math.round(row[line.variableLow]);
+      const hi = Math.round(row[line.variableHigh]);
+      // Voorbeeld NL: "Laag: mediaan 28 cm, bandbreedte 19–39 cm"
+      // En-dash is dezelfde notatie als in de visually-hidden datatabel; screen readers spreken
+      // hem doorgaans uit als 'to' / 'tot'.
+      return `${line.legendText}: ${$t('median')} ${med} cm, ${$t('range')} ${lo}–${hi} cm`;
+    });
+    return `${year} — ${parts.join('; ')}`;
+  }
+
+  // Toetsenbord-equivalent voor de hover-tooltip. Zonder dit zien sighted keyboard-gebruikers
+  // geen jaartal-waarden (de hover-rects reageren niet op focus). Pijltjes, Home/End, PageUp/Down
+  // en Escape volgen de gangbare slider/spinbutton-conventies (WAI-ARIA APG).
+  function handleKeydown(event) {
+    if (!years.length) return;
+    const current = $hoveredYear ?? years[Math.floor(years.length / 2)];
+    const idx = years.indexOf(current);
+    let next = idx;
+
+    switch (event.key) {
+      case 'ArrowRight':
+      case 'ArrowUp':
+        next = Math.min(years.length - 1, idx + 1);
+        break;
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        next = Math.max(0, idx - 1);
+        break;
+      case 'PageUp':
+        next = Math.min(years.length - 1, idx + 10);
+        break;
+      case 'PageDown':
+        next = Math.max(0, idx - 10);
+        break;
+      case 'Home':
+        next = 0;
+        break;
+      case 'End':
+        next = years.length - 1;
+        break;
+      case 'Escape':
+        hoveredYear.set(null);
+        event.currentTarget?.blur?.();
+        return;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    hoveredYear.set(years[next]);
+  }
+
+  function handleFocus() {
+    // Als er nog niets geselecteerd is (bv. eerste keer Tab): start in het midden van de tijdas.
+    if ($hoveredYear === null && years.length) {
+      hoveredYear.set(years[Math.floor(years.length / 2)]);
+    }
+  }
+
+  function handleBlur(event) {
+    // Niet wissen als focus naar een ander element binnen dezelfde groep gaat (bestaat nu niet,
+    // maar safe-guarden voor toekomstige uitbreiding).
+    if (event.currentTarget?.contains?.(event.relatedTarget)) return;
+    hoveredYear.set(null);
+  }
 </script>
 
 
 <g class='hover'>
+  <!-- Toetsenbord-handle: één focusable rect over de hele plot-area zodat sighted keyboard-gebruikers
+       met pijltjes door de jaartallen kunnen navigeren. Voor screen-reader-gebruikers is er bovendien
+       de visually-hidden datatabel onder de SVG. role='slider' communiceert het patroon (1D continuum). -->
+  <rect
+    class='keyboard-hotspot'
+    x={margin.left}
+    y={margin.top}
+    width={Math.max(0, xScale.range()[1] - margin.left)}
+    height={Math.max(0, height - margin.top)}
+    fill='transparent'
+    pointer-events='none'
+    tabindex='0'
+    role='slider'
+    aria-label={$t('chartYearSliderLabel')}
+    aria-valuemin={years[0]}
+    aria-valuemax={years[years.length - 1]}
+    aria-valuenow={$hoveredYear ?? years[Math.floor(years.length / 2)]}
+    aria-valuetext={valueTextForYear($hoveredYear ?? years[Math.floor(years.length / 2)])}
+    on:keydown={handleKeydown}
+    on:focus={handleFocus}
+    on:blur={handleBlur}
+  />
+
   {#if $hoveredYear !== null}
   <g>
     {#if compact}
@@ -30,16 +129,16 @@
       <g transform={`translate(${margin.left + 16}, 8)`}>
         <text x='0' y='0' class='legendYear' font-size='18' font-weight='700' dominant-baseline='hanging' fill='#333'
         >{Math.floor($hoveredYear)}</text>
-        <text x='82' y='4' class='legendCircles' font-size='11' fill='#888' dominant-baseline='hanging'
-        >mediaan</text>
-        <text x='150' y='4' class='legendCircles' font-size='11' fill='#888' dominant-baseline='hanging'
-        >bandbreedte</text>
+        <text x='82' y='4' class='legendCircles' font-size='11' fill='#666' dominant-baseline='hanging'
+        >{$t('median')}</text>
+        <text x='150' y='4' class='legendCircles' font-size='11' fill='#666' dominant-baseline='hanging'
+        >{$t('range')}</text>
         {#each linesData as d, i}
           {@const point = dataProjection.find(d2 => d2.year === $hoveredYear)}
           <g transform={`translate(0, ${24 + i * 18})`}>
-            <text x='0' fill={d.color} font-size='13' font-weight='600' dominant-baseline='hanging'>{d.legendText}</text>
-            <text x='82' fill={d.color} font-size='13' dominant-baseline='hanging'>{Math.round(point[d.median])} cm</text>
-            <text x='150' fill={d.color} font-size='13' dominant-baseline='hanging'>{Math.round(point[d.variableLow])}–{Math.round(point[d.variableHigh])} cm</text>
+            <text x='0' fill={d.labelColor ?? d.color} font-size='13' font-weight='600' dominant-baseline='hanging'>{d.legendText}</text>
+            <text x='82' fill={d.labelColor ?? d.color} font-size='13' dominant-baseline='hanging'>{Math.round(point[d.median])} cm</text>
+            <text x='150' fill={d.labelColor ?? d.color} font-size='13' dominant-baseline='hanging'>{Math.round(point[d.variableLow])}–{Math.round(point[d.variableHigh])} cm</text>
           </g>
         {/each}
       </g>
@@ -74,19 +173,19 @@
       {#each linesData as d, i}
         <g font-size='16'>
           <text
-            fill={d.color}
+            fill={d.labelColor ?? d.color}
             class='legendCircles'
             x='-26'
             y={35 + (linesData.length - i) * 20}
           >{d.legendText}</text>
           <text
-            fill={d.color}
+            fill={d.labelColor ?? d.color}
             class='legendCircles'
             x='64'
             y={35 + (linesData.length - i) * 20}
           >{Math.round(dataProjection.filter(d2 => d2.year === $hoveredYear)[0][d.median]) + ' cm'}</text>
           <text
-            fill={d.color}
+            fill={d.labelColor ?? d.color}
             class='legendCircles'
             x='135'
             y={35 + (linesData.length - i) * 20}
@@ -127,7 +226,7 @@
     <!-- { /* line to indicate range of each area */ } { -->
       {#each linesData as d,i}
         <rect
-          fill={d.color}
+          fill={d.labelColor ?? d.color}
           opacity={areaOpacity}
           x={xScale(Math.floor($hoveredYear)) - 1.5}
           y={yScale(dataProjection.filter(d2 => d2.year === $hoveredYear)[0][d.variableHigh])}
@@ -144,7 +243,7 @@
             r='4'
             stroke='white'
             stroke-width='2'
-            fill={d.color}
+            fill={d.labelColor ?? d.color}
             cx={xScale(Math.floor($hoveredYear))}
             cy={yScale(dataProjection.filter(d => d.year === $hoveredYear)[0][d.variableLow])}
           />
@@ -152,7 +251,7 @@
             r='4'
             stroke='white'
             stroke-width='2'
-            fill={d.color}
+            fill={d.labelColor ?? d.color}
             cx={xScale(Math.floor($hoveredYear))}
             cy={yScale(dataProjection.filter(d => d.year === $hoveredYear)[0][d.variableHigh])}
           />
@@ -161,7 +260,7 @@
     </g>
   {:else}
     <g class='hover-prompt' transform={`translate(${margin.left+16},${margin.top+40})`}>
-      <text font-style='italic' text-anchor='start' fill='#808080'>
+      <text font-style='italic' text-anchor='start' fill='#666'>
         <tspan>{$t("slrHover1")}</tspan>
         <tspan x=0 y='1em'>{$t("slrHover2")}</tspan>
       </text>
@@ -191,5 +290,16 @@
   /* Op mobiel/touch heeft een hover-instructie geen zin en ligt hij over de plot. */
   @media (max-width: 768px) {
     :global(svg#svg_zeespiegel_chart .hover-prompt) { display: none; }
+  }
+
+  /* Zichtbare focus-ring op de keyboard-hotspot. Standaard SVG-outline rendert
+     inconsistent tussen browsers; daarom een dikker stroke-pattern op focus. */
+  .keyboard-hotspot {
+    outline: none;
+  }
+  .keyboard-hotspot:focus-visible {
+    stroke: var(--c-primary-light, #11a6b5);
+    stroke-width: 2;
+    stroke-dasharray: 4 3;
   }
 </style>

@@ -88,22 +88,20 @@
         <p class="active-theme-label">{activeThemeLabel}</p>
     </div>
 
-    {#if $theme === 'slr'}
-    <div class="panel-section panel-section--explanation">
-        <Explanation/>
-    </div>
-    {:else}
+    {#if $theme !== 'slr'}
         {#if indicatorGroups.length > 0}
         <div class="panel-section">
-            <h2>{$t('chooseIndicator')}</h2>
-            <div class="pill-group pill-group--stacked" role="radiogroup" aria-label={$t('chooseIndicator')}>
+            <h2 id="indicator-heading">{$t('chooseIndicator')}</h2>
+            <!-- Toggle-button groep (geen role=radio): pills zijn los focusable en hebben aria-pressed.
+                 role=radiogroup vereist arrow-key navigatie en single-tab-stop; dat pattern bouwen we hier niet,
+                 dus we gebruiken het simpelere knoppen-pattern (CLAUDE.md: fout ARIA is erger dan geen ARIA). -->
+            <div class="pill-group pill-group--stacked" role="group" aria-labelledby="indicator-heading">
                 {#each indicatorGroups as group}
                 <button
                     type="button"
                     class="pill"
                     class:active={selectedGroup === group}
-                    role="radio"
-                    aria-checked={selectedGroup === group}
+                    aria-pressed={selectedGroup === group}
                     on:click={() => selectGroup(group)}
                 >
                     {$t(group)}
@@ -115,15 +113,14 @@
 
         {#if groupOptions.length > 1}
         <div class="panel-section">
-            <h2>{$t('chooseSeason')}</h2>
-            <div class="pill-group" role="radiogroup" aria-label={$t('chooseSeason')}>
+            <h2 id="season-heading">{$t('chooseSeason')}</h2>
+            <div class="pill-group" role="group" aria-labelledby="season-heading">
                 {#each groupOptions as option}
                 <button
                     type="button"
                     class="pill"
                     class:active={$datalaag?.indicator === option.indicator}
-                    role="radio"
-                    aria-checked={$datalaag?.indicator === option.indicator}
+                    aria-pressed={$datalaag?.indicator === option.indicator}
                     on:click={() => selectSeasonOption(option)}
                 >
                     {$t(seasonLabelKey[option.season] ?? option.indicator)}
@@ -136,21 +133,27 @@
 
     {#if $areaSelection}
         <div class="panel-section">
-        <h2>{$t('chooseLocation')}</h2>
-        <div class="country-row">
+        <h2 id="location-heading">{$t('chooseLocation')}</h2>
+        <div class="country-row" role="group" aria-labelledby="location-heading">
             {#each visibleAreas as areaId (areaId)}
                 {#if areas[areaId]}
                     <div class="country-item">
-                        <button class="country-btn" id={areaId} type="button" aria-label={areas[areaId].localizedNames[$lang]} aria-pressed={$area_id === areaId} on:click={handleClickArea}>
+                        <!-- Knop wordt gelabeld door de zichtbare caption eronder; geen aria-label
+                             om dubbele aankondiging te vermijden (CLAUDE.md regel). -->
+                        <button class="country-btn" id={areaId} type="button" aria-labelledby={'caption-' + areaId} aria-pressed={$area_id === areaId} on:click={handleClickArea}>
                             <img class={'countrylogo ' + areaId + ($area_id === areaId ? ' activecountry' : '')} src={areas[areaId].logo} alt="">
                         </button>
-                        <p class={'countrycaption ' + areaId + ($area_id === areaId ? ' activecaption' : '')}>{areas[areaId].localizedNames[$lang]}</p>
+                        <p id={'caption-' + areaId} class={'countrycaption ' + areaId + ($area_id === areaId ? ' activecaption' : '')}>{areas[areaId].localizedNames[$lang]}</p>
                     </div>
                 {/if}
             {/each}
         </div>
         </div>
     {/if}
+
+    <div class="panel-section panel-section--explanation">
+        <Explanation/>
+    </div>
 </section>
 
 <style>
@@ -168,9 +171,9 @@
     .panel-section:first-of-type {
         padding-top: 0;
     }
-    /* SLR heeft geen indicator/season-keuze; duw de uitleg naar onderen toe
-       zodat hij visueel aansluit op de plek waar in andere thema's de
-       location-picker zit. */
+    /* Uitleg altijd onderaan de sidepanel — bij SLR (geen indicator/season-keuze)
+       voorkomt dit dat hij vlak onder het thema-blokje plakt; bij andere thema's
+       sluit hij natuurlijk aan onder de locatiekiezer. */
     .panel-section--explanation {
         margin-top: auto;
     }
@@ -267,7 +270,9 @@
         align-items: center;
         justify-content: center;
         width: 100%;
-        padding-bottom: 6px;
+        /* WCAG 2.2 SC 2.5.8: minimaal 24x24 CSS px klikbaar oppervlak; 44x44 voor touch. */
+        min-height: 44px;
+        padding: 4px 4px 6px;
         transition: transform 0.15s ease;
     }
     .theme-btn.active::after {

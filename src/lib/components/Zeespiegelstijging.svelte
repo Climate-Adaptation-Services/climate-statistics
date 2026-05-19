@@ -14,7 +14,29 @@
 
   export let dataProjection;
   export let dataLLHI
+  export let areaName = '';
 
+  // Unieke ids voor aria-labelledby / aria-describedby zodat meerdere instanties niet botsen.
+  const uid = Math.random().toString(36).slice(2, 9);
+  const titleId = `slr-title-${uid}`;
+  const descId = `slr-desc-${uid}`;
+  const tableId = `slr-table-${uid}`;
+
+  // Sample-jaartallen voor de SR-tabel: elk 10e jaar + altijd het eerste en laatste jaartal.
+  // Genoeg detail om de curve te volgen zonder de SR-gebruiker te overspoelen (~44 cellen).
+  // Voor de fijnmazige data is er de keyboard-slider met aria-valuetext per jaar.
+  $: srYears = (() => {
+    if (!dataProjection?.length) return [];
+    const all = dataProjection.map(d => d.year).sort((a, b) => a - b);
+    const first = all[0];
+    const last = all[all.length - 1];
+    const sampled = all.filter(y => y % 10 === 0 || y === first || y === last);
+    // Dedupe + sort (first/last kunnen al een %10-jaar zijn).
+    return [...new Set(sampled)].sort((a, b) => a - b);
+  })();
+  function rowFor(year) {
+    return dataProjection.find(d => d.year === year);
+  }
 
   // const dataHistoric = data.zeespiegel_historisch;
 
@@ -98,6 +120,11 @@
   // Afgestemd op het Climate Impact Atlas-palet: zelfde teal en oranje als de bar-chart en pills.
   const colorGematigd = '#216666'
   const colorSterk = '#e86013'
+  // labelColor wordt gebruikt voor LEGEND-TEKST (niet voor lijnen/oppervlakken). #e86013 op wit
+  // haalt maar 3.07:1 — te laag voor WCAG 1.4.3 AA (4.5:1). #B5421E (al in gebruik in de
+  // bar-chart als 'colorsMax') haalt ~5:1 en blijft visueel in dezelfde oranje-familie.
+  const labelColorGematigd = colorGematigd
+  const labelColorSterk = '#B5421E'
 
   // Reactief op $t zodat legenda-teksten bij taalswitch meeveranderen.
   $: median_lines = [
@@ -106,6 +133,7 @@
       'variableLow': 'ssp126_5pc',
       'variableHigh': 'ssp126_95pc',
       'color': colorGematigd,
+      'labelColor': labelColorGematigd,
       'legendText': $t('scenarioLow'),
       'hachureAngle': '140',
       'legendText2': $t('withLow'),
@@ -116,6 +144,7 @@
       'variableLow': 'ssp585_5pc',
       'variableHigh': 'ssp585_95pc',
       'color': colorSterk,
+      'labelColor': labelColorSterk,
       'legendText': $t('scenarioHigh'),
       'hachureAngle': '60',
       'legendText2': $t('withHigh'),
@@ -128,7 +157,9 @@
 
 </script>
 
-<svg id="svg_zeespiegel_chart">
+<svg id="svg_zeespiegel_chart" role="img" aria-labelledby={titleId} aria-describedby={descId}>
+  <title id={titleId}>{$t('chartTitleSeaLevel', { area: areaName })}</title>
+  <desc id={descId}>{$t('chartDescSeaLevel')}</desc>
 
   <defs>
     <!-- Diagonale arcering voor de legenda-swatch, in dezelfde richtingen
@@ -186,24 +217,24 @@
           stroke={median_line.color}
           stroke-width="2"
         />
+        <!-- Legenda-tekst: labelColor + volledige opacity voor WCAG-conform contrast (4.5:1).
+             De swatch/lijn boven gebruikt nog de helderdere brand-kleur. -->
         <text
           x={margin.left + 28}
           y={innerHeight + 36 + i * 22}
           class='legendText'
-          fill={median_line.color}
-          opacity={areaOpacity + 0.2}>
+          fill={median_line.labelColor}>
           {median_line.legendText2} {$t("climateChange")}
         </text>
       {:else}
-        <text x={innerWidth + 9} y={yScale(dataProjection[dataProjection.length - 1][median_line.variableHigh]) + 48} class='legendText' fill={median_line.color} opacity={areaOpacity + 0.2}>
+        <text x={innerWidth + 9} y={yScale(dataProjection[dataProjection.length - 1][median_line.variableHigh]) + 48} class='legendText' fill={median_line.labelColor}>
           {median_line.legendText2}
         </text>
         <text
           x={innerWidth + 9}
           y={yScale(dataProjection[dataProjection.length - 1][median_line.variableHigh]) + 62}
           class='legendText'
-          fill={median_line.color}
-          opacity={areaOpacity + 0.2}>
+          fill={median_line.labelColor}>
           {$t("climateChange")}
         </text>
       {/if}
@@ -232,6 +263,41 @@
   <ZeespiegelHover dataProjection={dataProjection} linesData={median_lines} xScale={xScale} yScale={yScale} height={innerHeight} areaOpacity={areaOpacity} {margin} compact={stackedLegend}/>
 
 </svg>
+
+<!-- Tekstueel alternatief op de zeespiegel-grafiek (WCAG SC 1.1.1). De interactieve hover-tooltip is
+     niet keyboard-bereikbaar; deze tabel geeft de centrale waardes voor screen-reader-gebruikers. -->
+<div id={tableId} class='visually-hidden'>
+  <p>{$t('chartDataSummary')}</p>
+  <table>
+    <caption>{$t('chartTitleSeaLevel', { area: areaName })}</caption>
+    <thead>
+      <tr>
+        <th scope='col'>{$t('legendTitle')}</th>
+        {#each srYears as y}
+          <th scope='col'>{y}</th>
+        {/each}
+      </tr>
+    </thead>
+    <tbody>
+      {#each median_lines as line}
+        <tr>
+          <th scope='row'>{line.legendText2} {$t('climateChange')} — {$t('median')}</th>
+          {#each srYears as y}
+            {@const r = rowFor(y)}
+            <td>{r ? Math.round(r[line.median]) : ''} cm</td>
+          {/each}
+        </tr>
+        <tr>
+          <th scope='row'>{line.legendText2} {$t('climateChange')} — {$t('range')}</th>
+          {#each srYears as y}
+            {@const r = rowFor(y)}
+            <td>{r ? `${Math.round(r[line.variableLow])}–${Math.round(r[line.variableHigh])}` : ''} cm</td>
+          {/each}
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
 
 <style>
   svg{

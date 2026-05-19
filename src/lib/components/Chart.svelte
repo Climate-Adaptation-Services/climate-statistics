@@ -6,10 +6,18 @@
   import { computeMargins, getBreakpoint } from "$lib/noncomponents/chartLayout.js";
 
   export let dataClimate;
+  export let indicator = '';
+  export let areaName = '';
 
   let svgW = 0;
   let svgH = 0;
   let filteredData
+
+  // Unieke ids zodat meerdere chart-instanties op één pagina niet botsen via aria-labelledby.
+  const uid = Math.random().toString(36).slice(2, 9);
+  const titleId = `chart-title-${uid}`;
+  const descId = `chart-desc-${uid}`;
+  const tableId = `chart-table-${uid}`;
 
 $: filteredData = dataClimate && dataClimate.length
   ? dataClimate.filter(x => x.variabel.trim().toLowerCase() === $datalaag.column.trim().toLowerCase())
@@ -140,9 +148,11 @@ $: filteredData = dataClimate && dataClimate.length
   ];
 </script>
 
-<section>
+<section aria-labelledby={titleId} aria-describedby={`${descId} ${tableId}`}>
   <div class='chart-viewport' bind:clientWidth={svgW} bind:clientHeight={svgH}>
-    <svg class='svg_chart' width={svgW} height={svgH}>
+    <svg class='svg_chart' width={svgW} height={svgH} role='img' aria-labelledby={titleId} aria-describedby={descId}>
+      <title id={titleId}>{$t('chartTitleClimate', { indicator, area: areaName })}</title>
+      <desc id={descId}>{$t('chartDescClimate')}</desc>
       <g class='g_chart' transform={`translate(${margin.left},${margin.top})`}>
         {#if svgW > 0 && svgH > 0}
           {#if shouldMinBeOnTop}
@@ -159,10 +169,43 @@ $: filteredData = dataClimate && dataClimate.length
   <div class='chart-legend'>
     {#each legendItems as item}
       <span class='legend-item'>
-        <span class='swatch' style="background-color: {item.color}"></span>
+        <!-- Swatch is decoratief; de tekst-label ernaast benoemt het scenario al. -->
+        <span class='swatch' style="background-color: {item.color}" aria-hidden="true"></span>
         <span>{$t(item.labelKey)}</span>
       </span>
     {/each}
+  </div>
+
+  <!-- Tekstueel alternatief voor het SVG-diagram (WCAG SC 1.1.1). Niet zichtbaar maar
+       wel toegankelijk voor screen-readers. Eén tabel per scenario zodat ook gebruikers
+       zonder visuele toegang de getallen kunnen lezen. -->
+  <div id={tableId} class='visually-hidden'>
+    <p>{$t('chartDataSummary')}</p>
+    <table>
+      <caption>{$t('chartTitleClimate', { indicator, area: areaName })}</caption>
+      <thead>
+        <tr>
+          <th scope='col'>{$t('legendTitle')}</th>
+          <th scope='col'>{$t('scenarioCurrent')}</th>
+          <th scope='col'>2050</th>
+          <th scope='col'>2100</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope='row'>{$t('scenarioLow')}</th>
+          <td>{minData[0].data}{unit}</td>
+          <td>{minData[1].data}{unit}</td>
+          <td>{minData[2].data}{unit}</td>
+        </tr>
+        <tr>
+          <th scope='row'>{$t('scenarioHigh')}</th>
+          <td>{minData[0].data}{unit}</td>
+          <td>{maxData[0].data}{unit}</td>
+          <td>{maxData[1].data}{unit}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
@@ -178,7 +221,7 @@ $: filteredData = dataClimate && dataClimate.length
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--space-sm);
-    padding: var(--space-sm) var(--space-md) 0;
+    padding: var(--space-sm) var(--space-md) var(--space-lg);
     font-size: var(--fs-xs);
     color: var(--c-primary-dark, #184145);
   }

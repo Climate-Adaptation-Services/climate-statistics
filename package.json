@@ -7,12 +7,15 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch"
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
+		"a11y": "start-server-and-test \"vite dev --port 4173\" http://localhost:4173 \"axe http://localhost:4173 --exit --disable document-title\""
 	},
 	"devDependencies": {
+		"@axe-core/cli": "^4.11.3",
 		"@sveltejs/adapter-vercel": "^5.7.2",
 		"@sveltejs/kit": "latest",
 		"@sveltejs/vite-plugin-svelte": "latest",
+		"start-server-and-test": "^3.0.5",
 		"svelte": "latest",
 		"svelte-check": "^3.4.3",
 		"typescript": "^5.0.0",

@@ -19,8 +19,12 @@
 			// Per-eiland fragmenten: link-tekst en optionele "ontwikkeld door"-zin
 			// worden per taal opgegeven; KNMI-URL zit al verwerkt in scenarioOriginExtra.
 			const linkText = areaConf.scenariosLinkText?.[$lang] || '';
+			const newTabHint = $t('opensInNewTab') || '';
+			// rel="noopener noreferrer" voorkomt window.opener-misbruik en referrer-leakage.
+			// De visually-hidden span maakt voor screen-readers duidelijk dat het link in een
+			// nieuw tabblad opent (WCAG SC 3.2.5 — change of context op verzoek aankondigen).
 			const scenariosLink = areaConf.scenariosUrl && linkText
-				? `<a href="${areaConf.scenariosUrl}" target="_blank">${linkText}</a>`
+				? `<a href="${areaConf.scenariosUrl}" target="_blank" rel="noopener noreferrer">${linkText}<span class="visually-hidden"> ${newTabHint}</span></a>`
 				: linkText;
 			const scenarioOriginExtra = areaConf.scenarioOriginExtra?.[$lang] || '';
 			const currentClimateExtra = areaConf.currentClimateExtra?.[$lang] || '';
@@ -103,25 +107,4 @@
 		font-size: var(--fs-sm);
 	}
 }
-
-ul.myUL {
-text-align: left;
-}
-
-a:link {    /* unvisited link */
-color: #ffffff;
-text-decoration: none;
-border-bottom: 1px solid;
-}
-a:visited {    /* visited link */
-	color: white;
-}
-a:hover {    /* mouse over link */
-	color: #ffffff;
-	border-bottom: none;
-}
-a:active {    /* active link */
-	color: #ffffff;
-}
- 
 </style>

@@ -1,4 +1,5 @@
 <script>
+	import { tick } from 'svelte';
 	import { t } from "$lib/i18n/translate";
 	import { w, h, datalaag, theme, indicatorOptionsArea, themeOptions, area_id, lang } from "$lib/stores.js";
 	import { areas } from '$lib/noncomponents/areas.js';
@@ -9,8 +10,11 @@
 	import Zeespiegelstijging from "$lib/components/Zeespiegelstijging.svelte";
 	import { setArea } from '$lib/noncomponents/setArea.js'
 	import {setLanguage} from '$lib/noncomponents/setLanguage.js'
-	
+
 	export let data;
+
+	let mainEl;
+	let previousAreaId = data.area_id;
 
 	$: {
 		setLanguage(data);
@@ -41,42 +45,48 @@
 		document.documentElement.lang = $lang;
 	}
 
+	// Bij client-side area-wissel (geen volledige route, maar h1 + chart wisselen): focus
+	// verplaatsen naar <main> zodat screen-reader-gebruikers de nieuwe context aankondigen
+	// — zonder dit blijven ze op de oude knop staan zonder feedback dat de pagina veranderde.
+	$: if (typeof document !== 'undefined' && selectedArea !== previousAreaId) {
+		previousAreaId = selectedArea;
+		tick().then(() => mainEl?.focus());
+	}
 </script>
 
+<a class='skip-link' href='#main'>{$t('skipToMain')}</a>
+
 <div class='App'>
-	<div class='sidepanel'>
+	<aside class='sidepanel' aria-label={$t('chooseTheme')}>
 		<Sidepanel/>
-	</div>
-	<div class='main_panel'>
+	</aside>
+	<main id='main' tabindex='-1' bind:this={mainEl} class='main_panel'>
 		<div class='chart-container'>
 			<header class='chart-header'>
-				<h1 class='chart-title'>
+				<!-- aria-live="polite": screen readers kondigen de nieuwe titel aan bij thema/seizoen/locatie-wissel
+				     zonder de gebruiker te onderbreken. aria-atomic zorgt dat de hele titel als één eenheid
+				     wordt voorgelezen (niet alleen het gewijzigde deel). -->
+				<h1 class='chart-title' aria-live='polite' aria-atomic='true'>
 					{chartTitle}{#if showAreaName} <span class='chart-title-sep'>—</span> <span class='chart-title-area'>{areaName}</span>{/if}
 				</h1>
 			</header>
 			{#if climateData}
 				<div class='chart' bind:clientWidth={$w} bind:clientHeight={$h}>
 					{#if $h > 0 && $theme === 'slr'}
-							<Zeespiegelstijging dataProjection={seaLevelData} dataLLHI={llhiData} />
+							<Zeespiegelstijging dataProjection={seaLevelData} dataLLHI={llhiData} areaName={areaName}/>
 					{:else}
-							<Chart dataClimate={climateData}/>
+							<Chart dataClimate={climateData} indicator={chartTitle} areaName={areaName}/>
 					{/if}
 				</div>
 			{/if}
 		</div>
-		{#if $theme !== 'slr'}
-			<div class='explanation-container'>
-				<Explanation/>
-			</div>
-		{:else}
-			<!-- Op mobiel willen we de uitleg ONDER de chart in plaats van in
-			     de sidepanel boven. Op desktop blijft de sidepanel-uitleg actief
-			     (deze container is dan via CSS verborgen). -->
-			<div class='mobile-explanation'>
-				<Explanation/>
-			</div>
-		{/if}
-	</div>
+		<!-- Op mobiel willen we de uitleg ONDER de chart in plaats van in
+		     de sidepanel (die stapelt dan boven de chart). Op desktop blijft
+		     de sidepanel-uitleg actief en is deze container via CSS verborgen. -->
+		<div class='mobile-explanation'>
+			<Explanation/>
+		</div>
+	</main>
 </div>
 
 <style>
@@ -106,7 +116,7 @@
 	.sidepanel{
 		display:flex;
 		flex-direction:column;
-		padding: var(--space-lg) var(--space-md);
+		padding: var(--space-lg) var(--space-md) var(--space-xl);
 		flex: 0 0 30%;
 		min-width: 280px;
 		max-width: 360px;
@@ -143,18 +153,9 @@
 		font-weight: 600;
 	}
 
-	.explanation-container{
-		display:flex;
-		flex: 0 0 auto;
-		flex-direction:column;
-		height: auto;
-		max-height: min(20vh, 160px);
-		padding: var(--space-sm) var(--space-md);
-		overflow-y: auto;
-	}
-
-	/* Voor slr-thema: de Explanation staat op desktop in de sidepanel; op mobiel
-	   verbergen we die sidepanel-versie en tonen we deze container ONDER de chart. */
+	/* De Explanation staat op desktop in de sidepanel; op mobiel verbergen we
+	   die sidepanel-versie (zie Sidepanel.svelte) en tonen we deze container
+	   ONDER de chart, zodat de tekst na de visuele content komt. */
 	.mobile-explanation { display: none; }
 	@media (max-width: 768px) {
 		.mobile-explanation {
@@ -203,11 +204,6 @@
 		}
 		.chart-header {
 			padding: var(--space-sm) var(--space-md) var(--space-xs);
-		}
-		.explanation-container {
-			flex: 0 0 auto;
-			height: auto;
-			overflow: visible;
 		}
 	}
 </style>
