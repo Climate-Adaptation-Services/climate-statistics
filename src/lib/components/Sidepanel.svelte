@@ -205,12 +205,14 @@
         all: unset;
         box-sizing: border-box;
         cursor: pointer;
-        padding: 10px 16px;
+        padding: 9px 15px; /* 1px van padding afgehaald om visuele grootte gelijk te houden t.o.v. de oude transparent border */
         font-size: var(--fs-sm);
         line-height: 1.4;
         color: var(--c-primary-dark, #184145);
         background-color: var(--c-bg-soft, #f2f2f2);
-        border: 1px solid transparent;
+        /* Zichtbare teal-getinte border zodat niet-geselecteerde pills duidelijk
+           als knop herkenbaar zijn tegen de witte achtergrond. */
+        border: 1.5px solid var(--c-primary, #216666);
         border-radius: 999px;
         transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
         white-space: nowrap;
@@ -225,6 +227,7 @@
     }
     .pill.active {
         background-color: var(--c-primary, #216666);
+        border-color: var(--c-primary, #216666);
         color: #fff;
         font-weight: 600;
     }

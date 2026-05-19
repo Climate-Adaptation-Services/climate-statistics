@@ -41,6 +41,8 @@ export const spanish = {
     "slrScenarioHighestShort": "Escenario máximo posible",
     "slrHover1": "Coloca el cursor sobre el gráfico para",
     "slrHover2": "ver más detalles",
+    "slrTap1": "Toca el gráfico para",
+    "slrTap2": "ver más detalles",
     "median": "Mediana",
     "range": "Rango",
     "withLow": 'Con un bajo',

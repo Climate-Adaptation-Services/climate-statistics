@@ -41,6 +41,8 @@ export const french = {
     "slrScenarioHighestShort": "Scénario maximal possible",
     "slrHover1": "Survolez le graphique pour",
     "slrHover2": "voir plus de détails",
+    "slrTap1": "Touchez le graphique pour",
+    "slrTap2": "voir plus de détails",
     "median": "Médiane",
     "range": "Plage",
     "withLow": 'Avec un bas',

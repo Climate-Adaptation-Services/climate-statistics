@@ -40,6 +40,8 @@ export const papiamentu = {
     "slrScenarioHighestShort": "Senario mas haltu posibel",
     "slrHover1": "Pasa e kursor riba e gráfiko",
     "slrHover2": "pa mira mas detaye",
+    "slrTap1": "Toka e gráfiko",
+    "slrTap2": "pa mira mas detaye",
     "median": "Mediana",
     "range": "Rango",
     "withLow": "Ku abou",

@@ -259,13 +259,28 @@
       {/each}
     </g>
   {:else}
-    <g class='hover-prompt' transform={`translate(${margin.left+16},${margin.top+40})`}>
-      <text font-style='italic' text-anchor='start' fill='#666'>
-        <tspan>{$t("slrHover1")}</tspan>
-        <tspan x=0 y='1em'>{$t("slrHover2")}</tspan>
-      </text>
-
-    </g>
+    {#if compact}
+      <!-- Mobiel: hint BOVEN de plot (in de extra top-margin), zodat hij niet wegvalt
+           onder de grafiek-rand zoals bij de oude binnen-plot positie.
+           Op touch-devices is 'tap' de juiste actie, niet hover — daarom slrTap*. -->
+      <g class='hover-prompt' transform={`translate(${margin.left + 16}, 28)`}>
+        <text text-anchor='start' fill='#0E5F6A' font-weight='600' font-size='13'>
+          <tspan x='0'>{$t("slrTap1")}</tspan>
+          <tspan x='0' dy='1.3em'>{$t("slrTap2")}</tspan>
+        </text>
+      </g>
+    {:else}
+      <!-- Desktop: linksboven binnen het plot — data start rechtsonder (1995, ~0 cm)
+           dus deze hoek is leeg. Conflicteert niet met de LLHI-annotatie rechtsboven
+           of de legend-labels rechts. Bold + brand-kleur maakt hem prominenter dan
+           de oude italic grijze tekst. -->
+      <g class='hover-prompt' transform={`translate(${margin.left + 70}, ${margin.top + 28})`}>
+        <text text-anchor='start' fill='#0E5F6A' font-weight='600' font-size='14'>
+          <tspan x='0'>{$t("slrHover1")}</tspan>
+          <tspan x='0' dy='1.3em'>{$t("slrHover2")}</tspan>
+        </text>
+      </g>
+    {/if}
   {/if}
 
   <!-- {/* rects for hovering — pointer-events werken op zowel muis als touch.
@@ -287,11 +302,6 @@
 </g>
 
 <style>
-  /* Op mobiel/touch heeft een hover-instructie geen zin en ligt hij over de plot. */
-  @media (max-width: 768px) {
-    :global(svg#svg_zeespiegel_chart .hover-prompt) { display: none; }
-  }
-
   /* Zichtbare focus-ring op de keyboard-hotspot. Standaard SVG-outline rendert
      inconsistent tussen browsers; daarom een dikker stroke-pattern op focus. */
   .keyboard-hotspot {

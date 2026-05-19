@@ -41,6 +41,8 @@ export const english = {
     "slrScenarioHighestShort": "Highest possible scenario",
     "slrHover1": "Hover the chart to",
     "slrHover2": "see more detail",
+    "slrTap1": "Tap the chart to",
+    "slrTap2": "see more detail",
     "median": "Median",
     "range": "Range",
     "withLow": 'With low',

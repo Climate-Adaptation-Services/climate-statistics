@@ -76,9 +76,11 @@ $: filteredData = dataClimate && dataClimate.length
     : 0;
   $: droughtMax = Math.max(600, Math.ceil(droughtDataMax * 1.1 / 100) * 100);
 
-  // Voor wind in gebieden zonder vaste hardcoded range: bereken dynamisch uit alle
-  // wind-rijen zodat de schaal stabiel is bij seizoen-wissels en zoomt op de
-  // relevante waarden (vermijdt piepkleine balkjes op een 0-600 schaal).
+  // Voor wind: bereken bereik dynamisch uit alle wind-rijen zodat de schaal stabiel
+  // is bij seizoen-wissels en zoomt op de relevante waarden. 0.5 m/s buffer aan
+  // elke kant, zónder floor/ceil — anders wordt het bereik te grof (bv. min=7.2
+  // zou floor(6.7)=6 geven, met als gevolg dat bars vanaf 6 starten en de variatie
+  // tussen scenarios visueel klein blijft). yScale.nice() rondt de tick-labels af.
   $: windRange = (() => {
     if ($theme !== 'wind' || !dataClimate?.length) return null;
     const values = dataClimate
@@ -87,14 +89,11 @@ $: filteredData = dataClimate && dataClimate.length
       .map(v => parseFloat(v))
       .filter(v => !isNaN(v));
     if (!values.length) return null;
-    return [Math.max(0, Math.floor(Math.min(...values) - 0.5)), Math.ceil(Math.max(...values) + 0.5)];
+    return [Math.max(0, Math.min(...values) - 0.5), Math.max(...values) + 0.5];
   })();
 
   $: yDomain = $datalaag?.indicator === 'hotDays' ? [0,365]:
      $theme === 'heat' ? [20,33]:
-     $theme === 'wind' && $area_id === 'bq' ? [6,10]:
-     $theme === 'wind' && ($area_id === 'se' || $area_id === 'sa') ? [5,8]:
-     $theme === 'wind' && $area_id === 'sm' ? [2,5]:
      $theme === 'wind' && windRange ? windRange:
      $theme === 'drought' ? [0, droughtMax]:
     [0,600];
@@ -125,8 +124,12 @@ $: filteredData = dataClimate && dataClimate.length
   $: margin = (() => {
     const m = computeMargins({ width: svgW, height: svgH, yTickLabels, hasLegendOnRight: false });
     const bp = getBreakpoint(svgW);
-    if (bp === 'sm') return { ...m, left: 16, right: 16 };
-    if (bp === 'md') return { ...m, left: 32, right: 32 };
+    // Op mobiel: kleinere top-marge zodat de bars meer van de viewport vullen
+    // (er is geen y-as-titel of legenda BOVEN de plot; alleen de waarde-labels
+    // boven de bars hebben ~16px ruimte nodig — was ~37px, halverde geeft duidelijk
+    // grotere bars zonder dat het max-bar label tegen de svg-rand loopt).
+    if (bp === 'sm') return { ...m, left: 16, right: 16, top: 22 };
+    if (bp === 'md') return { ...m, left: 32, right: 32, top: 28 };
     return { ...m, left: 70, right: 70 };
   })();
   $: innerWidth = Math.max(0, svgW - margin.left - margin.right);
@@ -136,10 +139,13 @@ $: filteredData = dataClimate && dataClimate.length
       .domain(minData.map(xValue))
       .range([0, innerWidth])
       .paddingInner(0.25)
+  // GEEN .nice() hier: dat zou het domein expanden (bv. [6.5, 8.3] → [6, 9]) waardoor
+  // yScale(yDomain[0]) niet meer op innerHeight uitkomt. Bar.svelte gebruikt yDomain[0]
+  // als bar-baseline, dus de bars zouden dan zweven boven de x-as. yTickLabels gebruikt
+  // hieronder z'n eigen .nice() chain — dus de label-afronding blijft intact.
   $: yScale = d3.scaleLinear()
           .domain(yDomain)
           .range([innerHeight, 0])
-          .nice()
 
   const legendItems = [
     { labelKey: 'scenarioCurrent', color: '#5A8A8A' },

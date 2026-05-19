@@ -40,6 +40,8 @@ export const nederlands = {
     "slrScenarioHighestShort": "Hoogst mogelijk scenario",
     "slrHover1": "Beweeg over de grafiek om",
     "slrHover2": "meer details te zien",
+    "slrTap1": "Tik op de grafiek om",
+    "slrTap2": "meer details te zien",
     "median": "Mediaan",
     "range": "Bandbreedte",
     "withLow": 'Met lage',

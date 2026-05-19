@@ -60,10 +60,10 @@ export const areas = {
   sa: {
     area_id: 'sa',
     name: 'Saba',
+    supportedLangs: ['nl', 'en'],
     localizedNames: {
       en: 'Saba',
-      nl: 'Saba',
-      pa: 'Saba'
+      nl: 'Saba'
     },
     logo: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/saba_eus_gezelligbijelkaar.png', // TODO: vervang door Saba-eigen logo zodra beschikbaar
     indicatorOptions: indicatorOptions['sa'],
@@ -85,22 +85,15 @@ export const areas = {
         drought: 'Het wordt droger',
         wind: 'Er zal meer wind komen',
         slr: 'De zeespiegel stijgt'
-      },
-      pa: {
-        heat: 'Ta birando mas kalor',
-        drought: 'Ta birando mas seku',
-        wind: 'Lo tin mas bientu',
-        slr: 'Nivel di laman ta subiendo'
       }
     },
     explanation: {
       scenariosUrl: KNMI23_CLIMATE_SCENARIOS_URL,
       scenariosLinkText: {
         en: 'KNMI 2023 climate scenarios',
-        nl: 'KNMI’23-klimaatscenario’s',
-        pa: 'senarionan di klima di KNMI 2023'
+        nl: 'KNMI’23-klimaatscenario’s'
       },
-      scenarioOriginExtra: { en: '', nl: '', pa: '' },
+      scenarioOriginExtra: { en: '', nl: '' },
       referencePeriod: '1995–2014',
       hasLLHIParagraph: false
     }
@@ -108,10 +101,10 @@ export const areas = {
   se: {
     area_id: 'se',
     name: 'Sint Eustatius',
+    supportedLangs: ['nl', 'en'],
     localizedNames: {
       en: 'Sint Eustatius',
-      nl: 'Sint Eustatius',
-      pa: 'Statia'
+      nl: 'Sint Eustatius'
     },
     logo: 'https://raw.githubusercontent.com/sophievanderhorst/data/main/saba_eus_gezelligbijelkaar.png', // TODO: vervang door Sint Eustatius-eigen logo zodra beschikbaar
     indicatorOptions: indicatorOptions['se'],
@@ -133,22 +126,15 @@ export const areas = {
         drought: 'Het wordt droger',
         wind: 'Er zal meer wind komen',
         slr: 'De zeespiegel stijgt'
-      },
-      pa: {
-        heat: 'Ta birando mas kalor',
-        drought: 'Ta birando mas seku',
-        wind: 'Lo tin mas bientu',
-        slr: 'Nivel di laman ta subiendo'
       }
     },
     explanation: {
       scenariosUrl: KNMI23_CLIMATE_SCENARIOS_URL,
       scenariosLinkText: {
         en: 'KNMI 2023 climate scenarios',
-        nl: 'KNMI’23-klimaatscenario’s',
-        pa: 'senarionan di klima di KNMI 2023'
+        nl: 'KNMI’23-klimaatscenario’s'
       },
-      scenarioOriginExtra: { en: '', nl: '', pa: '' },
+      scenarioOriginExtra: { en: '', nl: '' },
       referencePeriod: '1995–2014',
       hasLLHIParagraph: false
     }

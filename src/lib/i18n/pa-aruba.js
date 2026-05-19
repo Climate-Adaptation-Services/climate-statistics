@@ -48,6 +48,8 @@ export const papiamentoAruba = {
     'slrScenarioHighestShort': 'Scenario mas halto posibel',
     'slrHover1': 'Pasa e cursor riba e grafico',
     'slrHover2': 'pa mira mas detaye',
+    'slrTap1': 'Toca e grafico',
+    'slrTap2': 'pa mira mas detaye',
     'withLow': 'Cu un abou',
     'withHigh': 'Cu un halto',
     'climateChange': 'cambio climatico',
