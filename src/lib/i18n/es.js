@@ -29,9 +29,9 @@ export const spanish = {
     "hotDaysVariable": "número de días calurosos",
     "dayUnit": " días",
     "seasonAnnual": "Anual",
-    "seasonDry": "Seca",
-    "seasonWet": "Lluviosa",
-    "seasonTransition": "Transición",
+    "seasonDry": "Temporada seca",
+    "seasonWet": "Temporada lluviosa",
+    "seasonTransition": "Temporada de transición",
 
     "dry": "seca",
     "wet": "lluviosa",

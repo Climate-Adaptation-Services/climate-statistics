@@ -121,6 +121,9 @@
 		min-width: 280px;
 		max-width: 360px;
 		overflow-y: auto;
+		/* Harde fail-safe: nooit een horizontale scrollbar in de sidepanel.
+		   Als iets toch te breed zou worden, wordt het afgekapt i.p.v. scrollen. */
+		overflow-x: hidden;
 	}
 
 	.main_panel{

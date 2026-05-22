@@ -29,9 +29,9 @@ export const english = {
     "hotDaysVariable": "number of hot days",
     "dayUnit": " days",
     "seasonAnnual": "Annual",
-    "seasonDry": "Dry",
-    "seasonWet": "Wet",
-    "seasonTransition": "Transition",
+    "seasonDry": "Dry season",
+    "seasonWet": "Wet season",
+    "seasonTransition": "Transition season",
 
     "dry": "dry",
     "wet": "wet",

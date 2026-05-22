@@ -187,26 +187,33 @@
         margin: 0 0 var(--space-sm);
     }
     .pill-group {
-        display: flex;
-        flex-wrap: nowrap;
+        display: grid;
+        /* auto-fit + minmax(110px, 1fr): één rij als alles past, anders meerdere
+           rijen met gelijke kolombreedtes (geen wees-pill van volle breedte).
+           min(110px, 100%) voorkomt overflow op extreem smalle containers. */
+        grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr));
         gap: var(--space-xs);
     }
     .pill-group:not(.pill-group--stacked) .pill {
-        flex: 1 1 auto;
         text-align: center;
         padding-left: var(--space-sm);
         padding-right: var(--space-sm);
     }
     .pill-group--stacked {
-        flex-direction: column;
-        align-items: flex-start;
+        grid-template-columns: 1fr;
+        justify-items: start;
     }
     .pill {
         all: unset;
+        /* Flex centering zorgt dat pills stretchen tot de grid-row hoogte, zodat
+           pills in dezelfde rij gelijke hoogte krijgen ook als één label wrapt. */
+        display: flex;
+        align-items: center;
+        justify-content: center;
         box-sizing: border-box;
         cursor: pointer;
         padding: 9px 15px; /* 1px van padding afgehaald om visuele grootte gelijk te houden t.o.v. de oude transparent border */
-        font-size: var(--fs-sm);
+        font-size: var(--fs-xs);
         line-height: 1.4;
         color: var(--c-primary-dark, #184145);
         background-color: var(--c-bg-soft, #f2f2f2);
@@ -215,7 +222,7 @@
         border: 1.5px solid var(--c-primary, #216666);
         border-radius: 999px;
         transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
-        white-space: nowrap;
+        white-space: normal;
         user-select: none;
     }
     .pill:hover:not(.active) {
@@ -245,10 +252,9 @@
         max-width: 360px;
         margin: 0 auto;
     }
-    /* Op mobiel: compactere pills met natuurlijke breedte (tag-stijl).
-       Wrappen naar nieuwe regel ipv uitrekken tot volle breedte, zodat het
-       menu lichter oogt op een telefoon. De SLR-uitleg verbergen we hier,
-       want die wordt op mobiel apart ONDER de chart getoond (zie +page.svelte). */
+    /* Op mobiel: compactere pill-padding en wat ruimere gap voor touch-comfort.
+       De SLR-uitleg verbergen we hier, want die wordt op mobiel apart ONDER
+       de chart getoond (zie +page.svelte). */
     @media (max-width: 768px) {
         .panel-section--explanation {
             display: none;
@@ -257,11 +263,7 @@
             padding: 8px 14px;
         }
         .pill-group:not(.pill-group--stacked) {
-            flex-wrap: wrap;
             gap: var(--space-sm);
-        }
-        .pill-group:not(.pill-group--stacked) .pill {
-            flex: 0 0 auto;
         }
     }
     .theme-btn {
