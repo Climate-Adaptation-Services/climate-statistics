@@ -45,7 +45,11 @@
 				extraVars.variable = variable;
 
 				if ($datalaag.season === 'annual') {
-					template = $t('explanationAnnualTemplate');
+					// hotDays kan per eiland een eigen template hebben (bv. Aruba: "E bara …"
+					// i.p.v. "Bara …", omdat de definitie-zin er al voor staat). Val terug op de
+					// generieke annual-template wanneer er geen hotDays-variant gedefinieerd is.
+					const hotDaysTemplate = $datalaag.indicator === 'hotDays' ? $t('explanationHotDaysTemplate') : '';
+					template = hotDaysTemplate || $t('explanationAnnualTemplate');
 				} else {
 					const seasonPeriod = areas[$area_id]?.seasonperiod?.[$lang]?.[$datalaag.season] || '';
 					template = $t('explanationSeasonalTemplate');
